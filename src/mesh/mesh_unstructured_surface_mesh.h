@@ -6,6 +6,8 @@
 #ifndef MESH_UNSTRUCTURED_SURFACE_MESH_H
 #define MESH_UNSTRUCTURED_SURFACE_MESH_H
 
+#include "utils/utils.h"
+
 namespace mesh
 {
 
@@ -25,6 +27,9 @@ public:
     // Destructor.
     ~UnstructuredSurfaceMesh();
 
+    // Load.
+    void
+    Load(const string& fn);
 };
 
 /// @}

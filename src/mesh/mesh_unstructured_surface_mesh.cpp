@@ -25,6 +25,17 @@ UnstructuredSurfaceMesh::~UnstructuredSurfaceMesh()
 {
 }
 
+/// \brief Load mesh.
+///
+/// Load mesh from file.
+///
+/// \param fn - Name of file.
+void
+UnstructuredSurfaceMesh::Load(const string& fn)
+{
+    cout << "UnstructuredSurfaceMesh::Load : fn = " << fn << endl;
+}
+
 /// @}
 
 }
