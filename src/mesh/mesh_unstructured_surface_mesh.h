@@ -14,6 +14,7 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+/// \brief Unstructured surface mesh.
 class UnstructuredSurfaceMesh
 {
 

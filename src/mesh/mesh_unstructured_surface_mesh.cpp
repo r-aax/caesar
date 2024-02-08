@@ -12,15 +12,11 @@ namespace mesh
 /// @{
 
 /// \brief Default constructor.
-///
-/// Default constructor.
 UnstructuredSurfaceMesh::UnstructuredSurfaceMesh()
 {
 }
 
 /// \brief Default destructor.
-///
-/// Default destructor.
 UnstructuredSurfaceMesh::~UnstructuredSurfaceMesh()
 {
 }
@@ -57,21 +53,22 @@ UnstructuredSurfaceMesh::load(const string& fn)
 
     while (getline(f, line))
     {
-        // Ignore empty line.
         if (line.empty())
         {
-            continue;
-        }
+            // Ignore empty line.
 
-        // Ignore comment line.
-        if (line[0] == '#')
-        {
-            continue;
+            ;
         }
-
-        // Get title.
-        if (line.starts_with("TITLE="))
+        else if (line[0] == '#')
         {
+            // Ignore comment line.
+
+            ;
+        }
+        else if (line.starts_with("TITLE="))
+        {
+            // Get title.
+
             int p, len;
 
             if (!utils::find_substr_in_double_quotes(line, 0, p, len))
@@ -80,13 +77,11 @@ UnstructuredSurfaceMesh::load(const string& fn)
             }
 
             title = line.substr(p, len);
-
-            continue;
         }
-
-        // Get variables names.
-        if (line.starts_with("VARIABLES="))
+        else if (line.starts_with("VARIABLES="))
         {
+            // Get variables names.
+
             int p { -1 }, len { 0 };
 
             // Clear names.
@@ -96,13 +91,11 @@ UnstructuredSurfaceMesh::load(const string& fn)
             {
                 variables_names.push_back(line.substr(p, len));
             }
-
-            continue;
         }
-
-        // Get zone name.
-        if (line.starts_with("ZONE T="))
+        else if (line.starts_with("ZONE T="))
         {
+            // Get zone name.
+
             int p, len;
 
             if (!utils::find_substr_in_double_quotes(line, 0, p, len))
@@ -111,43 +104,37 @@ UnstructuredSurfaceMesh::load(const string& fn)
             }
 
             zone_name = line.substr(p, len);
-
-            continue;
         }
-
-        // Get nodes count.
-        if (line.starts_with("NODES="))
+        else if (line.starts_with("NODES="))
         {
+            // Get nodes count.
+
             nodes_count = utils::get_int_from_str_after_eq_sign(line);
-
-            continue;
         }
-
-        // Get elements count.
-        if (line.starts_with("ELEMENTS="))
+        else if (line.starts_with("ELEMENTS="))
         {
+            // Get elements count.
+
             elements_count = utils::get_int_from_str_after_eq_sign(line);
-
-            continue;
         }
-
-        // Get datapacking type.
-        // Now only BLOCK is supported.
-        if (line.starts_with("DATAPACKING="))
+        else if (line.starts_with("DATAPACKING="))
         {
-            continue;
+            // Get datapacking type.
+            // Now only BLOCK is supported.
+            
+            ;
         }
-
-        // Get zone type.
-        // Now only FETRIANGLE is supported.
-        if (line.starts_with("ZONETYPE="))
+        else if (line.starts_with("ZONETYPE="))
         {
-            continue;
+            // Get zone type.
+            // Now only FETRIANGLE is supported.
+
+            ;
         }
-
-        // Get varlocation.
-        if (line.starts_with("VARLOCATION="))
+        else if (line.starts_with("VARLOCATION="))
         {
+            // Get varlocation.
+
             int lo, hi;
 
             if (!utils::find_interval_int_bounds_in_str(line, lo, hi))
@@ -157,13 +144,11 @@ UnstructuredSurfaceMesh::load(const string& fn)
 
             varlocation_cellcentered.first = lo;
             varlocation_cellcentered.second = hi;
-
-            continue;
         }
-
-        // Read data line.
-        if (data.size() < variables_names.size())
+        else if (data.size() < variables_names.size())
         {
+            // Read data line.
+
             int p { -1 }, len { 0 };
             vector<double> data_line;
 
@@ -173,13 +158,11 @@ UnstructuredSurfaceMesh::load(const string& fn)
             }
 
             data.push_back(data_line);
-
-            continue;
         }
-
-        // Read links.
-        if (links.size() < elements_count)
+        else if (links.size() < elements_count)
         {
+            // Read links.
+
             int p { -1 }, len { 0 };
             vector<int> links_line;
 
@@ -190,7 +173,11 @@ UnstructuredSurfaceMesh::load(const string& fn)
 
             links.push_back(links_line);
 
-            continue;
+            // Check for end of zone.
+            if (links.size() == elements_count)
+            {
+                cout << "end of zone" << endl;
+            }
         }
     }
 
