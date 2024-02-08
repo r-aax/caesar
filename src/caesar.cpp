@@ -10,7 +10,8 @@ main()
 {
     mesh::UnstructuredSurfaceMesh m;
 
-    m.Load("cases/meshes/sphere.dat");
+    m.load("cases/meshes/sphere.dat");
+    m.store("res.dat");
 
     return 0;
 }

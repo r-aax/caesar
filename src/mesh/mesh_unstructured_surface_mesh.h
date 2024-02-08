@@ -19,6 +19,33 @@ class UnstructuredSurfaceMesh
 
 private:
 
+    // Title.
+    string title;
+
+    // Variables names.
+    vector<string> variables_names;
+
+    // Name of zone.
+    string zone_name;
+
+    // Count of nodes.
+    int nodes_count;
+
+    // Count of elements.
+    int elements_count;
+
+    // Lower bound of cellcentered varlocation.
+    int varlocation_cellcentered_lo;
+
+    // Varlocation cellcentered variables.
+    pair<int, int> varlocation_cellcentered;
+
+    // Loaded data.
+    vector<vector<double>> data;
+
+    // Links.
+    vector<vector<int>> links;
+
 public:
 
     // Constructor.
@@ -28,8 +55,26 @@ public:
     ~UnstructuredSurfaceMesh();
 
     // Load.
+    bool
+    load(const string& fn);
+
+    // Store.
+    bool
+    store(const string& fn);
+
+private:
+
+    // Store variables names.
     void
-    Load(const string& fn);
+    store_variables_names(ofstream& f);
+
+    // Store data.
+    void
+    store_data(ofstream& f);
+
+    // Store links.
+    void
+    store_links(ofstream& f);
 };
 
 /// @}
