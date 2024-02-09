@@ -10,9 +10,7 @@ main()
 {
     mesh::UnstructuredSurfaceMesh m;
 
-    DEBUG_ERROR("test");
-
-    m.load("cases/meshes/sphere.dat");
+    m.load("cases/meshes/naca_mz.dat");
     m.store("res.dat");
 
     return 0;
