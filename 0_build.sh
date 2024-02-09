@@ -2,12 +2,14 @@
 
 set -x
 
+FLG="-O3 -std=c++20"
+INC="-I./src"
+SRC="src/*.cpp src/geom/*.cpp src/mesh/*.cpp src/utils/*.cpp"
+
 rm -rf caesar caesar_d doc/html
 
 g++ \
-    -O3 -std=c++20 \
-    -I./src \
-    src/*.cpp src/mesh/*.cpp src/utils/*.cpp \
+    $FLG $INC $SRC \
     -o caesar
 
 if [ "$?" -ne 0 ]
@@ -18,9 +20,7 @@ fi
 
 g++ \
     -DDEBUG \
-    -O3 -std=c++20 \
-    -I./src \
-    src/*.cpp src/mesh/*.cpp src/utils/*.cpp \
+    $FLG $INC $SRC \
     -o caesar_d
 
 if [ "$?" -ne 0 ]

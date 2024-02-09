@@ -21,22 +21,22 @@ class Zone
 
 private:
 
-    // Name of zone.
-    string name;
+    /// \brief Name of zone.
+    string name { "" };
 
-    // Count of nodes.
-    int nodes_count;
+    /// \brief Count of nodes.
+    int nodes_count { 0 };
 
-    // Count of elements.
-    int elements_count;
+    /// \brief Count of elements.
+    int elements_count { 0 };
 
-    // Varlocation cellcentered variables.
+    /// \brief Varlocation cellcentered variables.
     pair<int, int> varlocation_cellcentered;
 
-    // Loaded data.
+    /// \brief Loaded data.
     vector<vector<double>> data;
 
-    // Links.
+    /// \brief Links.
     vector<vector<int>> links;
 
 public:

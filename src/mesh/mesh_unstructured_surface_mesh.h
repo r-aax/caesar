@@ -21,13 +21,13 @@ class UnstructuredSurfaceMesh
 
 private:
 
-    // Title.
-    string title;
+    /// \brief Title.
+    string title { "" };
 
-    // Variables names.
+    /// \brief Variables names.
     vector<string> variables_names;
 
-    // Zones list.
+    /// \brief Zones list.
     vector<shared_ptr<Zone>> zones;
 
 public:
