@@ -49,6 +49,30 @@ public:
 
 private:
 
+    // Get name from string.
+    void
+    get_name_from_string(const string& s);
+
+    // Get nodes count from string.
+    void
+    get_nodes_count_from_string(const string& s);
+
+    // Get elements count from string.
+    void
+    get_elements_count_from_string(const string& s);
+
+    // Get varlocation from string.
+    void
+    get_varlocation_cellcentered_from_string(const string& s);
+
+    // Get data from string.
+    void
+    get_data_from_string(const string& s);
+
+    // Get links from string.
+    void
+    get_links_from_string(const string& s);
+
     // Store data.
     void
     store_data(ofstream& f);

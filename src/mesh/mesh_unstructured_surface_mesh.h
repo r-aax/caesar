@@ -48,6 +48,14 @@ public:
 
 private:
 
+    // Get title from string.
+    void
+    get_title_from_string(const string& s);
+
+    // Get variables names from string.
+    void
+    get_variables_names_from_string(const string& s);
+
     // Store variables names.
     void
     store_variables_names(ofstream& f);

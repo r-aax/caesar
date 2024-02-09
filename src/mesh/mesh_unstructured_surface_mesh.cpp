@@ -45,46 +45,33 @@ UnstructuredSurfaceMesh::load(const string& fn)
         return false;
     }
 
+    // We do not load meshes more than one time.
+    if (zones.size() > 0)
+    {
+        DEBUG_ERROR("repeated mesh loading");
+    }
+
     while (getline(f, line))
     {
         if (line.empty())
         {
             // Ignore empty line.
-
             ;
         }
         else if (line[0] == '#')
         {
             // Ignore comment line.
-
             ;
         }
         else if (line.starts_with("TITLE="))
         {
             // Get title.
-
-            int p, len;
-
-            if (!utils::find_substr_in_double_quotes(line, 0, p, len))
-            {
-                DEBUG_ERROR("no title is found while loading the mesh");
-            }
-
-            title = line.substr(p, len);
+            get_title_from_string(line);
         }
         else if (line.starts_with("VARIABLES="))
         {
             // Get variables names.
-
-            int p { -1 }, len { 0 };
-
-            // Clear names.
-            variables_names.clear();
-
-            while (utils::find_substr_in_double_quotes(line, p + len + 1, p, len))
-            {
-                variables_names.push_back(line.substr(p, len));
-            }
+            get_variables_names_from_string(line);
         }
         else if (line.starts_with("ZONE T="))
         {
@@ -94,92 +81,48 @@ UnstructuredSurfaceMesh::load(const string& fn)
             zones.push_back(make_shared<Zone>());
             current_zone = zones.back();
 
-            int p, len;
-
-            if (!utils::find_substr_in_double_quotes(line, 0, p, len))
-            {
-                DEBUG_ERROR("no zone name is found while loading the mesh");
-            }
-
-            current_zone->name = line.substr(p, len);
+            // Get its name.
+            current_zone->get_name_from_string(line);
         }
         else if (line.starts_with("NODES="))
         {
             // Get nodes count.
-
-            current_zone->nodes_count = utils::get_int_from_str_after_eq_sign(line);
+            current_zone->get_nodes_count_from_string(line);
         }
         else if (line.starts_with("ELEMENTS="))
         {
             // Get elements count.
-
-            current_zone->elements_count = utils::get_int_from_str_after_eq_sign(line);
+            current_zone->get_elements_count_from_string(line);
         }
         else if (line.starts_with("DATAPACKING="))
         {
             // Get datapacking type.
             // Now only BLOCK is supported.
-
             ;
         }
         else if (line.starts_with("ZONETYPE="))
         {
             // Get zone type.
             // Now only FETRIANGLE is supported.
-
             ;
         }
         else if (line.starts_with("VARLOCATION="))
         {
             // Get varlocation.
-
-            int lo, hi;
-
-            if (!utils::find_interval_int_bounds_in_str(line, lo, hi))
-            {
-                DEBUG_ERROR("no varlocation cellcentered variables are found while loading the mesh");
-            }
-
-            current_zone->varlocation_cellcentered.first = lo;
-            current_zone->varlocation_cellcentered.second = hi;
+            current_zone->get_varlocation_cellcentered_from_string(line);
         }
         else if (current_zone->data.size() < variables_names.size())
         {
             // Read data line.
+            current_zone->get_data_from_string(line);
 
-            int p { -1 }, len { 0 };
-            vector<double> data_line;
-
-            while (utils::find_word(line, p + len + 1, p, len))
-            {
-                data_line.push_back(stod(line.substr(p, len)));
-            }
-
-            current_zone->data.push_back(data_line);
         }
         else if (current_zone->links.size() < current_zone->elements_count)
         {
             // Read links.
-
-            int p { -1 }, len { 0 };
-            vector<int> links_line;
-
-            while (utils::find_word(line, p + len + 1, p, len))
-            {
-                links_line.push_back(stoi(line.substr(p, len)));
-            }
-
-            current_zone->links.push_back(links_line);
-
-            // Check for end of zone.
-            if (current_zone->links.size() == current_zone->elements_count)
-            {
-                cout << "end of zone" << endl;
-            }
+            current_zone->get_links_from_string(line);
         }
     }
-
-    cout << zones.size() << endl;
 
     f.close();
 
@@ -249,6 +192,43 @@ UnstructuredSurfaceMesh::store(const string& fn)
     f.close();
 
     return true;
+}
+
+/// \brief Get title from string.
+///
+/// Get title from string.
+///
+/// \param[in] s String.
+void
+UnstructuredSurfaceMesh::get_title_from_string(const string& s)
+{
+    int p, len;
+
+    if (!utils::find_substr_in_double_quotes(s, 0, p, len))
+    {
+        DEBUG_ERROR("no title is found while loading the mesh");
+    }
+
+    title = s.substr(p, len);
+}
+
+/// \brief Get variables names from string.
+///
+/// Get variables names from string.
+///
+/// \param[in] s String.
+void
+UnstructuredSurfaceMesh::get_variables_names_from_string(const string& s)
+{
+    int p { -1 }, len { 0 };
+
+    // Clear names.
+    variables_names.clear();
+
+    while (utils::find_substr_in_double_quotes(s, p + len + 1, p, len))
+    {
+        variables_names.push_back(s.substr(p, len));
+    }
 }
 
 /// \brief Store variables names.
