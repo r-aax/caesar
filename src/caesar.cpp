@@ -10,6 +10,8 @@ main()
 {
     mesh::UnstructuredSurfaceMesh m;
 
+    DEBUG_ERROR("test");
+
     m.load("cases/meshes/sphere.dat");
     m.store("res.dat");
 
