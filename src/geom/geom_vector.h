@@ -46,6 +46,32 @@ public:
     friend ostream&
     operator<<(ostream& os,
                const Vector& v);
+
+    /// \brief Module.
+    ///
+    /// Module.
+    ///
+    /// \return
+    /// Module.
+    inline double
+    mod() const
+    {
+        return hypot(x, y, z);
+    }
+
+    /// \brief Distance to another vector.
+    ///
+    /// Distance to another vector.
+    ///
+    /// \param[in] v Vector.
+    ///
+    /// \return
+    /// Distance to another vector.
+    inline double
+    dist_to(const Vector& v) const
+    {
+        return hypot(x - v.x, y - v.y, z - v.z);
+    }
 };
 
 /// @}
