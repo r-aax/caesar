@@ -21,6 +21,21 @@ CellAtom::~CellAtom()
 {
 }
 
+/// \brief Print function.
+///
+/// Print cell atom to stream.
+///
+/// \param[in] os Output stream.
+/// \param[in] a Cell atom.
+ostream&
+operator<<(ostream& os,
+           const CellAtom& v)
+{
+    os << "ca:";
+
+    return os;
+}
+
 /// @}
 
 }

@@ -21,6 +21,21 @@ NodeAtom::~NodeAtom()
 {
 }
 
+/// \brief Print function.
+///
+/// Print node atom to stream.
+///
+/// \param[in] os Output stream.
+/// \param[in] a Node atom.
+ostream&
+operator<<(ostream& os,
+           const NodeAtom& v)
+{
+    os << "na:";
+
+    return os;
+}
+
 /// @}
 
 }

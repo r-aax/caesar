@@ -6,6 +6,8 @@
 #ifndef SOLVER_EMPTY_NODE_ATOM_H
 #define SOLVER_EMPTY_NODE_ATOM_H
 
+#include "utils/utils.h"
+
 namespace solver
 {
 
@@ -25,6 +27,11 @@ public:
 
     // Destructor.
     ~NodeAtom();
+
+    // Print function.
+    friend ostream&
+    operator<<(ostream& os,
+               const NodeAtom& a);
 };
 
 /// @}
