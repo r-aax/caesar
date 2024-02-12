@@ -46,6 +46,10 @@ public:
     bool
     store(const string& fn);
 
+    // Print information.
+    void
+    print_info(ostream& s = cout);
+
 private:
 
     // Get title from string.
@@ -59,6 +63,10 @@ private:
     // Store variables names.
     void
     store_variables_names(ofstream& f);
+
+    // Build.
+    void
+    build();
 };
 
 /// @}

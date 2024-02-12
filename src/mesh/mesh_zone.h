@@ -7,6 +7,7 @@
 #define MESH_ZONE_H
 
 #include "utils/utils.h"
+#include "mesh_node.h"
 
 namespace mesh
 {
@@ -38,6 +39,9 @@ private:
 
     /// \brief Links.
     vector<vector<int>> links;
+
+    /// \brief List of points.
+    vector<shared_ptr<Node>> nodes;
 
 public:
 
@@ -80,6 +84,14 @@ private:
     // Store links.
     void
     store_links(ofstream& f);
+
+    // Print information.
+    void
+    print_info(ostream& s = cout);
+
+    // Build.
+    void
+    build();
 };
 
 /// @}

@@ -172,6 +172,42 @@ Zone::store_links(ofstream& f)
     }
 }
 
+/// \brife Print information.
+///
+/// Print information.
+///
+/// \param[in] s Stream.
+void
+Zone::print_info(ostream& s)
+{
+    s << "    Zone name                : " << name << endl;
+    s << "    Nodes count              : " << nodes_count << endl;
+    s << "    Elements count           : " << elements_count << endl;
+    s << "    Varlocation cellcentered : "
+      << varlocation_cellcentered.first << " " << varlocation_cellcentered.second << endl;
+    s << "    Nodes vector size        : " << nodes.size() << endl;
+    s << "    ----" << endl;
+}
+
+/// \brief Build.
+///
+/// Build zone.
+void
+Zone::build()
+{
+    // First 3 elements of data are X, Y, Z - so build nodes from them.
+    // These 3 elements of data must be of size nodes_count.
+    DEBUG_CHECK(data[0].size() == nodes_count, "wrong size of nodes X array");
+    DEBUG_CHECK(data[1].size() == nodes_count, "wrong size of nodes Y array");
+    DEBUG_CHECK(data[2].size() == nodes_count, "wrong size of nodes Z array");
+
+    // Build nodes.
+    for (int i = 0; i < nodes_count; ++i)
+    {
+        nodes.push_back(make_shared<Node>(data[0][i], data[1][i], data[2][i]));
+    }
+}
+
 /// @}
 
 }

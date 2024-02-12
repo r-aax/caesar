@@ -6,6 +6,8 @@
 #ifndef MESH_NODE_H
 #define MESH_NODE_H
 
+#include "geom/geom.h"
+
 namespace mesh
 {
 
@@ -18,10 +20,18 @@ class Node
 
 private:
 
+    /// \brief Vector (point).
+    geom::Vector point;
+
 public:
 
     // Default constructor.
     Node();
+
+    // Constructor by point coordinates.
+    Node(double x,
+         double y,
+         double z);
 
     // Default destructor.
     ~Node();

@@ -72,6 +72,10 @@ UnstructuredSurfaceMesh::load(const string& fn)
         {
             // Get variables names.
             get_variables_names_from_string(line);
+
+            // We suppose that first 3 elements of data are X, Y, Z xoordinates of nodes.
+            DEBUG_CHECK((variables_names[0] == "X") && (variables_names[1] == "Y") && (variables_names[2] == "Z"),
+                        "first 3 elements of data are not X, Y, Z");
         }
         else if (line.starts_with("ZONE T="))
         {
@@ -125,6 +129,9 @@ UnstructuredSurfaceMesh::load(const string& fn)
     }
 
     f.close();
+
+    // Build mesh.
+    build();
 
     return true;
 }
@@ -194,6 +201,32 @@ UnstructuredSurfaceMesh::store(const string& fn)
     return true;
 }
 
+/// \brief Print information.
+///
+/// Print information.
+///
+/// \param[in] f Stream.
+void
+UnstructuredSurfaceMesh::print_info(ostream& s)
+{
+    s << "UnstructuredSurfaceMesh" << endl;
+    s << "Title           : " << title << endl;
+    s << "Variables names :";
+
+    for (auto& vn : variables_names)
+    {
+        s << " \"" << vn << "\"";
+    }
+
+    s << endl;
+    s << "Zones count     : " << zones.size() << endl;
+
+    for (auto& zone : zones)
+    {
+        zone->print_info(s);
+    }
+}
+
 /// \brief Get title from string.
 ///
 /// Get title from string.
@@ -252,6 +285,19 @@ UnstructuredSurfaceMesh::store_variables_names(ofstream& f)
     }
 
     f << endl;
+}
+
+/// \brief Build.
+///
+/// Build mesh.
+void
+UnstructuredSurfaceMesh::build()
+{
+    // Build all zones.
+    for (auto& zone : zones)
+    {
+        zone->build();
+    }
 }
 
 /// @}

@@ -19,6 +19,16 @@ namespace utils
 #define DEBUG_ERROR(S)
 #endif // DEBUG
 
+#ifdef DEBUG
+#define DEBUG_CHECK(C, S) \
+    if (!(C)) \
+    { \
+        DEBUG_ERROR(S); \
+    }
+#else
+#define DEBUG_CHECK(C, S)
+#endif // DEBUG
+
 // Debug function.
 void
 debug_error(const string& s,
