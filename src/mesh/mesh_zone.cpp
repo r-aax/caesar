@@ -103,19 +103,28 @@ Zone::get_data_from_string(const string& s)
 ///
 /// Get links from string.
 ///
-/// \param[in] s String.
+/// \param[in] s          String.
+/// \param[in] cell_index Cell index.
 void
-Zone::get_links_from_string(const string& s)
+Zone::get_links_from_string(const string& s,
+                            int cell_index)
 {
     int p { -1 }, len { 0 };
-    vector<int> links_line;
+    vector<int> links;
 
     while (utils::find_word(s, p + len + 1, p, len))
     {
-        links_line.push_back(stoi(s.substr(p, len)));
+        links.push_back(stoi(s.substr(p, len)));
     }
 
-    links.push_back(links_line);
+    // Links has 3 integers.
+    DEBUG_CHECK(links.size() == 3, "wrong element-node link line");
+
+    // Set links between cells and nodes.
+    for (int i = 0; i < links.size(); ++i)
+    {
+        cells[cell_index]->nodes.push_back(nodes[links[i] - 1]);
+    }
 }
 
 /// \brief Store data.
@@ -152,23 +161,18 @@ Zone::store_data(ofstream& f)
 void
 Zone::store_links(ofstream& f)
 {
-    auto n = links.size();
-
-    for (int i = 0; i < n; ++i)
+    // Set local identifiers to marks.
+    for (int i = 0; i < nodes.size(); ++i)
     {
-        auto m = links[i].size();
+        nodes[i]->mark = i;
+    }
 
-        for (int j = 0; j < m; ++j)
-        {
-            f << links[i][j];
-
-            if (j < m - 1)
-            {
-                f << " ";
-            }
-        }
-
-        f << endl;
+    // Store links.
+    for (int i = 0; i < cells.size(); ++i)
+    {
+        f << (cells[i]->nodes[0]->mark + 1) << " "
+          << (cells[i]->nodes[1]->mark + 1) << " "
+          << (cells[i]->nodes[2]->mark + 1) << endl;
     }
 }
 
@@ -193,9 +197,9 @@ Zone::print_info(ostream& s)
 
 /// \brief Build.
 ///
-/// Build zone.
+/// Build zone nodes and cells.
 void
-Zone::build()
+Zone::build_nodes_and_cells()
 {
     // First 3 elements of data are X, Y, Z - so build nodes from them.
     // These 3 elements of data must be of size nodes_count.

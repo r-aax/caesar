@@ -6,6 +6,8 @@
 #ifndef MESH_EDGE_H
 #define MESH_EDGE_H
 
+#include "mesh_node.h"
+
 namespace mesh
 {
 
@@ -17,6 +19,12 @@ class Edge
 {
 
 private:
+
+    /// \brief Links to nodes.
+    vector<shared_ptr<Node>> nodes;
+
+    /// \brief Links to cells.
+    vector<shared_ptr<Edge>> edges;
 
 public:
 

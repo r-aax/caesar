@@ -39,9 +39,6 @@ private:
     /// \brief Loaded data.
     vector<vector<double>> data;
 
-    /// \brief Links.
-    vector<vector<int>> links;
-
     /// \brief List of points.
     vector<shared_ptr<Node>> nodes;
 
@@ -83,7 +80,8 @@ private:
 
     // Get links from string.
     void
-    get_links_from_string(const string& s);
+    get_links_from_string(const string& s,
+                          int cell_index);
 
     // Store data.
     void
@@ -99,7 +97,7 @@ private:
 
     // Build.
     void
-    build();
+    build_nodes_and_cells();
 };
 
 /// @}

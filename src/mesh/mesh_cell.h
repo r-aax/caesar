@@ -6,6 +6,8 @@
 #ifndef MESH_CELL_H
 #define MESH_CELL_H
 
+#include "mesh_edge.h"
+
 namespace mesh
 {
 
@@ -15,8 +17,15 @@ namespace mesh
 /// \brief Mesh cell.
 class Cell
 {
+    friend class Zone;
 
 private:
+
+    /// \brief Links to nodes.
+    vector<shared_ptr<Node>> nodes;
+
+    /// \brief Links to edges.
+    vector<shared_ptr<Edge>> edges;
 
 public:
 

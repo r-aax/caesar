@@ -63,10 +63,6 @@ private:
     // Store variables names.
     void
     store_variables_names(ofstream& f);
-
-    // Build.
-    void
-    build();
 };
 
 /// @}

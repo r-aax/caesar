@@ -117,23 +117,31 @@ UnstructuredSurfaceMesh::load(const string& fn)
             // Get varlocation.
             current_zone->get_varlocation_cellcentered_from_string(line);
         }
-        else if (current_zone->data.size() < variables_names.size())
+        else
         {
-            // Read data line.
+            // First line of data.
             current_zone->get_data_from_string(line);
 
-        }
-        else if (current_zone->links.size() < current_zone->elements_count)
-        {
-            // Read links.
-            current_zone->get_links_from_string(line);
+            // Rest lines of data.
+            for (int i = 1; i < variables_names.size(); ++i)
+            {
+                getline(f, line);
+                current_zone->get_data_from_string(line);
+            }
+
+            // Allocate memory for nodes and cells.
+            current_zone->build_nodes_and_cells();
+
+            // Links.
+            for (int i = 0; i < current_zone->elements_count; ++i)
+            {
+                getline(f, line);
+                current_zone->get_links_from_string(line, i);
+            }
         }
     }
 
     f.close();
-
-    // Build mesh.
-    build();
 
     return true;
 }
@@ -287,19 +295,6 @@ UnstructuredSurfaceMesh::store_variables_names(ofstream& f)
     }
 
     f << endl;
-}
-
-/// \brief Build.
-///
-/// Build mesh.
-void
-UnstructuredSurfaceMesh::build()
-{
-    // Build all zones.
-    for (auto& zone : zones)
-    {
-        zone->build();
-    }
 }
 
 /// @}

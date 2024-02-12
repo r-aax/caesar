@@ -14,14 +14,27 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+class Edge;
+class Cell;
+
 /// \brief Mesh node.
 class Node
 {
+    friend class Zone;
 
 private:
 
     /// \brief Vector (point).
     geom::Vector point;
+
+    /// \brief Links to edges.
+    vector<shared_ptr<Edge>> edges;
+
+    /// \brief Links to cells.
+    vector<shared_ptr<Cell>> cells;
+
+    /// \brief Mark.
+    int mark;
 
 public:
 
