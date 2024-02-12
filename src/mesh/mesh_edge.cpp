@@ -21,6 +21,21 @@ Edge::~Edge()
 {
 }
 
+/// \brief Print function.
+///
+/// Print edge to stream.
+///
+/// \param[in] os Output stream.
+/// \param[in] e  Edge.
+ostream&
+operator<<(ostream& os,
+           const Edge& e)
+{
+    os << "edge: " << e.atom;
+
+    return os;
+}
+
 /// @}
 
 }

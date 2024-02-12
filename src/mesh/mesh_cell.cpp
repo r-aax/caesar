@@ -21,6 +21,21 @@ Cell::~Cell()
 {
 }
 
+/// \brief Print function.
+///
+/// Print cell to stream.
+///
+/// \param[in] os Output stream.
+/// \param[in] c  Cell.
+ostream&
+operator<<(ostream& os,
+           const Cell& c)
+{
+    os << "cell: " << c.atom;
+
+    return os;
+}
+
 /// @}
 
 }

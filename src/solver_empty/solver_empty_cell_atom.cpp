@@ -26,7 +26,7 @@ CellAtom::~CellAtom()
 /// Print cell atom to stream.
 ///
 /// \param[in] os Output stream.
-/// \param[in] a Cell atom.
+/// \param[in] a  Cell atom.
 ostream&
 operator<<(ostream& os,
            const CellAtom& v)

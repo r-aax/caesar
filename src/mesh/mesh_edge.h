@@ -7,6 +7,7 @@
 #define MESH_EDGE_H
 
 #include "mesh_node.h"
+#include "solver/solver.h"
 
 namespace mesh
 {
@@ -26,6 +27,9 @@ private:
     /// \brief Links to cells.
     vector<shared_ptr<Edge>> edges;
 
+    /// \brief Edge atom.
+    solver::EdgeAtom atom;
+
 public:
 
     // Default constructor.
@@ -33,6 +37,11 @@ public:
 
     // Default destructor.
     ~Edge();
+
+    // Print function.
+    friend ostream&
+    operator<<(ostream& os,
+               const Edge& e);
 };
 
 /// @}

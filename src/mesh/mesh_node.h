@@ -7,6 +7,7 @@
 #define MESH_NODE_H
 
 #include "geom/geom.h"
+#include "solver/solver.h"
 
 namespace mesh
 {
@@ -36,6 +37,9 @@ private:
     /// \brief Mark.
     int mark;
 
+    /// \brief Node atom.
+    solver::NodeAtom atom;
+
 public:
 
     // Default constructor.
@@ -48,6 +52,11 @@ public:
 
     // Default destructor.
     ~Node();
+
+    // Print function.
+    friend ostream&
+    operator<<(ostream& os,
+               const Node& n);
 };
 
 /// @}

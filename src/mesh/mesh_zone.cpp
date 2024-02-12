@@ -192,6 +192,28 @@ Zone::print_info(ostream& s)
     s << "    Nodes vector size        : " << nodes.size() << endl;
     s << "    Edges vector size        : " << edges.size() << endl;
     s << "    Cells vector size        : " << cells.size() << endl;
+
+    s << "    Nodes:" << endl;
+
+    for (auto n : nodes)
+    {
+        s << "      " << (*n) << endl;
+    }
+
+    s << "    Edges:" << endl;
+
+    for (auto e : edges)
+    {
+        s << "      " << (*e) << endl;
+    }
+
+    s << "    Cells:" << endl;
+
+    for (auto c : cells)
+    {
+        s << "      " << (*c) << endl;
+    }
+
     s << "    ----" << endl;
 }
 

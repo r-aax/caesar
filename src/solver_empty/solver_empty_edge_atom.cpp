@@ -26,7 +26,7 @@ EdgeAtom::~EdgeAtom()
 /// Print edge atom to stream.
 ///
 /// \param[in] os Output stream.
-/// \param[in] a Node atom.
+/// \param[in] a  Node atom.
 ostream&
 operator<<(ostream& os,
            const EdgeAtom& v)

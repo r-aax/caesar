@@ -7,6 +7,7 @@
 #define MESH_CELL_H
 
 #include "mesh_edge.h"
+#include "solver/solver.h"
 
 namespace mesh
 {
@@ -27,6 +28,9 @@ private:
     /// \brief Links to edges.
     vector<shared_ptr<Edge>> edges;
 
+    /// \brief Cell atom.
+    solver::CellAtom atom;
+
 public:
 
     // Default constructor.
@@ -34,6 +38,11 @@ public:
 
     // Default destructor.
     ~Cell();
+
+    // Print function.
+    friend ostream&
+    operator<<(ostream& os,
+               const Cell& c);
 };
 
 /// @}

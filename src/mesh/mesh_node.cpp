@@ -34,6 +34,21 @@ Node::~Node()
 {
 }
 
+/// \brief Print function.
+///
+/// Print node to stream.
+///
+/// \param[in] os Output stream.
+/// \param[in] n  Node.
+ostream&
+operator<<(ostream& os,
+           const Node& n)
+{
+    os << "node: " << n.atom;
+
+    return os;
+}
+
 /// @}
 
 }

@@ -42,7 +42,7 @@ Vector::~Vector()
 /// Print vector to stream.
 ///
 /// \param[in] os Output stream.
-/// \param[in] v Vector.
+/// \param[in] v  Vector.
 ostream&
 operator<<(ostream& os,
            const Vector& v)
