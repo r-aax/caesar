@@ -74,7 +74,9 @@ UnstructuredSurfaceMesh::load(const string& fn)
             get_variables_names_from_string(line);
 
             // We suppose that first 3 elements of data are X, Y, Z xoordinates of nodes.
-            DEBUG_CHECK((variables_names[0] == "X") && (variables_names[1] == "Y") && (variables_names[2] == "Z"),
+            DEBUG_CHECK((variables_names[0] == "X")
+                        && (variables_names[1] == "Y")
+                        && (variables_names[2] == "Z"),
                         "first 3 elements of data are not X, Y, Z");
         }
         else if (line.starts_with("ZONE T="))

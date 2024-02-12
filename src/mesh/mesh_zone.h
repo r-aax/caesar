@@ -8,6 +8,8 @@
 
 #include "utils/utils.h"
 #include "mesh_node.h"
+#include "mesh_edge.h"
+#include "mesh_cell.h"
 
 namespace mesh
 {
@@ -42,6 +44,12 @@ private:
 
     /// \brief List of points.
     vector<shared_ptr<Node>> nodes;
+
+    /// \brief List of edges.
+    vector<shared_ptr<Edge>> edges;
+
+    /// \brief List of cells.
+    vector<shared_ptr<Cell>> cells;
 
 public:
 

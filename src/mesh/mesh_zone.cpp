@@ -186,6 +186,8 @@ Zone::print_info(ostream& s)
     s << "    Varlocation cellcentered : "
       << varlocation_cellcentered.first << " " << varlocation_cellcentered.second << endl;
     s << "    Nodes vector size        : " << nodes.size() << endl;
+    s << "    Edges vector size        : " << edges.size() << endl;
+    s << "    Cells vector size        : " << cells.size() << endl;
     s << "    ----" << endl;
 }
 
@@ -205,6 +207,18 @@ Zone::build()
     for (int i = 0; i < nodes_count; ++i)
     {
         nodes.push_back(make_shared<Node>(data[0][i], data[1][i], data[2][i]));
+    }
+
+    // Check size of data for cells.
+    for (int i = 3; i < data.size(); ++i)
+    {
+        DEBUG_CHECK(data[i].size() == elements_count, "wrong size of cells data array");
+    }
+
+    // Build cells.
+    for (int i = 0; i < elements_count; ++i)
+    {
+        cells.push_back(make_shared<Cell>());
     }
 }
 
