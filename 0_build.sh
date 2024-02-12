@@ -4,7 +4,8 @@ set -x
 
 FLG="-O3 -std=c++20"
 INC="-I./src"
-SRC="src/*.cpp src/geom/*.cpp src/mesh/*.cpp src/mth/*.cpp src/utils/*.cpp"
+SOLVER_SRC="src/solver_empty"
+SRC="src/*.cpp src/geom/*.cpp src/mesh/*.cpp src/mth/*.cpp src/utils/*.cpp ${SOLVER_SRC}/*.cpp"
 LIB="-lm"
 
 rm -rf caesar caesar_d doc/html
