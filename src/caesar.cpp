@@ -12,7 +12,7 @@ main()
 
     m.load("cases/meshes/naca_mz.dat");
     m.store("res.dat");
-    m.print_info();
+    m.print_info(cout, true);
 
     return 0;
 }

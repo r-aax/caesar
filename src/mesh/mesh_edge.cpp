@@ -31,7 +31,7 @@ ostream&
 operator<<(ostream& os,
            const Edge& e)
 {
-    os << "edge: " << e.atom;
+    os << "edge " << e.id << ": " << e.atom;
 
     return os;
 }

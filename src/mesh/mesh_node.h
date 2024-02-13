@@ -25,6 +25,9 @@ class Node
 
 private:
 
+    /// \brief Identifier.
+    int id { -1 };
+
     /// \brief Vector (point).
     geom::Vector point;
 

@@ -22,6 +22,9 @@ class Cell
 
 private:
 
+    /// \brief Identifier.
+    int id { -1 };
+
     /// \brief Links to nodes.
     vector<shared_ptr<Node>> nodes;
 

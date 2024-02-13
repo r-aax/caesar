@@ -22,6 +22,12 @@ private:
 
 public:
 
+    /// \brief Heat transfer coefficient.
+    double htc { 0.0 };
+
+    /// \brief Coefficient of water catching.
+    double beta { 0.0 };
+
     // Constructor.
     CellAtom();
 

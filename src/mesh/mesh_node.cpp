@@ -44,7 +44,7 @@ ostream&
 operator<<(ostream& os,
            const Node& n)
 {
-    os << "node: " << n.atom;
+    os << "node " << n.id << ": " << n.atom;
 
     return os;
 }

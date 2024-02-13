@@ -215,9 +215,11 @@ UnstructuredSurfaceMesh::store(const string& fn)
 ///
 /// Print information.
 ///
-/// \param[in] f Stream.
+/// \param[in] f                 Stream.
+/// \param[in] is_print_elements Flag for printing nodes/edges/cells.
 void
-UnstructuredSurfaceMesh::print_info(ostream& s)
+UnstructuredSurfaceMesh::print_info(ostream& s,
+                                    bool is_print_elements)
 {
     s << "UnstructuredSurfaceMesh" << endl;
     s << "Title           : " << title << endl;
@@ -233,7 +235,7 @@ UnstructuredSurfaceMesh::print_info(ostream& s)
 
     for (auto& zone : zones)
     {
-        zone->print_info(s);
+        zone->print_info(s, is_print_elements);
     }
 }
 

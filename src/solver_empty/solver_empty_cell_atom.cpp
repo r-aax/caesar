@@ -31,7 +31,7 @@ ostream&
 operator<<(ostream& os,
            const CellAtom& v)
 {
-    os << "ca:";
+    os << "ca: htc=" << v.htc << ", beta=" << v.beta;
 
     return os;
 }

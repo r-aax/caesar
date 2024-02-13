@@ -180,9 +180,11 @@ Zone::store_links(ofstream& f)
 ///
 /// Print information.
 ///
-/// \param[in] s Stream.
+/// \param[in] s                 Stream.
+/// \param[in] is_print_elements Flag for printing nodes/edges/cells.
 void
-Zone::print_info(ostream& s)
+Zone::print_info(ostream& s,
+                 bool is_print_elements)
 {
     s << "    Zone name                : " << name << endl;
     s << "    Nodes count              : " << nodes_count << endl;
@@ -193,28 +195,32 @@ Zone::print_info(ostream& s)
     s << "    Edges vector size        : " << edges.size() << endl;
     s << "    Cells vector size        : " << cells.size() << endl;
 
-    s << "    Nodes:" << endl;
 
-    for (auto n : nodes)
+    if (is_print_elements)
     {
-        s << "      " << (*n) << endl;
+        s << "    Nodes:" << endl;
+
+        for (auto n : nodes)
+        {
+            s << "      " << (*n) << endl;
+        }
+
+        s << "    Edges:" << endl;
+
+        for (auto e : edges)
+        {
+            s << "      " << (*e) << endl;
+        }
+
+        s << "    Cells:" << endl;
+
+        for (auto c : cells)
+        {
+            s << "      " << (*c) << endl;
+        }
+
+        s << "    ----" << endl;
     }
-
-    s << "    Edges:" << endl;
-
-    for (auto e : edges)
-    {
-        s << "      " << (*e) << endl;
-    }
-
-    s << "    Cells:" << endl;
-
-    for (auto c : cells)
-    {
-        s << "      " << (*c) << endl;
-    }
-
-    s << "    ----" << endl;
 }
 
 /// \brief Build.

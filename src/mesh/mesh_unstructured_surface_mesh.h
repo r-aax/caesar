@@ -48,7 +48,8 @@ public:
 
     // Print information.
     void
-    print_info(ostream& s = cout);
+    print_info(ostream& s = cout,
+               bool is_print_elements = false);
 
 private:
 
