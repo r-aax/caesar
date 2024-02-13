@@ -11,14 +11,34 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+#ifdef DEBUG
+// Counter initialization.
+int Cell::counter = 0;
+#endif // DEBUG
+
 /// \brief Default constructor.
 Cell::Cell()
 {
+
+#ifdef DEBUG
+    ++counter;
+#endif // DEBUG
+
 }
 
 /// \brief Default destructor.
 Cell::~Cell()
 {
+
+#ifdef DEBUG
+    --counter;
+
+    if (counter == 0)
+    {
+        cout << "Last object mesh::Cell is destructed." << endl;
+    }
+#endif // DEBUG
+
 }
 
 /// \brief Print function.

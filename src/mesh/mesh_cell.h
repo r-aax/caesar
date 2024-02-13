@@ -36,6 +36,10 @@ private:
 
 public:
 
+#ifdef DEBUG
+    static int counter;
+#endif // DEBUG
+
     // Default constructor.
     Cell();
 

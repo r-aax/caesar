@@ -11,14 +11,34 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+#ifdef DEBUG
+// Counter initialization.
+int Edge::counter = 0;
+#endif // DEBUG
+
 /// \brief Default constructor.
 Edge::Edge()
 {
+
+#ifdef DEBUG
+    ++counter;
+#endif // DEBUG
+
 }
 
 /// \brief Default destructor.
 Edge::~Edge()
 {
+
+#ifdef DEBUG
+    --counter;
+
+    if (counter == 0)
+    {
+        cout << "Last object mesh::Edge is destructed." << endl;
+    }
+#endif // DEBUG
+
 }
 
 /// \brief Print function.

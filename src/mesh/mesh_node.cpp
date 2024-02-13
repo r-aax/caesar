@@ -11,10 +11,20 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+#ifdef DEBUG
+// Counter initialization.
+int Node::counter = 0;
+#endif // DEBUG
+
 /// \brief Default constructor.
 Node::Node()
     : point()
 {
+
+#ifdef DEBUG
+    ++counter;
+#endif // DEBUG
+
 }
 
 /// \brief Constructor by point coordinates.
@@ -27,11 +37,26 @@ Node::Node(double x,
            double z)
     : point(x, y, z)
 {
+
+#ifdef DEBUG
+    ++counter;
+#endif // DEBUG
+
 }
 
 /// \brief Default destructor.
 Node::~Node()
 {
+
+#ifdef DEBUG
+    --counter;
+
+    if (counter == 0)
+    {
+        cout << "Last object mesh::Node is destructed." << endl;
+    }
+#endif // DEBUG
+
 }
 
 /// \brief Print function.
