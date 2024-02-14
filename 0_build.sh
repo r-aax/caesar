@@ -8,10 +8,10 @@ SH="src/solver/solver.h"
 FLG="-O3 -std=c++20"
 INC="-I./src"
 SOLVER_SRC="src/solver_${SOLVER}"
-SRC="src/*.cpp src/geom/*.cpp src/mesh/*.cpp src/mth/*.cpp src/utils/*.cpp ${SOLVER_SRC}/*.cpp"
+SRC="src/geom/*.cpp src/mesh/*.cpp src/mth/*.cpp src/utils/*.cpp ${SOLVER_SRC}/*.cpp"
 LIB="-lm"
 
-rm -rf caesar caesar_d doc/html
+rm -rf caesar caesar_d doc/html caesar_test
 
 # Create solver include.
 echo "/// \\\file"                                   > ${SH}
@@ -28,7 +28,7 @@ echo "#endif // SOLVER_H"                           >> ${SH}
 echo ""                                             >> ${SH}
 
 g++ \
-    $FLG $INC $SRC $LIB \
+    $FLG $INC $SRC ./src/*.cpp $LIB \
     -o caesar
 
 if [ "$?" -ne 0 ]
@@ -39,7 +39,7 @@ fi
 
 g++ \
     -DDEBUG \
-    $FLG $INC $SRC $LIB \
+    $FLG $INC $SRC ./src/*.cpp $LIB \
     -o caesar_d
 
 if [ "$?" -ne 0 ]
@@ -49,3 +49,10 @@ then
 fi
 
 doxygen doc/Doxyfile
+
+g++ \
+    -DDEBUG \
+    $FLG $INC $SRC ./test/unit_catch2/*.cpp $LIB \
+    -o caesar_test
+
+./caesar_test
