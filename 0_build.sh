@@ -29,8 +29,8 @@ function clear()
 # Create solver incude.
 function create_solver_include()
 {
-    echo "/// \\\file"                                   > ${SH}
-    echo "/// \\\brief Solver declaration."             >> ${SH}
+    echo "/// \\file"                                    > ${SH}
+    echo "/// \\brief Solver declaration."              >> ${SH}
     echo "///"                                          >> ${SH}
     echo "/// Solver declaration."                      >> ${SH}
     echo ""                                             >> ${SH}

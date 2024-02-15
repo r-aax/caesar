@@ -1,5 +1,5 @@
-/// \\file
-/// \\brief Solver declaration.
+/// \file
+/// \brief Solver declaration.
 ///
 /// Solver declaration.
 
