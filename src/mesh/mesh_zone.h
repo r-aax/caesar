@@ -98,7 +98,7 @@ private:
 
     // Build.
     void
-    build_nodes_and_cells();
+    build_nodes_and_cells(vector<string> variables_names);
 };
 
 /// @}

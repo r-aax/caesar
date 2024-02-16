@@ -225,15 +225,35 @@ Zone::print_info(ostream& s,
 
 /// \brief Build.
 ///
+/// \param[in] variables_names Names of variables.
+///
 /// Build zone nodes and cells.
 void
-Zone::build_nodes_and_cells()
+Zone::build_nodes_and_cells(vector<string> variables_names)
 {
-    // First 3 elements of data are X, Y, Z - so build nodes from them.
-    // These 3 elements of data must be of size nodes_count.
-    DEBUG_CHECK(data[0].size() == nodes_count, "wrong size of nodes X array");
-    DEBUG_CHECK(data[1].size() == nodes_count, "wrong size of nodes Y array");
-    DEBUG_CHECK(data[2].size() == nodes_count, "wrong size of nodes Z array");
+    // First 3 elements of data are X, Y, Z.
+    DEBUG_CHECK(variables_names[0] == "X", "first data element must be X");
+    DEBUG_CHECK(variables_names[1] == "Y", "second data element must be Y");
+    DEBUG_CHECK(variables_names[2] == "Z", "third data element must be Z");
+
+    // Count of data elements equal to upper bound of cellcentered.
+    DEBUG_CHECK(data.size() == varlocation_cellcentered.second, "wrong count of data elements");
+
+#ifdef DEBUG
+
+    // Check data elements sizes.
+
+    for (int v = 0; v < varlocation_cellcentered.first - 1; ++v)
+    {
+        DEBUG_CHECK(data[v].size() == nodes_count, "wrong size of nodes data array");
+    }
+
+    for (int v = varlocation_cellcentered.first - 1; v < varlocation_cellcentered.second; ++v)
+    {
+        DEBUG_CHECK(data[v].size() == elements_count, "wrong size of cells data array");
+    }
+
+#endif // DEBUG
 
     // Build nodes.
     for (int i = 0; i < nodes_count; ++i)
@@ -241,16 +261,28 @@ Zone::build_nodes_and_cells()
         nodes.push_back(make_shared<Node>(data[0][i], data[1][i], data[2][i]));
     }
 
-    // Check size of data for cells.
-    for (int i = 3; i < data.size(); ++i)
+    // Init nodes.
+    for (int v = 3; v < varlocation_cellcentered.first - 1; ++v)
     {
-        DEBUG_CHECK(data[i].size() == elements_count, "wrong size of cells data array");
+        for (int i = 0; i < nodes_count; ++i)
+        {
+            nodes[i]->set_data_element(variables_names[v], data[v][i]);
+        }
     }
 
     // Build cells.
     for (int i = 0; i < elements_count; ++i)
     {
         cells.push_back(make_shared<Cell>());
+    }
+
+    // Init cells.
+    for (int v = varlocation_cellcentered.first - 1; v < varlocation_cellcentered.second; ++v)
+    {
+        for (int i = 0; i < elements_count; ++i)
+        {
+            cells[i]->set_data_element(variables_names[v], data[v][i]);
+        }
     }
 }
 

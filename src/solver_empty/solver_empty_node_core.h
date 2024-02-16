@@ -33,6 +33,15 @@ public:
     friend ostream&
     operator<<(ostream& os,
                const NodeCore& a);
+
+    // Get data element.
+    double
+    get_data_element(const string& name);
+
+    // Set data element.
+    void
+    set_data_element(const string& name,
+                     double value);
 };
 
 /// @}

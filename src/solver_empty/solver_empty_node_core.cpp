@@ -36,6 +36,32 @@ operator<<(ostream& os,
     return os;
 }
 
+/// \brief Get data element.
+///
+/// Get element data.
+///
+/// \param[in] name Name of variable.
+///
+/// \return
+/// Value of data element.
+double
+NodeCore::get_data_element(const string& name)
+{
+    return 0.0;
+}
+
+/// \brief Set data element.
+///
+/// Set data element.
+///
+/// \param[in] name  Name of variable.
+/// \param[in] value Data element value.
+void
+NodeCore::set_data_element(const string& name,
+                           double value)
+{
+}
+
 /// @}
 
 }

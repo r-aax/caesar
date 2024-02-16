@@ -130,7 +130,10 @@ Mesh::load(const string& fn)
             }
 
             // Allocate memory for nodes and cells.
-            current_zone->build_nodes_and_cells();
+            current_zone->build_nodes_and_cells(variables_names);
+
+            // Free extra memory.
+            current_zone->data.clear();
 
             // Links.
             for (int i = 0; i < current_zone->elements_count; ++i)
