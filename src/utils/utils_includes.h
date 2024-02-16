@@ -14,6 +14,7 @@
 #include <utility>
 #include <memory>
 #include <math.h>
+#include <cstdint>
 
 using namespace std;
 
