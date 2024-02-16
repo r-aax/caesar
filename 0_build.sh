@@ -83,6 +83,20 @@ function create_solver_includes()
     echo ""                                                           >> $X
     echo "#endif // SOLVER_CELL_ATOM_H"                               >> $X
     echo ""                                                           >> $X
+
+    X="src/solver/solver_mesh_helper.h"
+    echo "/// \\file"                                                    > $X
+    echo "/// \\brief Solver mesh helper declaration."                  >> $X
+    echo "///"                                                          >> $X
+    echo "/// Solver mesh helper declaration."                          >> $X
+    echo ""                                                             >> $X
+    echo "#ifndef SOLVER_MESH_HELPER_H"                                 >> $X
+    echo "#define SOLVER_MESH_HELPER_H"                                 >> $X
+    echo ""                                                             >> $X
+    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_mesh_helper.h\"" >> $X
+    echo ""                                                             >> $X
+    echo "#endif // SOLVER_MESH_HELPER_H"                               >> $X
+    echo ""                                                             >> $X
 }
 
 # Start build.

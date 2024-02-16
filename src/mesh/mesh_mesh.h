@@ -8,6 +8,7 @@
 
 #include "utils/utils.h"
 #include "mesh_zone.h"
+#include "solver/solver_mesh_helper.h"
 
 namespace mesh
 {
@@ -29,6 +30,9 @@ private:
 
     /// \brief Zones list.
     vector<shared_ptr<Zone>> zones;
+
+    /// \brief Mesh helper.
+    solver::MeshHelper helper;
 
 public:
 
