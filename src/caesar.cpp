@@ -11,6 +11,7 @@ main()
     solver::Core core;
 
     core.init();
+    core.print_timers();
 
     return 0;
 }

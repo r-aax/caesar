@@ -23,6 +23,15 @@ private:
     /// \brief Mesh.
     mesh::UnstructuredSurfaceMesh mesh;
 
+    /// \brief Timer for files.
+    utils::Timer timer_file;
+
+    /// \brief Timer for calculations.
+    utils::Timer timer_calc;
+
+    /// \brief Timer for communications.
+    utils::Timer timer_comm;
+
 public:
 
     // Default constructor.
@@ -34,6 +43,18 @@ public:
     // Init solver core.
     void
     init();
+
+    // Load mesh.
+    void
+    load_mesh(const string& fn);
+
+    // Store mesh.
+    void
+    store_mesh(const string& fn);
+
+    // Print timers.
+    void
+    print_timers();
 };
 
 /// @}

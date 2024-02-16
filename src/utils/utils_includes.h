@@ -15,6 +15,7 @@
 #include <memory>
 #include <math.h>
 #include <cstdint>
+#include <omp.h>
 
 using namespace std;
 

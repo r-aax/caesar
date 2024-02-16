@@ -14,6 +14,7 @@ namespace utils
 /// \addtogroup utils
 /// @{
 
+/// \brief Colorable object.
 class Colorable
 {
 

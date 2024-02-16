@@ -17,7 +17,7 @@ FLG="-O3 -std=c++20"
 INC="-I./src"
 SOLVER_SRC="src/solver_${SOLVER}"
 SRC="src/geom/*.cpp src/mesh/*.cpp src/mth/*.cpp src/utils/*.cpp ${SOLVER_SRC}/*.cpp"
-LIB="-lm"
+LIB="-lm -fopenmp"
 
 # Clear.
 function clear()
