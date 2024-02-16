@@ -129,26 +129,54 @@ Zone::get_links_from_string(const string& s,
 
 /// \brief Store data.
 ///
-/// \param[in] f File stream.
+/// \param[in] f               File stream.
+/// \param[in] variables_names Names of variables.
 void
-Zone::store_data(ofstream& f)
+Zone::store_data(ofstream& f,
+                 vector<string>& variables_names)
 {
     auto n = data.size();
 
     f.precision(17);
 
-    for (int i = 0; i < n; ++i)
+    // First element is X.
+    for (int i = 0; i < nodes_count; ++i)
     {
-        auto m = data[i].size();
+        f << nodes[i]->point.x << " ";
+    }
+    f << endl;
 
-        for (int j = 0; j < m; ++j)
+    // Second element is Y.
+    for (int i = 0; i < nodes_count; ++i)
+    {
+        f << nodes[i]->point.y << " ";
+    }
+    f << endl;
+
+    // Third element is Z.
+    for (int i = 0; i < nodes_count; ++i)
+    {
+        f << nodes[i]->point.z << " ";
+    }
+    f << endl;
+
+    // Data elements of nodes.
+    for (int v = 3; v < varlocation_cellcentered.first - 1; ++v)
+    {
+        for (int i = 0; i < nodes_count; ++i)
         {
-            f << data[i][j];
+            f << nodes[i]->get_data_element(variables_names[v]) << " ";
+        }
 
-            if (j < m - 1)
-            {
-                f << " ";
-            }
+        f << endl;
+    }
+
+    // Data elements of cells.
+    for (int v = varlocation_cellcentered.first - 1; v < varlocation_cellcentered.second; ++v)
+    {
+        for (int i = 0; i < elements_count; ++i)
+        {
+            f << cells[i]->get_data_element(variables_names[v]) << " ";
         }
 
         f << endl;

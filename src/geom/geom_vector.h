@@ -20,6 +20,8 @@ class Vector
 
 private:
 
+public:
+
     /// \brief X coorsinate.
     double x { 0.0 };
 
@@ -28,8 +30,6 @@ private:
 
     /// \brief Z coordinate.
     double z { 0.0 };
-
-public:
 
     // Constructor.
     Vector();

@@ -203,7 +203,7 @@ Mesh::store(const string& fn)
           << current_zone->varlocation_cellcentered.second << "]=CELLCENTERED)" << endl;
 
         // Store all data.
-        current_zone->store_data(f);
+        current_zone->store_data(f, variables_names);
 
         // Store links.
         current_zone->store_links(f);

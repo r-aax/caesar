@@ -85,7 +85,8 @@ private:
 
     // Store data.
     void
-    store_data(ofstream& f);
+    store_data(ofstream& f,
+               vector<string>& variables_names);
 
     // Store links.
     void
