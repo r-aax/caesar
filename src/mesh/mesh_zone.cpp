@@ -220,7 +220,7 @@ Zone::print_info(ostream& s,
         }
     }
 
-        s << "    --------" << endl;
+    s << "    --------" << endl;
 }
 
 /// \brief Build.

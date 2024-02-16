@@ -1,10 +1,10 @@
 /// \file
-/// \brier Core of solver empty.
+/// \brier Solver empty.
 ///
-/// Core of solver empty.
+/// Solver empty.
 
-#ifndef SOLVER_EMPTY_CORE_H
-#define SOLVER_EMPTY_CORE_H
+#ifndef SOLVER_EMPTY_SOLVER_H
+#define SOLVER_EMPTY_SOLVER_H
 
 #include "mesh/mesh.h"
 
@@ -14,8 +14,8 @@ namespace solver
 /// \addtogroup solver
 /// @{
 
-/// \brief Core of solver.
-class Core
+/// \brief Solver.
+class Solver
 {
 
 private:
@@ -35,12 +35,12 @@ private:
 public:
 
     // Default constructor.
-    Core();
+    Solver();
 
     // Default destructor.
-    ~Core();
+    ~Solver();
 
-    // Init solver core.
+    // Init solver.
     void
     init();
 
@@ -61,4 +61,4 @@ public:
 
 }
 
-#endif // SOLVER_EMPTY_CORE_H
+#endif // SOLVER_EMPTY_SOLVER_H

@@ -6,6 +6,6 @@
 #ifndef CAESAR_H
 #define CAESAR_H
 
-#include "solver/solver_core.h"
+#include "solver/solver.h"
 
 #endif // CAESAR_H

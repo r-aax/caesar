@@ -8,10 +8,10 @@
 int
 main()
 {
-    solver::Core core;
+    solver::Solver solver;
 
-    core.init();
-    core.print_timers();
+    solver.init();
+    solver.print_timers();
 
     return 0;
 }

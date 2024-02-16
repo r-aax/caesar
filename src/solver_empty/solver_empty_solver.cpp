@@ -1,9 +1,9 @@
 /// \file
-/// \brief Core of solver empty implementation.
+/// \brief Solver empty implementation.
 ///
-/// Core of solver empty implementation.
+/// Solver empty implementation.
 
-#include "solver_empty_core.h"
+#include "solver_empty_solver.h"
 
 namespace solver
 {
@@ -14,22 +14,22 @@ namespace solver
 /// \brief Default constructor.
 ///
 /// Default constructor.
-Core::Core()
+Solver::Solver()
 {
 }
 
 /// \brief Default destructor.
 ///
 /// Default destructor.
-Core::~Core()
+Solver::~Solver()
 {
 }
 
-/// \brief Init solver core.
+/// \brief Init solver.
 ///
-/// Init solver core.
+/// Init solver.
 void
-Core::init()
+Solver::init()
 {
     load_mesh("./cases/meshes/naca_mz.dat");
     store_mesh("res.dat");
@@ -42,7 +42,7 @@ Core::init()
 ///
 /// \param[in] fn Name of file.
 void
-Core::load_mesh(const string& fn)
+Solver::load_mesh(const string& fn)
 {
     timer_file.start();
     mesh.load(fn);
@@ -55,7 +55,7 @@ Core::load_mesh(const string& fn)
 ///
 /// \param[in] fn Name of file.
 void
-Core::store_mesh(const string& fn)
+Solver::store_mesh(const string& fn)
 {
     timer_file.start();
     mesh.store(fn);
@@ -64,7 +64,7 @@ Core::store_mesh(const string& fn)
 
 /// \brief Print timers.
 void
-Core::print_timers()
+Solver::print_timers()
 {
     cout << "Timers:"
          << " file = " << timer_file.get() << " s,"
