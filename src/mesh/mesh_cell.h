@@ -6,14 +6,16 @@
 #ifndef MESH_CELL_H
 #define MESH_CELL_H
 
-#include "mesh_edge.h"
-#include "solver/solver.h"
+#include "solver/solver_cell_atom.h"
 
 namespace mesh
 {
 
 /// \addtogroup mesh
 /// @{
+
+class Node;
+class Edge;
 
 /// \brief Mesh cell.
 class Cell

@@ -7,7 +7,7 @@
 #define MESH_NODE_H
 
 #include "geom/geom.h"
-#include "solver/solver.h"
+#include "solver/solver_node_atom.h"
 
 namespace mesh
 {

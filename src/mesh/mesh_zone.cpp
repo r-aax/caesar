@@ -218,9 +218,9 @@ Zone::print_info(ostream& s,
         {
             s << "      " << (*c) << endl;
         }
-
-        s << "    ----" << endl;
     }
+
+        s << "    --------" << endl;
 }
 
 /// \brief Build.

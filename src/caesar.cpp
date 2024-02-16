@@ -8,11 +8,9 @@
 int
 main()
 {
-    mesh::UnstructuredSurfaceMesh m;
+    solver::Core core;
 
-    m.load("cases/meshes/naca_mz.dat");
-    m.store("res.dat");
-    m.print_info(cout, true);
+    core.init();
 
     return 0;
 }

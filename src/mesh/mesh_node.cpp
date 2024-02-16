@@ -4,6 +4,8 @@
 /// Mesh node implementation.
 
 #include "mesh_node.h"
+#include "mesh_edge.h"
+#include "mesh_cell.h"
 
 namespace mesh
 {

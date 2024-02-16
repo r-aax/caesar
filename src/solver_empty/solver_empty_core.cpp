@@ -25,6 +25,17 @@ Core::~Core()
 {
 }
 
+/// \brief Init solver core.
+///
+/// Init solver core.
+void
+Core::init()
+{
+    mesh.load("./cases/meshes/naca_mz.dat");
+    mesh.store("res.dat");
+    mesh.print_info();
+}
+
 /// @}
 
 }

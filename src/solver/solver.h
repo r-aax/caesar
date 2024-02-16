@@ -6,7 +6,6 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include "solver_empty/solver_empty.h"
+#include "solver_core.h"
 
 #endif // SOLVER_H
-
