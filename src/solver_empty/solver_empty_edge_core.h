@@ -26,6 +26,7 @@ public:
     EdgeCore();
 
     // Destructor.
+    virtual
     ~EdgeCore();
 
     // Print function.

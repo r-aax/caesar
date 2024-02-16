@@ -43,6 +43,7 @@ public:
     Cell();
 
     // Default destructor.
+    virtual
     ~Cell();
 
     // Print function.

@@ -24,6 +24,7 @@ public:
     MeshCore();
 
     // Default destructor.
+    virtual
     ~MeshCore();
 };
 

@@ -42,6 +42,7 @@ public:
     Edge();
 
     // Default destructor.
+    virtual
     ~Edge();
 
     // Print function.

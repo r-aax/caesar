@@ -32,6 +32,7 @@ public:
     CellCore();
 
     // Destructor.
+    virtual
     ~CellCore();
 
     // Print function.

@@ -55,6 +55,7 @@ public:
          double z);
 
     // Default destructor.
+    virtual
     ~Node();
 
     // Print function.

@@ -26,6 +26,7 @@ public:
     NodeCore();
 
     // Destructor.
+    virtual
     ~NodeCore();
 
     // Print function.

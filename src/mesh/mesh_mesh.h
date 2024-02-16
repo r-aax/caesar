@@ -37,6 +37,7 @@ public:
     Mesh();
 
     // Destructor.
+    virtual
     ~Mesh();
 
     // Load.
