@@ -6,7 +6,7 @@
 #ifndef MESH_EDGE_H
 #define MESH_EDGE_H
 
-#include "solver/solver_edge_atom.h"
+#include "solver/solver_edge_core.h"
 
 namespace mesh
 {
@@ -32,8 +32,8 @@ private:
     /// \brief Links to cells.
     vector<shared_ptr<Edge>> edges;
 
-    /// \brief Edge atom.
-    solver::EdgeAtom atom;
+    /// \brief Edge core.
+    solver::EdgeCore core;
 
 public:
 

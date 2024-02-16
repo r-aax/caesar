@@ -6,7 +6,7 @@
 #ifndef MESH_CELL_H
 #define MESH_CELL_H
 
-#include "solver/solver_cell_atom.h"
+#include "solver/solver_cell_core.h"
 
 namespace mesh
 {
@@ -33,8 +33,8 @@ private:
     /// \brief Links to edges.
     vector<shared_ptr<Edge>> edges;
 
-    /// \brief Cell atom.
-    solver::CellAtom atom;
+    /// \brief Cell core.
+    solver::CellCore core;
 
 public:
 

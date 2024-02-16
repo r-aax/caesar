@@ -42,61 +42,61 @@ function create_solver_includes()
     echo "#endif // SOLVER_SOLVER_H"                               >> $X
     echo ""                                                        >> $X
 
-    X="src/solver/solver_node_atom.h"
+    X="src/solver/solver_node_core.h"
     echo "/// \\file"                                                  > $X
-    echo "/// \\brief Solver node atom declaration."                  >> $X
+    echo "/// \\brief Solver node core declaration."                  >> $X
     echo "///"                                                        >> $X
-    echo "/// Solver node atom declaration."                          >> $X
+    echo "/// Solver node core declaration."                          >> $X
     echo ""                                                           >> $X
-    echo "#ifndef SOLVER_NODE_ATOM_H"                                 >> $X
-    echo "#define SOLVER_NODE_ATOM_H"                                 >> $X
+    echo "#ifndef SOLVER_NODE_CORE_H"                                 >> $X
+    echo "#define SOLVER_NODE_CORE_H"                                 >> $X
     echo ""                                                           >> $X
-    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_node_atom.h\"" >> $X
+    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_node_core.h\"" >> $X
     echo ""                                                           >> $X
-    echo "#endif // SOLVER_NODE_ATOM_H"                               >> $X
+    echo "#endif // SOLVER_NODE_CORE_H"                               >> $X
     echo ""                                                           >> $X
 
-    X="src/solver/solver_edge_atom.h"
+    X="src/solver/solver_edge_core.h"
     echo "/// \\file"                                                  > $X
-    echo "/// \\brief Solver edge atom declaration."                  >> $X
+    echo "/// \\brief Solver edge core declaration."                  >> $X
     echo "///"                                                        >> $X
-    echo "/// Solver edge atom declaration."                          >> $X
+    echo "/// Solver edge core declaration."                          >> $X
     echo ""                                                           >> $X
-    echo "#ifndef SOLVER_EDGE_ATOM_H"                                 >> $X
-    echo "#define SOLVER_EDGE_ATOM_H"                                 >> $X
+    echo "#ifndef SOLVER_EDGE_CORE_H"                                 >> $X
+    echo "#define SOLVER_EDGE_CORE_H"                                 >> $X
     echo ""                                                           >> $X
-    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_edge_atom.h\"" >> $X
+    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_edge_core.h\"" >> $X
     echo ""                                                           >> $X
-    echo "#endif // SOLVER_EDGE_ATOM_H"                               >> $X
+    echo "#endif // SOLVER_EDGE_CORE_H"                               >> $X
     echo ""                                                           >> $X
 
-    X="src/solver/solver_cell_atom.h"
+    X="src/solver/solver_cell_core.h"
     echo "/// \\file"                                                  > $X
-    echo "/// \\brief Solver cell atom declaration."                  >> $X
+    echo "/// \\brief Solver cell core declaration."                  >> $X
     echo "///"                                                        >> $X
-    echo "/// Solver cell atom declaration."                          >> $X
+    echo "/// Solver cell core declaration."                          >> $X
     echo ""                                                           >> $X
-    echo "#ifndef SOLVER_CELL_ATOM_H"                                 >> $X
-    echo "#define SOLVER_CELL_ATOM_H"                                 >> $X
+    echo "#ifndef SOLVER_CELL_CORE_H"                                 >> $X
+    echo "#define SOLVER_CELL_CORE_H"                                 >> $X
     echo ""                                                           >> $X
-    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_cell_atom.h\"" >> $X
+    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_cell_core.h\"" >> $X
     echo ""                                                           >> $X
-    echo "#endif // SOLVER_CELL_ATOM_H"                               >> $X
+    echo "#endif // SOLVER_CELL_CORE_H"                               >> $X
     echo ""                                                           >> $X
 
-    X="src/solver/solver_mesh_helper.h"
-    echo "/// \\file"                                                    > $X
-    echo "/// \\brief Solver mesh helper declaration."                  >> $X
-    echo "///"                                                          >> $X
-    echo "/// Solver mesh helper declaration."                          >> $X
-    echo ""                                                             >> $X
-    echo "#ifndef SOLVER_MESH_HELPER_H"                                 >> $X
-    echo "#define SOLVER_MESH_HELPER_H"                                 >> $X
-    echo ""                                                             >> $X
-    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_mesh_helper.h\"" >> $X
-    echo ""                                                             >> $X
-    echo "#endif // SOLVER_MESH_HELPER_H"                               >> $X
-    echo ""                                                             >> $X
+    X="src/solver/solver_mesh_coew.h"
+    echo "/// \\file"                                                  > $X
+    echo "/// \\brief Solver mesh core declaration."                  >> $X
+    echo "///"                                                        >> $X
+    echo "/// Solver mesh core declaration."                          >> $X
+    echo ""                                                           >> $X
+    echo "#ifndef SOLVER_MESH_CORE_H"                                 >> $X
+    echo "#define SOLVER_MESH_CORE_H"                                 >> $X
+    echo ""                                                           >> $X
+    echo "#include \"solver_${SOLVER}/solver_${SOLVER}_mesh_core.h\"" >> $X
+    echo ""                                                           >> $X
+    echo "#endif // SOLVER_MESH_CORE_H"                               >> $X
+    echo ""                                                           >> $X
 }
 
 # Start build.

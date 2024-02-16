@@ -53,7 +53,7 @@ ostream&
 operator<<(ostream& os,
            const Edge& e)
 {
-    os << "edge " << e.id << ": " << e.atom;
+    os << "edge " << e.id << ": " << e.core;
 
     return os;
 }

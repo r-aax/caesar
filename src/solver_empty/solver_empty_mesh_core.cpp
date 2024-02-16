@@ -1,9 +1,9 @@
 /// \file
-/// \brief Mesh helper implementation.
+/// \brief Mesh core implementation.
 ///
-/// Mesh helper implementation.
+/// Mesh core implementation.
 
-#include "solver_empty_mesh_helper.h"
+#include "solver_empty_mesh_core.h"
 
 namespace solver
 {
@@ -14,14 +14,14 @@ namespace solver
 /// \brief Default constructor.
 ///
 /// Default constructor.
-MeshHelper::MeshHelper()
+MeshCore::MeshCore()
 {
 }
 
 /// \brief Default destructor.
 ///
 /// Default destructor.
-MeshHelper::~MeshHelper()
+MeshCore::~MeshCore()
 {
 }
 

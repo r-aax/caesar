@@ -1,10 +1,10 @@
 /// \file
-/// \brief Empty solver cell atom declaration.
+/// \brief Empty solver cell core declaration.
 ///
-/// Empty solver cell atom declaration.
+/// Empty solver cell core declaration.
 
-#ifndef SOLVER_EMPTY_CELL_ATOM_H
-#define SOLVER_EMPTY_CELL_ATOM_H
+#ifndef SOLVER_EMPTY_CELL_CORE_H
+#define SOLVER_EMPTY_CELL_CORE_H
 
 #include "utils/utils.h"
 
@@ -14,8 +14,8 @@ namespace solver
 /// \addtogroup solver
 /// @{
 
-/// \brief Atom of cell.
-class CellAtom
+/// \brief Core of cell.
+class CellCore
 {
 
 private:
@@ -29,20 +29,20 @@ public:
     double beta { 0.0 };
 
     // Constructor.
-    CellAtom();
+    CellCore();
 
     // Destructor.
-    ~CellAtom();
+    ~CellCore();
 
     // Print function.
     friend ostream&
     operator<<(ostream& os,
-               const CellAtom& a);
+               const CellCore& a);
 };
 
 /// @}
 
 }
 
-#endif // SOLVER_EMPTY_CELL_ATOM_H
+#endif // SOLVER_EMPTY_CELL_CORE_H
 

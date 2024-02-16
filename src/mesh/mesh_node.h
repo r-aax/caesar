@@ -7,7 +7,7 @@
 #define MESH_NODE_H
 
 #include "geom/geom.h"
-#include "solver/solver_node_atom.h"
+#include "solver/solver_node_core.h"
 
 namespace mesh
 {
@@ -40,8 +40,8 @@ private:
     /// \brief Mark.
     int mark;
 
-    /// \brief Node atom.
-    solver::NodeAtom atom;
+    /// \brief Node core.
+    solver::NodeCore core;
 
 public:
 

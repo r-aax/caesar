@@ -53,7 +53,7 @@ ostream&
 operator<<(ostream& os,
            const Cell& c)
 {
-    os << "cell " << c.id << ": " << c.atom;
+    os << "cell " << c.id << ": " << c.core;
 
     return os;
 }
