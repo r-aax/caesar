@@ -3,8 +3,8 @@
 ///
 /// Declaration of unstructured surface mesh.
 
-#ifndef MESH_UNSTRUCTURED_SURFACE_MESH_H
-#define MESH_UNSTRUCTURED_SURFACE_MESH_H
+#ifndef MESH_MESH_H
+#define MESH_MESH_H
 
 #include "utils/utils.h"
 #include "mesh_zone.h"
@@ -16,7 +16,7 @@ namespace mesh
 /// @{
 
 /// \brief Unstructured surface mesh.
-class UnstructuredSurfaceMesh
+class Mesh
 {
 
 private:
@@ -33,10 +33,10 @@ private:
 public:
 
     // Constructor.
-    UnstructuredSurfaceMesh();
+    Mesh();
 
     // Destructor.
-    ~UnstructuredSurfaceMesh();
+    ~Mesh();
 
     // Load.
     bool
@@ -70,4 +70,4 @@ private:
 
 }
 
-#endif // MESH_UNSTRUCTURED_SURFACE_MESH_H
+#endif // MESH_MESH_H

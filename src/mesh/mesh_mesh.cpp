@@ -3,7 +3,7 @@
 ///
 /// Implementation of unstructured surface mesh.
 
-#include "mesh_unstructured_surface_mesh.h"
+#include "mesh_mesh.h"
 
 namespace mesh
 {
@@ -12,12 +12,12 @@ namespace mesh
 /// @{
 
 /// \brief Default constructor.
-UnstructuredSurfaceMesh::UnstructuredSurfaceMesh()
+Mesh::Mesh()
 {
 }
 
 /// \brief Default destructor.
-UnstructuredSurfaceMesh::~UnstructuredSurfaceMesh()
+Mesh::~Mesh()
 {
 }
 
@@ -34,7 +34,7 @@ UnstructuredSurfaceMesh::~UnstructuredSurfaceMesh()
 /// true - if mesh is loaded successfully,
 /// false - otherwise.
 bool
-UnstructuredSurfaceMesh::load(const string& fn)
+Mesh::load(const string& fn)
 {
     ifstream f(fn);
     string line;
@@ -156,7 +156,7 @@ UnstructuredSurfaceMesh::load(const string& fn)
 /// true - if store is complete successfully,
 /// false - otherwise.
 bool
-UnstructuredSurfaceMesh::store(const string& fn)
+Mesh::store(const string& fn)
 {
     ofstream f(fn);
 
@@ -218,8 +218,8 @@ UnstructuredSurfaceMesh::store(const string& fn)
 /// \param[in] f                 Stream.
 /// \param[in] is_print_elements Flag for printing nodes/edges/cells.
 void
-UnstructuredSurfaceMesh::print_info(ostream& s,
-                                    bool is_print_elements)
+Mesh::print_info(ostream& s,
+                 bool is_print_elements)
 {
     s << "UnstructuredSurfaceMesh" << endl;
     s << "Title           : " << title << endl;
@@ -245,7 +245,7 @@ UnstructuredSurfaceMesh::print_info(ostream& s,
 ///
 /// \param[in] s String.
 void
-UnstructuredSurfaceMesh::get_title_from_string(const string& s)
+Mesh::get_title_from_string(const string& s)
 {
     int p, len;
 
@@ -263,7 +263,7 @@ UnstructuredSurfaceMesh::get_title_from_string(const string& s)
 ///
 /// \param[in] s String.
 void
-UnstructuredSurfaceMesh::get_variables_names_from_string(const string& s)
+Mesh::get_variables_names_from_string(const string& s)
 {
     int p { -1 }, len { 0 };
 
@@ -280,7 +280,7 @@ UnstructuredSurfaceMesh::get_variables_names_from_string(const string& s)
 ///
 /// \param[in] f File stream.
 void
-UnstructuredSurfaceMesh::store_variables_names(ofstream& f)
+Mesh::store_variables_names(ofstream& f)
 {
     auto n = variables_names.size();
 

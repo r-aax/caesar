@@ -67,8 +67,8 @@ void
 Core::print_timers()
 {
     cout << "Timers:"
-         << " file = " << timer_file.get() << " s"
-         << " calc = " << timer_calc.get() << " s"
+         << " file = " << timer_file.get() << " s,"
+         << " calc = " << timer_calc.get() << " s,"
          << " comm = " << timer_comm.get() << " s" << endl;
 }
 

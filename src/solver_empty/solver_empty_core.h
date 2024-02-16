@@ -21,7 +21,7 @@ class Core
 private:
 
     /// \brief Mesh.
-    mesh::UnstructuredSurfaceMesh mesh;
+    mesh::Mesh mesh;
 
     /// \brief Timer for files.
     utils::Timer timer_file;

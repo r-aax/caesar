@@ -20,7 +20,7 @@ namespace mesh
 /// \brief Mesh zone.
 class Zone
 {
-    friend class UnstructuredSurfaceMesh;
+    friend class Mesh;
 
 private:
 

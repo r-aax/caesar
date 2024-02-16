@@ -6,6 +6,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "mesh_unstructured_surface_mesh.h"
+#include "mesh_mesh.h"
 
 #endif // MESH_H
