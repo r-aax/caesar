@@ -17,7 +17,7 @@ namespace mesh
 /// @{
 
 /// \brief Unstructured surface mesh.
-class Mesh
+class Mesh : public solver::MeshCore
 {
 
 private:
@@ -30,9 +30,6 @@ private:
 
     /// \brief Zones list.
     vector<shared_ptr<Zone>> zones;
-
-    /// \brief Mesh helper.
-    solver::MeshCore core;
 
 public:
 

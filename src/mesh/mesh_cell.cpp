@@ -53,7 +53,7 @@ ostream&
 operator<<(ostream& os,
            const Cell& c)
 {
-    os << "cell " << c.id << ": " << c.core;
+    os << "cell " << c.id << ": " << *((solver::CellCore*)&c);
 
     return os;
 }

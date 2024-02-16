@@ -19,7 +19,7 @@ class Edge;
 class Cell;
 
 /// \brief Mesh node.
-class Node
+class Node : public solver::NodeCore
 {
     friend class Zone;
 
@@ -39,9 +39,6 @@ private:
 
     /// \brief Mark.
     int mark;
-
-    /// \brief Node core.
-    solver::NodeCore core;
 
 public:
 

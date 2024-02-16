@@ -18,7 +18,7 @@ class Node;
 class Cell;
 
 /// \brief Mesh edge.
-class Edge
+class Edge : public solver::EdgeCore
 {
 
 private:
@@ -31,9 +31,6 @@ private:
 
     /// \brief Links to cells.
     vector<shared_ptr<Edge>> edges;
-
-    /// \brief Edge core.
-    solver::EdgeCore core;
 
 public:
 

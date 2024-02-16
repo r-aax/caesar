@@ -33,7 +33,7 @@ Solver::init()
 {
     load_mesh("./cases/meshes/naca_mz.dat");
     store_mesh("res.dat");
-    mesh.print_info();
+    mesh.print_info(cout, true);
 }
 
 /// \brief Load mesh.
