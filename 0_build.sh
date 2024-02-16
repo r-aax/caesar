@@ -84,7 +84,7 @@ function create_solver_includes()
     echo "#endif // SOLVER_CELL_CORE_H"                               >> $X
     echo ""                                                           >> $X
 
-    X="src/solver/solver_mesh_coew.h"
+    X="src/solver/solver_mesh_core.h"
     echo "/// \\file"                                                  > $X
     echo "/// \\brief Solver mesh core declaration."                  >> $X
     echo "///"                                                        >> $X
