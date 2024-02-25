@@ -6,7 +6,7 @@
 #ifndef MESH_CELL_H
 #define MESH_CELL_H
 
-#include "solver/solver_cell_core.h"
+#include "mesh_edge.h"
 
 namespace mesh
 {
@@ -14,11 +14,8 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
-class Node;
-class Edge;
-
 /// \brief Mesh cell.
-class Cell : public solver::CellCore
+class Cell
 {
     friend class Zone;
 
@@ -32,6 +29,34 @@ private:
 
     /// \brief Links to edges.
     vector<shared_ptr<Edge>> edges;
+
+    //
+    // Solver data.
+    //
+
+    /// \brief Temperature (C).
+    double t { 0.0 };
+
+    /// \brief Height of water (m).
+    double hw { 0.0 };
+
+    /// \brief Height of ice (m).
+    double hi { 0.0 };
+
+    /// \brief Heat transfer coefficient.
+    double htc { 0.0 };
+
+    /// \brief Coefficient of water catching.
+    double beta { 0.0 };
+
+    /// \brief Tau X coordinate.
+    double tau_x { 0.0 };
+
+    /// \brief Tau Y coordinate.
+    double tau_y { 0.0 };
+
+    /// \brief Tau Z coordinate.
+    double tau_z { 0.0 };
 
 public:
 

@@ -163,23 +163,88 @@ Zone::store_data(ofstream& f,
     // Data elements of nodes.
     for (int v = 3; v < varlocation_cellcentered.first - 1; ++v)
     {
-        for (int i = 0; i < nodes_count; ++i)
-        {
-            f << nodes[i]->get_data_element(variables_names[v]) << " ";
-        }
-
-        f << endl;
+        DEBUG_ERROR("unknown node data element : " + variables_names[v]);
     }
 
     // Data elements of cells.
     for (int v = varlocation_cellcentered.first - 1; v < varlocation_cellcentered.second; ++v)
     {
-        for (int i = 0; i < elements_count; ++i)
+        if (variables_names[v] == "T")
         {
-            f << cells[i]->get_data_element(variables_names[v]) << " ";
-        }
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->t << " ";
+            }
 
-        f << endl;
+            f << endl;
+        }
+        else if (variables_names[v] == "Hw")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->hw << " ";
+            }
+
+            f << endl;
+        }
+        else if (variables_names[v] == "Hi")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->hi << " ";
+            }
+
+            f << endl;
+        }
+        else if (variables_names[v] == "HTC")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->htc << " ";
+            }
+
+            f << endl;
+        }
+        else if (variables_names[v] == "Beta")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->beta << " ";
+            }
+
+            f << endl;
+        }
+        else if (variables_names[v] == "TauX")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->tau_x << " ";
+            }
+
+            f << endl;
+        }
+        else if (variables_names[v] == "TauY")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->tau_y << " ";
+            }
+
+            f << endl;
+        }
+        else if (variables_names[v] == "TauZ")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                f << cells[i]->tau_z << " ";
+            }
+
+            f << endl;
+        }
+        else
+        {
+            DEBUG_ERROR("unknown cell data element : " + variables_names[v]);
+        }
     }
 }
 
@@ -292,10 +357,7 @@ Zone::build_nodes_and_cells(vector<string> variables_names)
     // Init nodes.
     for (int v = 3; v < varlocation_cellcentered.first - 1; ++v)
     {
-        for (int i = 0; i < nodes_count; ++i)
-        {
-            nodes[i]->set_data_element(variables_names[v], data[v][i]);
-        }
+        DEBUG_ERROR("unknown node data element : " + variables_names[v]);
     }
 
     // Build cells.
@@ -307,9 +369,65 @@ Zone::build_nodes_and_cells(vector<string> variables_names)
     // Init cells.
     for (int v = varlocation_cellcentered.first - 1; v < varlocation_cellcentered.second; ++v)
     {
-        for (int i = 0; i < elements_count; ++i)
+        if (variables_names[v] == "T")
         {
-            cells[i]->set_data_element(variables_names[v], data[v][i]);
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->t = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "Hw")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->hw = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "Hi")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->hi = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "HTC")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->htc = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "Beta")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->beta = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "TauX")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->tau_x = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "TauY")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->tau_y = data[v][i];
+            }
+        }
+        else if (variables_names[v] == "TauZ")
+        {
+            for (int i = 0; i < elements_count; ++i)
+            {
+                cells[i]->tau_z = data[v][i];
+            }
+        }
+        else
+        {
+            DEBUG_ERROR("unknown cell data element : " + variables_names[v]);
         }
     }
 }

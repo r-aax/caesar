@@ -4,8 +4,6 @@
 /// Mesh cell implementation.
 
 #include "mesh_cell.h"
-#include "mesh_node.h"
-#include "mesh_edge.h"
 
 namespace mesh
 {
@@ -53,7 +51,7 @@ ostream&
 operator<<(ostream& os,
            const Cell& c)
 {
-    os << "cell " << c.id << ": " << *((solver::CellCore*)&c);
+    os << "cell " << c.id;
 
     return os;
 }

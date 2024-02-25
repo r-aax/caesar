@@ -7,7 +7,6 @@
 #define MESH_NODE_H
 
 #include "geom/geom.h"
-#include "solver/solver_node_core.h"
 
 namespace mesh
 {
@@ -19,7 +18,7 @@ class Edge;
 class Cell;
 
 /// \brief Mesh node.
-class Node : public solver::NodeCore
+class Node
 {
     friend class Zone;
 

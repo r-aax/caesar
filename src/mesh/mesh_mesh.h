@@ -8,7 +8,6 @@
 
 #include "utils/utils.h"
 #include "mesh_zone.h"
-#include "solver/solver_mesh_core.h"
 
 namespace mesh
 {
@@ -17,7 +16,7 @@ namespace mesh
 /// @{
 
 /// \brief Unstructured surface mesh.
-class Mesh : public solver::MeshCore
+class Mesh
 {
 
 private:

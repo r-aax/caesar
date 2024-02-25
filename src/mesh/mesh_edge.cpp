@@ -4,7 +4,6 @@
 /// Mesh edge implementation.
 
 #include "mesh_edge.h"
-#include "mesh_node.h"
 #include "mesh_cell.h"
 
 namespace mesh
@@ -53,7 +52,7 @@ ostream&
 operator<<(ostream& os,
            const Edge& e)
 {
-    os << "edge " << e.id << ": " << *((solver::EdgeCore*)&e);
+    os << "edge " << e.id;
 
     return os;
 }

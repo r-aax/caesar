@@ -1,9 +1,9 @@
 /// \file
 /// \brief Main file.
 ///
-/// This file contains entry point to CAEsar module.
+/// This file contains entry point.
 
-#include "caesar.h"
+#include "solver/solver.h"
 
 int
 main()

@@ -6,7 +6,7 @@
 #ifndef MESH_EDGE_H
 #define MESH_EDGE_H
 
-#include "solver/solver_edge_core.h"
+#include "mesh_node.h"
 
 namespace mesh
 {
@@ -14,11 +14,10 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
-class Node;
 class Cell;
 
 /// \brief Mesh edge.
-class Edge : public solver::EdgeCore
+class Edge
 {
 
 private:
@@ -30,7 +29,7 @@ private:
     vector<shared_ptr<Node>> nodes;
 
     /// \brief Links to cells.
-    vector<shared_ptr<Edge>> edges;
+    vector<shared_ptr<Cell>> cells;
 
 public:
 

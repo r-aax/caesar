@@ -1,9 +1,9 @@
 /// \file
-/// \brief Solver empty implementation.
+/// \brief Solver implementation.
 ///
-/// Solver empty implementation.
+/// Solver implementation.
 
-#include "solver_empty_solver.h"
+#include "solver_solver.h"
 
 namespace solver
 {
@@ -31,7 +31,7 @@ Solver::~Solver()
 void
 Solver::init()
 {
-    load_mesh("./cases/meshes/naca_mz.dat");
+    load_mesh("./cases/scenarios/naca/naca_mz.dat");
     store_mesh("res.dat");
     mesh.print_info(cout, true);
 }
@@ -67,9 +67,9 @@ void
 Solver::print_timers()
 {
     cout << "Timers:"
-         << " file = " << timer_file.get() << " s,"
-         << " calc = " << timer_calc.get() << " s,"
-         << " comm = " << timer_comm.get() << " s" << endl;
+         << "  file = " << timer_file.get() << " s,"
+         << "  calc = " << timer_calc.get() << " s,"
+         << "  comm = " << timer_comm.get() << " s" << endl;
 }
 
 /// @}

@@ -1,7 +1,7 @@
 /// \file
-/// \brief Solver include file.
+/// \brief Solver module initialization.
 ///
-/// Solver include file.
+/// Solver module initialization.
 
 #ifndef SOLVER_H
 #define SOLVER_H

@@ -71,7 +71,7 @@ ostream&
 operator<<(ostream& os,
            const Node& n)
 {
-    os << "node " << n.id << ": " << *((solver::NodeCore*)&n);
+    os << "node " << n.id;
 
     return os;
 }
