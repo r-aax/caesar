@@ -9,30 +9,31 @@ then
     MODE="all"
 fi
 
-# Build flags.
-FLG="-O3 -std=c++20"
-INC="-I./src"
-SRC="src/geom/*.cpp src/mesh/*.cpp src/mth/*.cpp src/solver/*.cpp src/utils/*.cpp"
-LIB="-lm -fopenmp"
-
 # Clear.
-function clear()
+function clean()
 {
-    rm -rf crys crys_d doc/html crys_test
+    cd src
+    make clean
+    cd ..
+    rm -rf doc/html src/gmon.out profile.txt
 }
 
 # Start build.
 
-clear
+if [ "$MODE" == "clean" ]
+then
+    clean
+    exit 0;
+fi
 
 # Fast build.
 if [ "$MODE" = "fast" ] || [ "$MODE" = "all" ]
 then
-    echo ".... Build FAST version    ...."
+    echo ".... Build FAST version      ...."
 
-    g++ \
-        $FLG $INC $SRC ./src/crys.cpp $LIB \
-        -o crys
+    cd src
+    make fast
+    cd ..
 
     if [ "$?" -ne 0 ]
     then
@@ -44,12 +45,11 @@ fi
 # Debug build.
 if [ "$MODE" = "debug" ] || [ "$MODE" = "all" ]
 then
-    echo ".... Build DEBUG version   ...."
+    echo ".... Build DEBUG version     ...."
 
-    g++ \
-        -DDEBUG \
-        $FLG $INC $SRC ./src/crys.cpp $LIB \
-        -o crys_d
+    cd src
+    make debug
+    cd ..
 
     if [ "$?" -ne 0 ]
     then
@@ -61,13 +61,13 @@ fi
 # Documentation.
 if [ "$MODE" = "doc" ]
 then
-    echo ".... Make documentation    ...."
+    echo ".... Make documentation      ...."
 
     doxygen doc/Doxyfile
 fi
 if [ "$MODE" = "all" ]
 then
-    echo ".... Make documentation    ...."
+    echo ".... Make documentation      ...."
 
     doxygen doc/Doxyfile &> /dev/null
 fi
@@ -75,12 +75,34 @@ fi
 # Tests.
 if [ "$MODE" = "test" ] || [ "$MODE" = "all" ]
 then
-    echo ".... Build and run testing ...."
+    echo ".... Build and run testing   ...."
 
-    g++ \
-        -DDEBUG \
-        $FLG $INC $SRC ./test/unit_catch2/*.cpp $LIB \
-        -o crys_test
+    cd src
+    make test
+    cd ..
 
-    ./crystal_test
+    ./src/caesar_t
+fi
+
+# Profile.
+if [ "$MODE" = "profile" ] || [ "$MODE" = "all" ]
+then
+    echo ".... Build and run profiling ...."
+
+    cd src
+    make profile
+    cd ..
+
+    rm -f gmon.out
+    src/caesar_p
+    gprof ./src/caesar_p gmon.out > profile.txt
+fi
+
+# Statistics.
+if [ "$MODE" = "stat" ] || [ "$MODE" = "all" ]
+then
+    echo ".... Collecting statistics   ...."
+
+    LINES=`find src test -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
+    echo "number of lines = $LINES"
 fi

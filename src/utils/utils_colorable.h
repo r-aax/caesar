@@ -6,7 +6,7 @@
 #ifndef UTILS_COLORABLE_H
 #define UTILS_COLORABLE_H
 
-#include "utils_includes.h"
+#include "includes.h"
 
 namespace utils
 {
@@ -20,11 +20,11 @@ class Colorable
 
 private:
 
-    /// \brief Colors mask.
-    int32_t mask { 0x0 };
-
     /// \brief Count of colors.
-    const int colors_count { sizeof(int32_t) * 8 };
+    static constexpr int colors_count { sizeof(uint32_t) * 8 };
+
+    /// \brief Colors mask.
+    uint32_t mask { 0x0 };
 
 public:
 
@@ -59,4 +59,4 @@ public:
 
 }
 
-#endif // UTILS_COLORABLE_H
+#endif // !UTILS_COLORABLE_H

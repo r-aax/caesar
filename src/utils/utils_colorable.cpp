@@ -5,6 +5,7 @@
 
 #include "utils_colorable.h"
 #include "utils_debug.h"
+#include "mth/mth.h"
 
 namespace utils
 {
@@ -43,9 +44,9 @@ Colorable::clear()
 void
 Colorable::clear(int i)
 {
-    DEBUG_CHECK((i >= 0) && (i < colors_count), "wrong color number");
+    DEBUG_CHECK_ERROR((i >= 0) && (i < colors_count), "wrong color number");
 
-    mask &= (~(1 << i));
+    mask &= (~(1u << i));
 }
 
 /// \brief Paint.
@@ -56,9 +57,9 @@ Colorable::clear(int i)
 void
 Colorable::paint(int i)
 {
-    DEBUG_CHECK((i >= 0) && (i < colors_count), "wrong color number");
+    DEBUG_CHECK_ERROR((i >= 0) && (i < colors_count), "wrong color number");
 
-    mask |= (1 << i);
+    mask |= (1u << i);
 }
 
 /// \brief Check if painted.
@@ -73,9 +74,9 @@ Colorable::paint(int i)
 bool
 Colorable::is_painted(int i) const
 {
-    DEBUG_CHECK((i >= 0) && (i < colors_count), "wrong color number");
+    DEBUG_CHECK_ERROR((i >= 0) && (i < colors_count), "wrong color number");
 
-    return (mask & (1 << i)) != 0x0;
+    return (mask & (1u << i)) != 0x0;
 }
 
 /// \brief Get first free color.
@@ -87,16 +88,7 @@ Colorable::is_painted(int i) const
 int
 Colorable::first_free_color() const
 {
-    // This loop can be optimized.
-    for (int i = 0; i < colors_count; ++i)
-    {
-        if (!is_painted(i))
-        {
-            return i;
-        }
-    }
-
-    return -1;
+    return mth::least_bit_0(mask);
 }
 
 /// @}

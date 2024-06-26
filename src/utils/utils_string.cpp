@@ -15,22 +15,22 @@ namespace utils
 ///
 /// Find next word (spaces are ignored).
 ///
-/// \param[in]  s     String.
-/// \param[in]  start Start position.
-/// \param[out] p     Position of found substring.
-/// \param[out] len   Length of found substring.
+/// \param[in]  s      String.
+/// \param[in]  start  Start position.
+/// \param[in]  delims Delimiters strng.
+/// \param[out] p      Position of found substring.
+/// \param[out] len    Length of found substring.
 ///
 /// \result
 /// true - if substring is found,
 /// false - otherwise.
 bool
 find_word(const string& s,
-          int start,
-          int& p,
-          int& len)
+          size_t start,
+          const string& delims,
+          size_t& p,
+          size_t& len)
 {
-    const string delims { " \n\r\t" };
-
     // Find first good character.
     p = s.find_first_not_of(delims, start);
 
@@ -55,6 +55,58 @@ find_word(const string& s,
     return true;
 }
 
+/// \brief Find word.
+///
+/// Find next word (spaces are ignored).
+///
+/// \param[in]  s     String.
+/// \param[in]  start Start position.
+/// \param[out] p     Position of found substring.
+/// \param[out] len   Length of found substring.
+///
+/// \result
+/// true - if substring is found,
+/// false - otherwise.
+bool
+find_word(const string& s,
+          size_t start,
+          size_t& p,
+          size_t& len)
+{
+    static const string delims { " \n\r\t" };
+
+    return find_word(s, start, delims, p, len);
+}
+
+/// \brief Split by words.
+///
+/// Split string into words, separated by delims,
+///
+/// \param[in] s          String to split.
+/// \param[in] delims     Delimiters.
+/// \param[in] r          Result vector.
+/// \param[in] is_clear_r Clear result before splitting.
+void
+split_into_words(const string& s,
+                 const string& delims,
+                 vector<string>& r,
+                 bool is_clear_r)
+{
+    size_t p { 0 };
+    size_t len { 0 };
+
+    if (is_clear_r)
+    {
+        r.clear();
+    }
+
+    while (find_word(s, p, delims, p, len))
+    {
+        r.push_back(s.substr(p, len));
+        p += (len + 1);
+    }
+}
+
 /// \brief Find next substring in double quotes.
 ///
 /// Find next substring in double quuotes ("substring").
@@ -69,9 +121,9 @@ find_word(const string& s,
 /// false - otherwise.
 bool
 find_substr_in_double_quotes(const string& s,
-                             int start,
-                             int& p,
-                             int& len)
+                             size_t start,
+                             size_t& p,
+                             size_t& len)
 {
     // Find first double quote position.
     p = s.find('"', start);
@@ -86,7 +138,7 @@ find_substr_in_double_quotes(const string& s,
     ++p;
 
     // Find second double quote position.
-    auto p2 = s.find('"', p + 1);
+    auto p2 = s.find('"', p);
 
     // If second quote is not found there is no substring.
     if (p2 == string::npos)
@@ -130,8 +182,8 @@ get_int_from_str_after_eq_sign(const string& s)
 /// false - otherwise.
 bool
 find_interval_int_bounds_in_str(const string& s,
-                                int& lo,
-                                int& hi)
+                                size_t& lo,
+                                size_t& hi)
 {
     // Position of open bracket.
     auto open_b_p = s.find('[');
@@ -161,8 +213,8 @@ find_interval_int_bounds_in_str(const string& s,
     }
 
     // All positions are found.
-    lo = stoi(s.substr(open_b_p + 1, minus_p - open_b_p - 1));
-    hi = stoi(s.substr(minus_p + 1, close_b_p - minus_p - 1));
+    lo = static_cast<size_t>(stoi(s.substr(open_b_p + 1, minus_p - open_b_p - 1)));
+    hi = static_cast<size_t>(stoi(s.substr(minus_p + 1, close_b_p - minus_p - 1)));
 
     return true;
 }

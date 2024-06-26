@@ -1,4 +1,12 @@
-crys
-crys_d
+*.o
+*.d
+*.so
+*.pyc
+caesar
+caesar_f
+caesar_d
+caesar_t
+caesar_p
 doc/html/
-crys_test
+gmon.out
+profile.txt
