@@ -3,8 +3,11 @@
 ///
 /// Polynom equations.
 
-#ifndef MTH_POLY_EQN_H
-#define MTH_POLY_EQN_H
+#ifndef CAESAR_MTH_POLY_EQN_H
+#define CAESAR_MTH_POLY_EQN_H
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -47,4 +50,6 @@ directed_nearest_root(double x,
 
 }
 
-#endif // !MTH_POLY_EQN_H
+}
+
+#endif // !CAESAR_MTH_POLY_EQN_H

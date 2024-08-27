@@ -6,6 +6,9 @@
 #include "geom_vector.h"
 #include "utils/utils.h"
 
+namespace caesar
+{
+
 namespace geom
 {
 
@@ -754,5 +757,7 @@ Vector::displaced_triangle_volume(const Vector& ao,
 }
 
 /// @}
+
+}
 
 }

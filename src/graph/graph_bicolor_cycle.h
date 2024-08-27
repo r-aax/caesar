@@ -3,8 +3,8 @@
 ///
 /// Declaration of bicolor cycle - cycle consists of edges colored with 2 colors.
 
-#ifndef GRAPH_BICOLOR_CYCLE_H
-#define GRAPH_BICOLOR_CYCLE_H
+#ifndef CAESAR_GRAPH_BICOLOR_CYCLE_H
+#define CAESAR_GRAPH_BICOLOR_CYCLE_H
 
 #include <vector>
 #include <set>
@@ -12,6 +12,9 @@
 #include "graph_edge.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace graph
 {
@@ -112,4 +115,6 @@ public:
 
 }
 
-#endif // !GRAPH_BICOLOR_CYCLE_H
+}
+
+#endif // !CAESAR_GRAPH_BICOLOR_CYCLE_H

@@ -9,6 +9,9 @@
 
 #include "mesh_zone.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -196,5 +199,7 @@ Cell::calc_fictitious_outer_normal()
 }
 
 /// @}
+
+}
 
 }

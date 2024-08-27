@@ -5,6 +5,9 @@
 
 #include "parl_one_to_all_exchanger.h"
 
+namespace caesar
+{
+
 namespace parl
 {
 
@@ -116,5 +119,7 @@ OneToAllExchanger::gather()
 }
 
 /// @}
+
+}
 
 }

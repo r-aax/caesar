@@ -5,6 +5,9 @@
 
 #include "geom_prismatoid.h"
 
+namespace caesar
+{
+
 namespace geom
 {
 
@@ -66,5 +69,7 @@ prismatoid_volume_coefficients(const Vector& v1,
 }
 
 /// @}
+
+}
 
 }

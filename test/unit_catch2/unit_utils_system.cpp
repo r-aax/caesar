@@ -4,7 +4,9 @@
 /// Utils system tests.
 
 #include <catch2/catch_test_macros.hpp>
-#include "utils/utils_system.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("system : some system features", "[utils]")
 {

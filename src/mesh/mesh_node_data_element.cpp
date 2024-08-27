@@ -5,6 +5,9 @@
 
 #include "mesh_node_data_element.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -23,5 +26,7 @@ utils::Mapper<NodeDataElement> NodeDataElementMapper
 };
 
 /// @}
+
+}
 
 }

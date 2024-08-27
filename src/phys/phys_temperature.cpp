@@ -5,6 +5,9 @@
 
 #include "phys_temperature.h"
 
+namespace caesar
+{
+
 namespace phys
 {
 
@@ -36,5 +39,7 @@ kelvin_to_celsius(double tk)
 }
 
 /// @}
+
+}
 
 }

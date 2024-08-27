@@ -4,7 +4,11 @@
 /// Mesh decomposer implementation.
 
 #include "mesh_decomposer.h"
+
 #include "parl/parl.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -225,5 +229,7 @@ Decomposer::decompose(Mesh& mesh,
 }
 
 /// @}
+
+}
 
 }

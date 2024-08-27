@@ -8,6 +8,9 @@
 #include "mesh_edge.h"
 #include "mesh_cell.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -105,5 +108,7 @@ Node::calc_outer_normal()
 }
 
 /// @}
+
+}
 
 }

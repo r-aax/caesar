@@ -3,11 +3,14 @@
 ///
 /// Boundaries between domains declaration.
 
-#ifndef MESH_BOUNDARIES_H
-#define MESH_BOUNDARIES_H
+#ifndef CAESAR_MESH_BOUNDARIES_H
+#define CAESAR_MESH_BOUNDARIES_H
 
 #include "mesh_boundary.h"
 #include "parl/parl.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -121,4 +124,6 @@ public:
 
 }
 
-#endif // !MESH_BOUNDARIES
+}
+
+#endif // !CAESAR_MESH_BOUNDARIES_H

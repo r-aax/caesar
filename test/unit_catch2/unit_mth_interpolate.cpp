@@ -4,7 +4,9 @@
 /// Tests for mathematical interpolation functions.
 
 #include <catch2/catch_test_macros.hpp>
-#include "mth/mth.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Interpolate : interpolation of 1D function", "[mth]")
 {

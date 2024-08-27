@@ -3,10 +3,13 @@
 ///
 /// Remesh method declaration.
 
-#ifndef MESH_REMESH_METHOD_H
-#define MESH_REMESH_METHOD_H
+#ifndef CAESAR_MESH_REMESH_METHOD_H
+#define CAESAR_MESH_REMESH_METHOD_H
 
 #include "utils/utils_mapper.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -37,4 +40,6 @@ extern utils::Mapper<RemeshMethod> RemeshMethodMapper;
 
 }
 
-#endif // !MESH_REMESH_METHOD_H
+}
+
+#endif // !CAESAR_MESH_REMESH_METHOD_H

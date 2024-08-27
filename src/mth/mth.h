@@ -1,10 +1,10 @@
+/// \file
+/// \brief Math interface file.
 ///
-/// @file
-/// @brief Интерфейсный файл для работы с математическим аппаратом.
-///
+/// Math interface file.
 
-#ifndef MTH_H
-#define MTH_H
+#ifndef CAESAR_MTH_H
+#define CAESAR_MTH_H
 
 #include "mth_basics.h"
 #include "mth_bits.h"
@@ -18,4 +18,4 @@
 #include "mth_sle.h"
 #include "mth_statistics.h"
 
-#endif // !MTH_H
+#endif // !CAESAR_MTH_H

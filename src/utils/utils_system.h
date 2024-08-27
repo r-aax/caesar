@@ -3,10 +3,13 @@
 ///
 /// System utilities.
 
-#ifndef UTILS_SYSTEM_H
-#define UTILS_SYSTEM_H
+#ifndef CAESAR_UTILS_SYSTEM_H
+#define CAESAR_UTILS_SYSTEM_H
 
 #include <cstdint>
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -22,4 +25,6 @@ double_hash(double x);
 
 }
 
-#endif // UTILS_SYSTEM_H
+}
+
+#endif // !CAESAR_UTILS_SYSTEM_H

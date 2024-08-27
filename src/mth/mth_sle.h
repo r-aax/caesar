@@ -3,8 +3,11 @@
 ///
 /// System of equation solving.
 
-#ifndef MTH_SLE_H
-#define MTH_SLE_H
+#ifndef CAESAR_MTH_SLE_H
+#define CAESAR_MTH_SLE_H
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -40,4 +43,6 @@ solve_tridiagonal_system(int n,
 
 }
 
-#endif
+}
+
+#endif // !CAESAR_MTH_SLE_H

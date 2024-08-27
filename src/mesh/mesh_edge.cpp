@@ -7,6 +7,9 @@
 
 #include "mesh_cell.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -151,5 +154,7 @@ Edge::calc_length()
 }
 
 /// @}
+
+}
 
 }

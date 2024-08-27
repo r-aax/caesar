@@ -4,8 +4,9 @@
 /// Time tests.
 
 #include <catch2/catch_test_macros.hpp>
-#include "utils/utils_time.h"
-#include "mth/mth.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Time : object that can hold time in seconds and microseconds", "[utils]")
 {

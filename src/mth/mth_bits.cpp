@@ -5,6 +5,9 @@
 
 #include "mth_bits.h"
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -61,5 +64,7 @@ least_bit_1(uint32_t x)
 }
 
 /// @}
+
+}
 
 }

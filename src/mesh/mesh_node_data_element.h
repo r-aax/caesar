@@ -3,10 +3,13 @@
 ///
 /// Node data element enumeration.
 
-#ifndef MESH_NODE_DATA_ELEMENT_H
-#define MESH_NODE_DATA_ELEMENT_H
+#ifndef CAESAR_MESH_NODE_DATA_ELEMENT_H
+#define CAESAR_MESH_NODE_DATA_ELEMENT_H
 
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -46,4 +49,6 @@ extern utils::Mapper<NodeDataElement> NodeDataElementMapper;
 
 }
 
-#endif // !MESH_NODE_DATA_ELEMENT_H
+}
+
+#endif // !CAESAR_MESH_NODE_DATA_ELEMENT_H

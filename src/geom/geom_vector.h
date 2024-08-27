@@ -3,13 +3,16 @@
 ///
 /// Vector in 3D space.
 
-#ifndef GEOM_VECTOR_H
-#define GEOM_VECTOR_H
+#ifndef CAESAR_GEOM_VECTOR_H
+#define CAESAR_GEOM_VECTOR_H
 
 #include <iostream>
 
 #include "utils/utils.h"
 #include "mth/mth.h"
+
+namespace caesar
+{
 
 namespace geom
 {
@@ -378,4 +381,6 @@ public:
 
 }
 
-#endif // GEOM_VECTOR_H
+}
+
+#endif // !CAESAR_GEOM_VECTOR_H

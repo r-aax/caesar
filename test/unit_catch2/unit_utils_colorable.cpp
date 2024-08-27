@@ -4,7 +4,9 @@
 /// Colorable object tests.
 
 #include <catch2/catch_test_macros.hpp>
-#include "utils/utils_colorable.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Colorable : object that can be colored", "[utils]")
 {

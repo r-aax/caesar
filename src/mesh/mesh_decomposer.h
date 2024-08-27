@@ -3,11 +3,14 @@
 ///
 /// Mesh decomposer.
 
-#ifndef MESH_DECOMPOSER_H
-#define MESH_DECOMPOSER_H
+#ifndef CAESAR_MESH_DECOMPOSER_H
+#define CAESAR_MESH_DECOMPOSER_H
 
 #include "mesh_mesh.h"
 #include "mesh_decomposition_type.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -59,4 +62,6 @@ public:
 
 }
 
-#endif // !MESH_DECOMPOSER_H
+}
+
+#endif // !CAESAR_MESH_DECOMPOSER_H

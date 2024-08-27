@@ -5,6 +5,9 @@
 
 #include "tools_python_generator.h"
 
+namespace caesar
+{
+
 namespace tools
 {
 
@@ -168,5 +171,7 @@ PythonGenerator::graph_visualization(graph::Graph* g,
 }
 
 /// @}
+
+}
 
 }

@@ -3,8 +3,11 @@
 ///
 /// Pressure functions.
 
-#ifndef PHYS_PRESSURE_H
-#define PHYS_PRESSURE_H
+#ifndef CAESAR_PHYS_PRESSURE_H
+#define CAESAR_PHYS_PRESSURE_H
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -20,4 +23,6 @@ water_vapor_pressure(double t);
 
 }
 
-#endif // !PHYS_PRESSURE_H
+}
+
+#endif // !CAESAR_PHYS_PRESSURE_H

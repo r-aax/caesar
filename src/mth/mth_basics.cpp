@@ -8,6 +8,9 @@
 // Only place for <random> include.
 #include <random>
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -49,5 +52,7 @@ randint(int lo,
 }
 
 /// @}
+
+}
 
 }

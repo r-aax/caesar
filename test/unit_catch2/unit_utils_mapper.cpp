@@ -4,7 +4,9 @@
 /// Mapper tests.
 
 #include <catch2/catch_test_macros.hpp>
-#include "utils/utils_mapper.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 /// \brief Test enum from 0.
 ///

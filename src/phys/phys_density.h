@@ -3,8 +3,11 @@
 ///
 /// Density functions.
 
-#ifndef PHYS_DENSITY_H
-#define PHYS_DENSITY_H
+#ifndef CAESAR_PHYS_DENSITY_H
+#define CAESAR_PHYS_DENSITY_H
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -31,4 +34,6 @@ rho_a(double t,
 
 }
 
-#endif // !PHYS_DENSITY_H
+}
+
+#endif // !CAESAR_PHYS_DENSITY_H

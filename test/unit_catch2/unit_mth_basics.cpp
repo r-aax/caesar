@@ -4,7 +4,9 @@
 /// Tests for mathematical basic functions.
 
 #include <catch2/catch_test_macros.hpp>
-#include "mth/mth_basics.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Basics : basic functions", "[mth]")
 {

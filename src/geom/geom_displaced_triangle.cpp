@@ -7,6 +7,9 @@
 
 #include "geom_tetrahedron.h"
 
+namespace caesar
+{
+
 namespace geom
 {
 
@@ -40,4 +43,7 @@ displaced_triangle_volume(const Vector& a,
 }
 
 /// @}
+
+}
+
 }

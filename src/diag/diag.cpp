@@ -7,6 +7,9 @@
 
 #include <iostream>
 
+namespace caesar
+{
+
 namespace diag
 {
 
@@ -46,5 +49,7 @@ raise_error(const string& s,
 }
 
 /// @}
+
+}
 
 }

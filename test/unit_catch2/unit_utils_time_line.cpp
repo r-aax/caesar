@@ -4,7 +4,9 @@
 /// Time line tests.
 
 #include <catch2/catch_test_macros.hpp>
-#include "utils/utils_time_line.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("TimeLine : ", "[utils]")
 {

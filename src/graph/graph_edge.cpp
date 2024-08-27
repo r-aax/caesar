@@ -7,6 +7,9 @@
 
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -285,5 +288,7 @@ Edge::greedy_paint()
 }
 
 /// @}
+
+}
 
 }

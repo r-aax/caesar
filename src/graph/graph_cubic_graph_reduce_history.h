@@ -3,11 +3,14 @@
 ///
 /// Cubic graph reduce history for restore purposes.
 
-#ifndef GRAPH_CUBIC_GRAPH_REDUCE_HISTORY_H
-#define GRAPH_CUBIC_GRAPH_REDUCE_HISTORY_H
+#ifndef CAESAR_GRAPH_CUBIC_GRAPH_REDUCE_HISTORY_H
+#define CAESAR_GRAPH_CUBIC_GRAPH_REDUCE_HISTORY_H
 
 #include "utils/utils.h"
 #include "graph_cubic_graph_reduce_history_step.h"
+
+namespace caesar
+{
 
 namespace graph
 {
@@ -199,4 +202,6 @@ public:
 
 }
 
-#endif // !GRAPH_CUBIC_GRAPH_REDUCE_HISTORY_H
+}
+
+#endif // !CAESAR_GRAPH_CUBIC_GRAPH_REDUCE_HISTORY_H

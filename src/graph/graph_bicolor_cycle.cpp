@@ -13,6 +13,9 @@
 #include "graph_bicolor_cycle.h"
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -162,5 +165,7 @@ BicolorCycle::switch_colors(const Edge* e1,
 }
 
 /// @}
+
+}
 
 }

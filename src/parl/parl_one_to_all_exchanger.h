@@ -3,10 +3,13 @@
 ///
 /// One to all exchanger declaration.
 
-#ifndef PARL_ONE_TO_ALL_EXCHANGER_H
-#define PARL_ONE_TO_ALL_EXCHANGER_H
+#ifndef CAESAR_PARL_ONE_TO_ALL_EXCHANGER_H
+#define CAESAR_PARL_ONE_TO_ALL_EXCHANGER_H
 
 #include "parl_buffers.h"
+
+namespace caesar
+{
 
 namespace parl
 {
@@ -55,4 +58,6 @@ public:
 
 }
 
-#endif // !PARL_ONE_TO_ALL_EXCHANGER_H
+}
+
+#endif // !CAESAR_PARL_ONE_TO_ALL_EXCHANGER_H

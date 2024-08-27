@@ -5,6 +5,9 @@
 
 #include "graph_cubic_graph_reduce_history_step.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -76,5 +79,7 @@ operator<<(ostream& os,
 }
 
 /// @}
+
+}
 
 }

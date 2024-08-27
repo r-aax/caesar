@@ -5,6 +5,9 @@
 
 #include "graph_cubic_graph_reduce_history.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -55,5 +58,7 @@ CubicGraphReduceHistory::remember(int v1_id,
 }
 
 /// @}
+
+}
 
 }

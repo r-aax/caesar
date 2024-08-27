@@ -6,10 +6,13 @@
 /// - chords method,
 /// - combined method.
 
-#ifndef MTH_NONLINEAR_EQN_H
-#define MTH_NONLINEAR_EQN_H
+#ifndef CAESAR_MTH_NONLINEAR_EQN_H
+#define CAESAR_MTH_NONLINEAR_EQN_H
 
 #include "mth_segment_function.h"
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -124,4 +127,6 @@ public:
 
 }
 
-#endif // !MTH_NONLINEAR_EQN_H
+}
+
+#endif // !CAESAR_MTH_NONLINEAR_EQN_H

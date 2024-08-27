@@ -7,6 +7,9 @@
 #include "mth_basics.h"
 #include "tools/tools.h"
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -209,5 +212,7 @@ NonlinearEqn::solve_combined(Function1D f,
 }
 
 /// @}
+
+}
 
 }

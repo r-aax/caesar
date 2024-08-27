@@ -5,6 +5,9 @@
 
 #include "utils_string.h"
 
+namespace caesar
+{
+
 namespace utils
 {
 
@@ -252,5 +255,7 @@ find_interval_int_bounds_in_str(const string& s,
 }
 
 /// @}
+
+}
 
 }

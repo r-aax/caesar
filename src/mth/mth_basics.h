@@ -3,8 +3,8 @@
 ///
 /// Basic data and functions for math.
 
-#ifndef MTH_BASICS_H
-#define MTH_BASICS_H
+#ifndef CAESAR_MTH_BASICS_H
+#define CAESAR_MTH_BASICS_H
 
 // The only place for <cmath> include.
 #include <cmath>
@@ -36,6 +36,9 @@ using namespace std;
 #define HUNDRED_PERCENTS 100.0
 
 /// @}
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -323,4 +326,6 @@ randint(int lo,
 
 }
 
-#endif // !MTH_BASICS_H
+}
+
+#endif // !CAESAR_MTH_BASICS_H

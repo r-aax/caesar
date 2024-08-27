@@ -3,10 +3,13 @@
 ///
 /// Colorable object declaration.
 
-#ifndef UTILS_COLORABLE_H
-#define UTILS_COLORABLE_H
+#ifndef CAESAR_UTILS_COLORABLE_H
+#define CAESAR_UTILS_COLORABLE_H
 
 #include <cstdint>
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -59,4 +62,6 @@ public:
 
 }
 
-#endif // !UTILS_COLORABLE_H
+}
+
+#endif // !CAESAR_UTILS_COLORABLE_H

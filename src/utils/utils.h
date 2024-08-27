@@ -3,8 +3,8 @@
 ///
 /// Utils and outer includes.
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef CAESAR_UTILS_H
+#define CAESAR_UTILS_H
 
 #include "utils_colorable.h"
 #include "utils_data_holder.h"
@@ -17,4 +17,4 @@
 #include "utils_time_line.h"
 #include "utils_timer.h"
 
-#endif // UTILS_H
+#endif // !CAESAR_UTILS_H

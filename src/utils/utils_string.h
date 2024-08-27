@@ -3,13 +3,16 @@
 ///
 /// Additional operations with strings.
 
-#ifndef UTILS_STRING_H
-#define UTILS_STRING_H
+#ifndef CAESAR_UTILS_STRING_H
+#define CAESAR_UTILS_STRING_H
 
 #include <string>
 #include <vector>
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -65,4 +68,6 @@ find_interval_int_bounds_in_str(const string& s,
 
 }
 
-#endif // UTILS_STRING_H
+}
+
+#endif // !CAESAR_UTILS_STRING_H

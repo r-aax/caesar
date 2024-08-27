@@ -5,6 +5,9 @@
 
 #include "mesh_remesh_method.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -19,5 +22,7 @@ utils::Mapper<RemeshMethod> RemeshMethodMapper
 };
 
 /// @}
+
+}
 
 }

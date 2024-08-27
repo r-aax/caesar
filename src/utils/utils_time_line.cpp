@@ -7,6 +7,9 @@
 
 #include <iostream>
 
+namespace caesar
+{
+
 namespace utils
 {
 
@@ -194,5 +197,7 @@ TimeLine::timestamp_string()
 }
 
 /// @}
+
+}
 
 }

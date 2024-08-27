@@ -3,12 +3,15 @@
 ///
 /// Some linear algebra functions.
 
-#ifndef MTH_LINEAR_ALGEBRA_H
-#define MTH_LINEAR_ALGEBRA_H
+#ifndef CAESAR_MTH_LINEAR_ALGEBRA_H
+#define CAESAR_MTH_LINEAR_ALGEBRA_H
 
 #include <vector>
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -58,4 +61,6 @@ find_matrix_3x3_real_eigenvalues(const vector<vector<double>>& m,
 
 }
 
-#endif // !MTH_LINEAR_ALGEBRA_H
+}
+
+#endif // !CAESAR_MTH_LINEAR_ALGEBRA_H

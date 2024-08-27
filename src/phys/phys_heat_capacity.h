@@ -3,8 +3,11 @@
 ///
 /// Heat capacity functions.
 
-#ifndef PHYS_HEAT_CAPACITY_H
-#define PHYS_HEAT_CAPACITY_H
+#ifndef CAESAR_PHYS_HEAT_CAPACITY_H
+#define CAESAR_PHYS_HEAT_CAPACITY_H
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -28,4 +31,6 @@ cp_a(double t);
 
 }
 
-#endif // !PHYS_HEAT_CAPACITY_H
+}
+
+#endif // !CAESAR_PHYS_HEAT_CAPACITY_H

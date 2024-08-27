@@ -15,6 +15,9 @@
 /// \brief High temperature guard (C).
 #define TEMP_HI_GUARD 1000.0
 
+namespace caesar
+{
+
 namespace phys
 {
 
@@ -107,5 +110,7 @@ air_dynamic_viscosity(double t_celsius)
 }
 
 /// @}
+
+}
 
 }

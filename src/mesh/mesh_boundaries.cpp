@@ -7,6 +7,9 @@
 
 #include "parl/parl.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -111,5 +114,7 @@ Boundaries::exchange()
 }
 
 /// @}
+
+}
 
 }

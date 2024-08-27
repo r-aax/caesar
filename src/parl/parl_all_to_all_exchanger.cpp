@@ -5,6 +5,9 @@
 
 #include "parl_all_to_all_exchanger.h"
 
+namespace caesar
+{
+
 namespace parl
 {
 
@@ -81,5 +84,7 @@ AllToAllExchanger::exchange()
 }
 
 /// @}
+
+}
 
 }

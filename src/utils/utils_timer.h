@@ -3,8 +3,11 @@
 ///
 /// Timer declaration.
 
-#ifndef UTILS_TIMER_H
-#define UTILS_TIMER_H
+#ifndef CAESAR_UTILS_TIMER_H
+#define CAESAR_UTILS_TIMER_H
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -60,4 +63,6 @@ public:
 
 }
 
-#endif // UTILS_TIMER_H
+}
+
+#endif // !CAESAR_UTILS_TIMER_H

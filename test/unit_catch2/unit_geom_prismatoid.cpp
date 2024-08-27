@@ -4,8 +4,9 @@
 /// Tests for prismatoids.
 
 #include <catch2/catch_test_macros.hpp>
-#include "geom/geom_prismatoid.h"
-#include "mth/mth.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Prismatoid", "[geom]")
 {

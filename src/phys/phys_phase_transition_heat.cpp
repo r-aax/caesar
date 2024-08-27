@@ -16,6 +16,9 @@
 /// \brief High temperature guard (C).
 #define TEMP_HI_GUARD 1000.0
 
+namespace caesar
+{
+
 namespace phys
 {
 
@@ -200,5 +203,7 @@ l_su(double t)
 }
 
 /// @}
+
+}
 
 }

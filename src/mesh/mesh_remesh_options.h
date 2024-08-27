@@ -3,12 +3,15 @@
 ///
 /// Remesh options declaration.
 
-#ifndef MESH_REMESH_OPTIONS_H
-#define MESH_REMESH_OPTIONS_H
+#ifndef CAESAR_MESH_REMESH_OPTIONS_H
+#define CAESAR_MESH_REMESH_OPTIONS_H
 
 #include "mesh_remesh_method.h"
 
 #include <iostream>
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -294,4 +297,6 @@ public:
 
 }
 
-#endif // !MESH_REMESH_OPTIONS_H
+}
+
+#endif // !CAESAR_MESH_REMESH_OPTIONS_H

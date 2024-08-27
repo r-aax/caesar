@@ -7,6 +7,9 @@
 
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace utils
 {
 
@@ -168,5 +171,7 @@ Time::get_seconds_from_timestamp(const string& s)
 }
 
 /// @}
+
+}
 
 }

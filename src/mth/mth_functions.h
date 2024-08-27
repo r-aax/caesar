@@ -3,8 +3,11 @@
 ///
 /// Declaration of work with functions.
 
-#ifndef MTH_FUNCTIONS_H
-#define MTH_FUNCTIONS_H
+#ifndef CAESAR_MTH_FUNCTIONS_H
+#define CAESAR_MTH_FUNCTIONS_H
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -20,4 +23,6 @@ typedef double (*Function1D)(double,
 
 }
 
-#endif // !MTH_FUNCTIONS_H
+}
+
+#endif // !CAESAR_MTH_FUNCTIONS_H

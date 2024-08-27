@@ -9,6 +9,9 @@
 #include "utils/utils.h"
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -263,5 +266,7 @@ Vertex::remove_edge(Edge* e)
 }
 
 /// @}
+
+}
 
 }

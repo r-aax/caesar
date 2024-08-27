@@ -5,6 +5,9 @@
 
 #include "mth_segment_function.h"
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -162,5 +165,7 @@ SegmentFunction::move_bounds(const pair<double, double>& p)
 }
 
 /// @}
+
+}
 
 }

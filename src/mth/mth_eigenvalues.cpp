@@ -14,6 +14,9 @@
 
 #include "utils/utils.h"
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -98,5 +101,7 @@ calc_eigenvalues_and_eigenvectors(const vector<vector<double>>& m,
 }
 
 /// @}
+
+}
 
 }

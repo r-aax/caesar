@@ -3,8 +3,8 @@
 ///
 /// MPI wrapper functions declaration.
 
-#ifndef PARL_MPI_H
-#define PARL_MPI_H
+#ifndef CAESAR_PARL_MPI_H
+#define CAESAR_PARL_MPI_H
 
 #include "utils/utils.h"
 
@@ -14,6 +14,9 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #include "mpi.h"
 #pragma GCC diagnostic pop
+
+namespace caesar
+{
 
 namespace parl
 {
@@ -96,4 +99,6 @@ mpi_reduce_sum(vector<double>& out_data,
 
 }
 
-#endif // !PARL_MPI_H
+}
+
+#endif // !CAESAR_PARL_MPI_H

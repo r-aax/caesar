@@ -3,10 +3,13 @@
 ///
 /// Declaration of graph edge.
 
-#ifndef GRAPH_EDGE_H
-#define GRAPH_EDGE_H
+#ifndef CAESAR_GRAPH_EDGE_H
+#define CAESAR_GRAPH_EDGE_H
 
 #include "graph_vertex.h"
+
+namespace caesar
+{
 
 namespace graph
 {
@@ -216,4 +219,6 @@ public:
 
 }
 
-#endif // !GRAPH_EDGE_H
+}
+
+#endif // !CAESAR_GRAPH_EDGE_H

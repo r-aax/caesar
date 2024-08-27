@@ -8,6 +8,9 @@
 #include <iostream>
 #include <fstream>
 
+namespace caesar
+{
+
 namespace geom
 {
 
@@ -101,5 +104,7 @@ PointsCloud::get(const Vector& p) const
 }
 
 /// @}
+
+}
 
 }

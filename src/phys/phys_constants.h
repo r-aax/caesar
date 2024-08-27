@@ -3,8 +3,8 @@
 ///
 /// Physical constants.
 
-#ifndef PHYS_CONSTANTS_H
-#define PHYS_CONSTANTS_H
+#ifndef CAESAR_PHYS_CONSTANTS_H
+#define CAESAR_PHYS_CONSTANTS_H
 
 /// \addtogroup phys
 /// @{
@@ -16,6 +16,9 @@
 #define PHYS_USE_INTERPOLATION_FUNCTIONS 2
 
 /// @}
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -61,4 +64,6 @@ const double WaterSurfaceTensionCoefficient = 0.0756;
 
 }
 
-#endif // !PHYS_CONSTANTS_H
+}
+
+#endif // !CAESAR_PHYS_CONSTANTS_H

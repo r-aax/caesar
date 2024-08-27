@@ -4,10 +4,13 @@
 /// Declaration of bits manipulation functions
 /// bit manipulation functions work with unsigned int type.
 
-#ifndef MTH_BITS_H
-#define MTH_BITS_H
+#ifndef CAESAR_MTH_BITS_H
+#define CAESAR_MTH_BITS_H
 
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -27,4 +30,6 @@ least_bit_1(uint32_t x);
 
 }
 
-#endif // !MTH_BITS_H
+}
+
+#endif // !CAESAR_MTH_BITS_H

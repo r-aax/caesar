@@ -3,8 +3,11 @@
 ///
 /// Viscosity functions.
 
-#ifndef PHYS_VISCOSITY_H
-#define PHYS_VISCOSITY_H
+#ifndef CAESAR_PHYS_VISCOSITY_H
+#define CAESAR_PHYS_VISCOSITY_H
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -24,4 +27,6 @@ air_dynamic_viscosity(double t);
 
 }
 
-#endif // !PHYS_VISCOSITY_H
+}
+
+#endif // !CAESAR_PHYS_VISCOSITY_H

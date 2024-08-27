@@ -3,10 +3,10 @@
 ///
 /// Graph module include file.
 
-#ifndef GRAPH_H
-#define GRAPH_H
+#ifndef CAESAR_GRAPH_H
+#define CAESAR_GRAPH_H
 
 #include "graph_graph.h"
 #include "graph_factory.h"
 
-#endif // !GRAPH_H
+#endif // !CAESAR_GRAPH_H

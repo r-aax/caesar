@@ -3,8 +3,8 @@
 ///
 /// Points cloud declaration.
 
-#ifndef GEOM_POINTS_CLOUD_H
-#define GEOM_POINTS_CLOUD_H
+#ifndef CAESAR_GEOM_POINTS_CLOUD_H
+#define CAESAR_GEOM_POINTS_CLOUD_H
 
 #include <vector>
 #include <string>
@@ -12,6 +12,9 @@
 #include "geom_vector.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace geom
 {
@@ -52,4 +55,6 @@ public:
 
 }
 
-#endif // !GEOM_POINTS_CLOUD_H
+}
+
+#endif // !CAESAR_GEOM_POINTS_CLOUD_H

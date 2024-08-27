@@ -3,10 +3,13 @@
 ///
 /// Prismatoid functions.
 
-#ifndef GEOM_PRISMATOID_H
-#define GEOM_PRISMATOID_H
+#ifndef CAESAR_GEOM_PRISMATOID_H
+#define CAESAR_GEOM_PRISMATOID_H
 
 #include "geom_vector.h"
+
+namespace caesar
+{
 
 namespace geom
 {
@@ -31,4 +34,6 @@ prismatoid_volume_coefficients(const Vector& v1,
 
 }
 
-#endif // !GEOM_PRISMATOID_H
+}
+
+#endif // !CAESAR_GEOM_PRISMATOID_H

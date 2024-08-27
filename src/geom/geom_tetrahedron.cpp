@@ -5,6 +5,9 @@
 
 #include "geom_tetrahedron.h"
 
+namespace caesar
+{
+
 namespace geom
 {
 
@@ -39,5 +42,7 @@ tetrahedron_volume(const Vector& a,
 }
 
 /// @}
+
+}
 
 }

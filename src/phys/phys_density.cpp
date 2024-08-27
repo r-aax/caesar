@@ -8,6 +8,9 @@
 #include "phys_constants.h"
 #include "phys_temperature.h"
 
+namespace caesar
+{
+
 namespace phys
 {
 
@@ -39,5 +42,7 @@ rho_a(double t,
 }
 
 /// @}
+
+}
 
 }

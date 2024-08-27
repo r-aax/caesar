@@ -3,10 +3,13 @@
 ///
 /// Class for holding vector of buffers.
 
-#ifndef PARL_BUFFERS_H
-#define PARL_BUFFERS_H
+#ifndef CAESAR_PARL_BUFFERS_H
+#define CAESAR_PARL_BUFFERS_H
 
 #include "parl_buffer.h"
+
+namespace caesar
+{
 
 namespace parl
 {
@@ -84,4 +87,6 @@ public:
 
 }
 
-#endif // !PARL_BUFFERS_H
+}
+
+#endif // !CAESAR_PARL_BUFFERS_H

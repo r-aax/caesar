@@ -12,6 +12,9 @@
 #include "utils/utils.h"
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -740,5 +743,7 @@ Remesher::remesh(Mesh& mesh,
 }
 
 /// @}
+
+}
 
 }

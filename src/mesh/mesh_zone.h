@@ -3,13 +3,16 @@
 ///
 /// Mesh zone declaration.
 
-#ifndef MESH_ZONE_H
-#define MESH_ZONE_H
+#ifndef CAESAR_MESH_ZONE_H
+#define CAESAR_MESH_ZONE_H
 
 #include "utils/utils.h"
 #include "mesh_node.h"
 #include "mesh_edge.h"
 #include "mesh_cell.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -96,4 +99,6 @@ private:
 
 }
 
-#endif // MESH_ZONE_H
+}
+
+#endif // !CAESAR_MESH_ZONE_H

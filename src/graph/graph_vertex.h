@@ -3,8 +3,8 @@
 ///
 /// Declaration of graph vertex.
 
-#ifndef GRAPH_VERTEX_H
-#define GRAPH_VERTEX_H
+#ifndef CAESAR_GRAPH_VERTEX_H
+#define CAESAR_GRAPH_VERTEX_H
 
 #include <iostream>
 #include <vector>
@@ -12,6 +12,9 @@
 #include "utils/utils.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace graph
 {
@@ -222,4 +225,6 @@ public:
 
 }
 
-#endif // !GRAPH_VERTEX_H
+}
+
+#endif // !CAESAR_GRAPH_VERTEX_H

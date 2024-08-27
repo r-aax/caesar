@@ -5,6 +5,9 @@
 
 #include "mesh_zone.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -54,5 +57,7 @@ Zone::print_info(ostream& s)
 }
 
 /// @}
+
+}
 
 }

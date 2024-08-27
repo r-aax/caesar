@@ -3,10 +3,13 @@
 ///
 /// Cell data elements enumeration.
 
-#ifndef MESH_CELL_DATA_ELEMENT_H
-#define MESH_CELL_DATA_ELEMENT_H
+#ifndef CAESAR_MESH_CELL_DATA_ELEMENT_H
+#define CAESAR_MESH_CELL_DATA_ELEMENT_H
 
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -61,4 +64,6 @@ extern utils::Mapper<CellDataElement> CellDataElementMapper;
 
 }
 
-#endif // !MESH_CELL_DATA_ELEMENT_H
+}
+
+#endif // !CAESAR_MESH_CELL_DATA_ELEMENT_H

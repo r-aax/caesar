@@ -8,6 +8,9 @@
 #include "diag/diag.h"
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace utils
 {
 
@@ -93,5 +96,7 @@ Colorable::first_free_color() const
 }
 
 /// @}
+
+}
 
 }

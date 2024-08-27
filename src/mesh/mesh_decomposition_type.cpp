@@ -3,6 +3,9 @@
 
 #include "mesh_decomposition_type.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -17,5 +20,7 @@ utils::Mapper<DecompositionType> MeshDecompositionTypeMapper
 };
 
 /// @}
+
+}
 
 }

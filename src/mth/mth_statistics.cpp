@@ -5,6 +5,9 @@
 
 #include <numeric>
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -42,5 +45,7 @@ mean(const vector<double>& v)
 }
 
 /// @}
+
+}
 
 }

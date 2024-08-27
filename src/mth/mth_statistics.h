@@ -1,10 +1,15 @@
 /// \file
 /// \brief Statistics functions declarations.
+///
+/// Statistics functions declarations.
 
-#ifndef MTH_STATISTICS_H
-#define MTH_STATISTICS_H
+#ifndef CAESAR_MTH_STATISTICS_H
+#define CAESAR_MTH_STATISTICS_H
 
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -24,4 +29,6 @@ mean(const vector<double>& v);
 
 }
 
-#endif // !MTH_STATISTICS_H
+}
+
+#endif // !CAESAR_MTH_STATISTICS_H

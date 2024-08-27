@@ -3,11 +3,14 @@
 ///
 /// Buffer for interprocess communications.
 
-#ifndef PARL_BUFFER_H
-#define PARL_BUFFER_H
+#ifndef CAESAR_PARL_BUFFER_H
+#define CAESAR_PARL_BUFFER_H
 
 #include "parl_mpi.h"
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace parl
 {
@@ -153,4 +156,6 @@ public:
 
 }
 
-#endif // !PARL_BUFFER_H
+}
+
+#endif // !CAESAR_PARL_BUFFER_H

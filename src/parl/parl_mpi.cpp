@@ -5,6 +5,9 @@
 
 #include "parl_mpi.h"
 
+namespace caesar
+{
+
 namespace parl
 {
 
@@ -179,5 +182,7 @@ mpi_reduce_sum(vector<double>& out_data,
 }
 
 /// @}
+
+}
 
 }

@@ -4,7 +4,11 @@
 /// Implementation of mesh edges colorizer.
 
 #include "mesh_edges_colorizer.h"
+
 #include "graph/graph.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -68,5 +72,7 @@ EdgesColorizer::colorize_edges(Mesh& mesh)
 }
 
 /// @}
+
+}
 
 }

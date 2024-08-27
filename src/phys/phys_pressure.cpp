@@ -5,6 +5,9 @@
 
 #include "phys_pressure.h"
 
+namespace caesar
+{
+
 namespace phys
 {
 
@@ -34,5 +37,7 @@ water_vapor_pressure(double t)
 }
 
 /// @}
+
+}
 
 }

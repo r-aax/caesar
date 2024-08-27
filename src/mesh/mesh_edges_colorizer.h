@@ -3,10 +3,13 @@
 ///
 /// Mesh edges colorizer initialization.
 
-#ifndef MESH_EDGES_COLORIZER_H
-#define MESH_EDGES_COLORIZER_H
+#ifndef CAESAR_MESH_EDGES_COLORIZER_H
+#define CAESAR_MESH_EDGES_COLORIZER_H
 
 #include "mesh_mesh.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -29,4 +32,6 @@ public:
 
 }
 
-#endif // !MESH_EDGES_COLORIZER_H
+}
+
+#endif // !CAESAR_MESH_EDGES_COLORIZER_H

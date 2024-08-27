@@ -4,10 +4,13 @@
 /// All to all exchanger declaration.
 /// All to all exchanger - class for vector of buffers.
 
-#ifndef PARL_ALL_TO_ALL_EXCHANGER_H
-#define PARL_ALL_TO_ALL_EXCHANGER_H
+#ifndef CAESAR_PARL_ALL_TO_ALL_EXCHANGER_H
+#define CAESAR_PARL_ALL_TO_ALL_EXCHANGER_H
 
 #include "parl_buffers.h"
+
+namespace caesar
+{
 
 namespace parl
 {
@@ -61,4 +64,6 @@ public:
 
 }
 
-#endif // !PARL_ALL_TO_ALL_EXCHANGER_H
+}
+
+#endif // !CAESAR_PARL_ALL_TO_ALL_EXCHANGER_H

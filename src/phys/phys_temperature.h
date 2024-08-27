@@ -3,8 +3,11 @@
 ///
 /// Temperature functions.
 
-#ifndef PHYS_TEMPERATURE_H
-#define PHYS_TEMPERATURE_H
+#ifndef CAESAR_PHYS_TEMPERATURE_H
+#define CAESAR_PHYS_TEMPERATURE_H
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -27,4 +30,6 @@ kelvin_to_celsius(double tk);
 
 }
 
-#endif // !PHYS_TEMPERATURE_H
+}
+
+#endif // !CAESAR_PHYS_TEMPERATURE_H

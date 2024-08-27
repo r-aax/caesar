@@ -3,9 +3,9 @@
 ///
 /// Interface for some tools.
 
-#ifndef TOOLS_H
-#define TOOLS_H
+#ifndef CAESAR_TOOLS_H
+#define CAESAR_TOOLS_H
 
 #include "tools_python_generator.h"
 
-#endif // !TOOLS_H
+#endif // !CAESAR_TOOLS_H

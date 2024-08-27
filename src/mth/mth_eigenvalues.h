@@ -3,12 +3,15 @@
 ///
 /// Eigenvalues calculation.
 
-#ifndef MTH_EIGENVALUES_H
-#define MTH_EIGENVALUES_H
+#ifndef CAESAR_MTH_EIGENVALUES_H
+#define CAESAR_MTH_EIGENVALUES_H
 
 #include <vector>
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -26,4 +29,6 @@ calc_eigenvalues_and_eigenvectors(const vector<vector<double>>& m,
 
 }
 
-#endif // !MTH_EIGENVALUES_H
+}
+
+#endif // !CAESAR_MTH_EIGENVALUES_H

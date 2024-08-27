@@ -3,13 +3,16 @@
 ///
 /// Class for generating code for python.
 
-#ifndef TOOLS_PYTHON_GENERATOR_H
-#define TOOLS_PYTHON_GENERATOR_H
+#ifndef CAESAR_TOOLS_PYTHON_GENERATOR_H
+#define CAESAR_TOOLS_PYTHON_GENERATOR_H
 
 #include <iostream>
 #include <vector>
 
 #include "graph/graph.h"
+
+namespace caesar
+{
 
 namespace tools
 {
@@ -57,4 +60,6 @@ public:
 
 }
 
-#endif // !TOOLS_PYTHON_GENERATOR_H
+}
+
+#endif // !CAESAR_TOOLS_PYTHON_GENERATOR_H

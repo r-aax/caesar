@@ -3,12 +3,15 @@
 ///
 /// Diagnostic functions and macroses.
 
-#ifndef DIAG_H
-#define DIAG_H
+#ifndef CAESAR_DIAG_H
+#define CAESAR_DIAG_H
 
 #include <string>
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace diag
 {
@@ -146,4 +149,6 @@ raise_error(const string& s,
 
 }
 
-#endif // !DIAG_H
+}
+
+#endif // !CAESAR_DIAG_H

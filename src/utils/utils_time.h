@@ -3,12 +3,15 @@
 ///
 /// Work with time in seconds and microseconds.
 
-#ifndef UTILS_TIME_H
-#define UTILS_TIME_H
+#ifndef CAESAR_UTILS_TIME_H
+#define CAESAR_UTILS_TIME_H
 
 #include <string>
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -84,4 +87,6 @@ public:
 
 }
 
-#endif // UTILS_TIME_H
+}
+
+#endif // !CAESAR_UTILS_TIME_H

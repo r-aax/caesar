@@ -3,7 +3,7 @@
 ///
 /// Main module.
 
-#include "graph/graph.h"
+#include "caesar.h"
 
 /// \brief Main function.
 ///
@@ -20,7 +20,7 @@ main(int argc, char** argv)
     (void)argc;
     (void)argv;
 
-    graph::Graph* g = graph::GraphFactory::create_cube_graph();
+    caesar::graph::Graph* g = caesar::graph::GraphFactory::create_cube_graph();
 
     g->edges_coloring_for_cubic_graph_with_bicolor_cycles_algorithm();
     g->print_info();

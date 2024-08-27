@@ -3,8 +3,8 @@
 ///
 /// Physical interface file.
 
-#ifndef PHYS_H
-#define PHYS_H
+#ifndef CAESAR_PHYS_H
+#define CAESAR_PHYS_H
 
 #include "phys_constants.h"
 #include "phys_density.h"
@@ -14,4 +14,4 @@
 #include "phys_temperature.h"
 #include "phys_viscosity.h"
 
-#endif // !PHYS_H
+#endif // !CAESAR_PHYS_H

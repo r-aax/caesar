@@ -5,6 +5,9 @@
 
 #include "utils_system.h"
 
+namespace caesar
+{
+
 namespace utils
 {
 
@@ -35,5 +38,7 @@ double_hash(double x)
 }
 
 /// @}
+
+}
 
 }

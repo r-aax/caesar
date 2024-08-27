@@ -4,7 +4,9 @@
 /// Tests for nonlinear equations solver.
 
 #include <catch2/catch_test_macros.hpp>
-#include "mth/mth.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 /// \brief Linear function.
 ///

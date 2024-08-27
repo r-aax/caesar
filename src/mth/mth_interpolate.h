@@ -3,10 +3,13 @@
 ///
 /// Work with function, interpolation, extrapolation, additional definition and etc.
 
-#ifndef MTH_INTERPOLATE_H
-#define MTH_INTERPOLATE_H
+#ifndef CAESAR_MTH_INTERPOLATE_H
+#define CAESAR_MTH_INTERPOLATE_H
 
 #include <utils/utils.h>
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -50,4 +53,6 @@ linear_interpolation(const vector<double>& xs,
 
 }
 
-#endif // !MTH_INTERPOLATE_H
+}
+
+#endif // !CAESAR_MTH_INTERPOLATE_H

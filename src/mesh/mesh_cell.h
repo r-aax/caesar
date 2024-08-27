@@ -3,14 +3,17 @@
 ///
 /// Mesh cell declaration.
 
-#ifndef MESH_CELL_H
-#define MESH_CELL_H
+#ifndef CAESAR_MESH_CELL_H
+#define CAESAR_MESH_CELL_H
 
 #include "mesh_cell_data_element.h"
 #include "mesh_edge.h"
 #include "geom/geom.h"
 #include "phys/phys.h"
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -414,4 +417,6 @@ public:
 
 }
 
-#endif // !MESH_CELL_H
+}
+
+#endif // !CAESAR_MESH_CELL_H

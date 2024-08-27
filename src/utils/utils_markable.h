@@ -3,8 +3,11 @@
 ///
 /// Markable object.
 
-#ifndef UTILS_MARKABLE_H
-#define UTILS_MARKABLE_H
+#ifndef CAESAR_UTILS_MARKABLE_H
+#define CAESAR_UTILS_MARKABLE_H
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -59,4 +62,6 @@ public:
 
 }
 
-#endif // UTILS_MARKABLE_H
+}
+
+#endif // !CAESAR_UTILS_MARKABLE_H

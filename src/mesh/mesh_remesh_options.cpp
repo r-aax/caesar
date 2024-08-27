@@ -5,6 +5,9 @@
 
 #include "mesh_remesh_options.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -76,5 +79,7 @@ operator<<(ostream& os,
 }
 
 /// @}
+
+}
 
 }

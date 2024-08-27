@@ -8,6 +8,9 @@
 #include "graph_cubic_graph_reduce_history.h"
 #include "mth/mth.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -1346,5 +1349,7 @@ Graph::is_edges_coloring_correct() const
 }
 
 /// @}
+
+}
 
 }

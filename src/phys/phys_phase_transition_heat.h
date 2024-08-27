@@ -3,8 +3,11 @@
 ///
 /// Heat transition phases functions.
 
-#ifndef PHYS_PHASE_TRANSITION_HEAT_H
-#define PHYS_PHASE_TRANSITION_HEAT_H
+#ifndef CAESAR_PHYS_PHASE_TRANSITION_HEAT_H
+#define CAESAR_PHYS_PHASE_TRANSITION_HEAT_H
+
+namespace caesar
+{
 
 namespace phys
 {
@@ -33,4 +36,6 @@ l_su(double t);
 
 }
 
-#endif // !PHYS_PHASE_TRANSITION_HEAT_H
+}
+
+#endif // !CAESAR_PHYS_PHASE_TRANSITION_HEAT_H

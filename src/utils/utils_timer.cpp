@@ -6,7 +6,10 @@
 #include "utils_timer.h"
 
 #include <omp.h>
- 
+
+namespace caesar
+{
+
 namespace utils
 {
 
@@ -85,5 +88,7 @@ Timer::get() const
 }
 
 ///@}
+
+}
 
 }

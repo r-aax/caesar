@@ -3,10 +3,13 @@
 ///
 /// Tetrahedron declaration.
 
-#ifndef GEOM_TETRAHEDRON_H
-#define GEOM_TETRAHEDRON_H
+#ifndef CAESAR_GEOM_TETRAHEDRON_H
+#define CAESAR_GEOM_TETRAHEDRON_H
 
 #include "geom_vector.h"
+
+namespace caesar
+{
 
 namespace geom
 {
@@ -25,4 +28,6 @@ tetrahedron_volume(const Vector& a,
 
 }
 
-#endif // !GEOM_TETRAHEDRON_H
+}
+
+#endif // !CAESAR_GEOM_TETRAHEDRON_H

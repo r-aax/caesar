@@ -3,10 +3,13 @@
 ///
 /// Data holder implementation.
 
-#ifndef UTILS_DATA_HOLDER_H
-#define UTILS_DATA_HOLDER_H
+#ifndef CAESAR_UTILS_DATA_HOLDER_H
+#define CAESAR_UTILS_DATA_HOLDER_H
 
 #include "diag/diag.h"
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -127,4 +130,6 @@ public:
 
 }
 
-#endif // !UTILS_DATA_HOLDER_H
+}
+
+#endif // !CAESAR_UTILS_DATA_HOLDER_H

@@ -4,7 +4,9 @@
 /// Tests for mathematical functions for bits manipulations.
 
 #include <catch2/catch_test_macros.hpp>
-#include "mth/mth_bits.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Bits : bits manipulation functions", "[mth]")
 {

@@ -5,6 +5,9 @@
 
 #include "graph_factory.h"
 
+namespace caesar
+{
+
 namespace graph
 {
 
@@ -122,5 +125,7 @@ GraphFactory::create_prism_graph(size_t half_size)
 }
 
 /// @}
+
+}
 
 }

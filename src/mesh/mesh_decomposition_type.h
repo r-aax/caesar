@@ -3,10 +3,13 @@
 ///
 /// Declaration of mesh decomposition type.
 
-#ifndef MESH_DECOMPOSITION_TYPE_H
-#define MESH_DECOMPOSITION_TYPE_H
+#ifndef CAESAR_MESH_DECOMPOSITION_TYPE_H
+#define CAESAR_MESH_DECOMPOSITION_TYPE_H
 
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -40,4 +43,6 @@ extern utils::Mapper<DecompositionType> MeshDecompositionTypeMapper;
 
 }
 
-#endif // !MESH_DECOMPOSITION_TYPE_H
+}
+
+#endif // !CAESAR_MESH_DECOMPOSITION_TYPE_H

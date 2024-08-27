@@ -3,14 +3,17 @@
 ///
 /// Time line.
 
-#ifndef UTILS_TIME_LINE_H
-#define UTILS_TIME_LINE_H
+#ifndef CAESAR_UTILS_TIME_LINE_H
+#define CAESAR_UTILS_TIME_LINE_H
 
 #include <string>
 
 #include "utils_time.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -107,4 +110,6 @@ public:
 
 }
 
-#endif // UTILS_TIME_LINE_H
+}
+
+#endif // !CAESAR_UTILS_TIME_LINE_H

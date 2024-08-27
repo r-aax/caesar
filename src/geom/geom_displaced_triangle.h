@@ -3,10 +3,13 @@
 ///
 /// Displaced triangle declaration.
 
-#ifndef GEOM_DISPLACED_TRIANGLE_H
-#define GEOM_DISPLACED_TRIANGLE_H
+#ifndef CAESAR_GEOM_DISPLACED_TRIANGLE_H
+#define CAESAR_GEOM_DISPLACED_TRIANGLE_H
 
 #include "geom_vector.h"
+
+namespace caesar
+{
 
 namespace geom
 {
@@ -27,4 +30,6 @@ displaced_triangle_volume(const Vector& a,
 
 }
 
-#endif // !GEOM_DISPLACED_TRIANGLE_H
+}
+
+#endif // !CAESAR_GEOM_DISPLACED_TRIANGLE_H

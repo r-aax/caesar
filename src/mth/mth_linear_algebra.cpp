@@ -13,6 +13,9 @@
 
 using namespace std;
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -242,5 +245,7 @@ find_matrix_3x3_real_eigenvalues(const vector<vector<double>>& m,
 }
 
 /// @}
+
+}
 
 }

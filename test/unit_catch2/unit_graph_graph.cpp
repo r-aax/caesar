@@ -4,7 +4,9 @@
 /// Graph tests.
 
 #include <catch2/catch_test_macros.hpp>
-#include "graph/graph.h"
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Graph : undirected graphs", "[graph]")
 {

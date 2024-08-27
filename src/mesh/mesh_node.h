@@ -3,8 +3,8 @@
 ///
 /// Mesh node declaration.
 
-#ifndef MESH_NODE_H
-#define MESH_NODE_H
+#ifndef CAESAR_MESH_NODE_H
+#define CAESAR_MESH_NODE_H
 
 #include <vector>
 #include <iostream>
@@ -16,6 +16,9 @@
 #include "utils/utils.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -298,4 +301,6 @@ public:
 
 }
 
-#endif // MESH_NODE_H
+}
+
+#endif // !CAESAR_MESH_NODE_H

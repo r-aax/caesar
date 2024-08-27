@@ -3,8 +3,8 @@
 ///
 /// Declaration of graph.
 
-#ifndef GRAPH_GRAPH_H
-#define GRAPH_GRAPH_H
+#ifndef CAESAR_GRAPH_GRAPH_H
+#define CAESAR_GRAPH_GRAPH_H
 
 #include <iostream>
 
@@ -15,6 +15,9 @@
 #include "graph_bicolor_cycle.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace graph
 {
@@ -511,5 +514,6 @@ public:
 
 }
 
-#endif // !GRAPH_GRAPH_H
+}
 
+#endif // !CAESAR_GRAPH_GRAPH_H

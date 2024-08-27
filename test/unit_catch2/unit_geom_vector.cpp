@@ -4,9 +4,9 @@
 /// Tests for vectors.
 
 #include <catch2/catch_test_macros.hpp>
-#include "geom/geom_vector.h"
-#include "mth/mth.h"
-#include <cmath>
+#include "caesar.h"
+
+using namespace caesar;
 
 TEST_CASE("Vector : 3D vector", "[geom]")
 {

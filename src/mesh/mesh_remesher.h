@@ -3,12 +3,15 @@
 ///
 /// Remesher declaration.
 
-#ifndef MESH_REMESHER_H
-#define MESH_REMESHER_H
+#ifndef CAESAR_MESH_REMESHER_H
+#define CAESAR_MESH_REMESHER_H
 
 #include "mesh_mesh.h"
 #include "mesh_remesh_method.h"
 #include "mesh_remesh_options.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -122,4 +125,6 @@ public:
 
 }
 
-#endif // !MESH_REMESHER_H
+}
+
+#endif // !CAESAR_MESH_REMESHER_H

@@ -3,8 +3,8 @@
 ///
 /// Mapper for hold coherency between strings and enums.
 
-#ifndef UTILS_MAPPER_H
-#define UTILS_MAPPER_H
+#ifndef CAESAR_UTILS_MAPPER_H
+#define CAESAR_UTILS_MAPPER_H
 
 #include <vector>
 #include <map>
@@ -13,6 +13,9 @@
 #include "diag/diag.h"
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -165,4 +168,6 @@ public:
 
 }
 
-#endif // !UTILS_MAPPER_H
+}
+
+#endif // !CAESAR_UTILS_MAPPER_H

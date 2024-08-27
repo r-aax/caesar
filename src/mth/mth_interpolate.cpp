@@ -8,6 +8,9 @@
 #include "mth_basics.h"
 #include "diag/diag.h"
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -145,5 +148,7 @@ linear_interpolation(const vector<double>& xs,
 }
 
 /// @}
+
+}
 
 }

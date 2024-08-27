@@ -7,6 +7,9 @@
 
 #include "utils/utils.h"
 
+namespace caesar
+{
+
 namespace mesh
 {
 
@@ -443,5 +446,7 @@ Mesh::restore_nodes_point()
 }
 
 /// @}
+
+}
 
 }

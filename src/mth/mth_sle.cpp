@@ -11,6 +11,9 @@
 
 using namespace std;
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -115,5 +118,7 @@ solve_tridiagonal_system(int n,
 }
 
 /// @}
+
+}
 
 }

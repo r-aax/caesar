@@ -5,6 +5,9 @@
 
 #include "parl_buffer.h"
 
+namespace caesar
+{
+
 namespace parl
 {
 
@@ -171,5 +174,7 @@ Buffer::reduce_sum()
 }
 
 /// @}
+
+}
 
 }

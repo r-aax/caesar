@@ -4,7 +4,11 @@
 /// Boundary between domains implementation.
 
 #include "mesh_boundary.h"
+
 #include "parl/parl.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -82,5 +86,7 @@ Boundary::print_all(ostream& os)
 }
 
 /// @}
+
+}
 
 }

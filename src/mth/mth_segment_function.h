@@ -3,12 +3,15 @@
 ///
 /// Function on segment.
 
-#ifndef MTH_SEGMENT_FUNCTION_H
-#define MTH_SEGMENT_FUNCTION_H
+#ifndef CAESAR_MTH_SEGMENT_FUNCTION_H
+#define CAESAR_MTH_SEGMENT_FUNCTION_H
 
 #include "utils/utils.h"
 #include "mth_functions.h"
 #include "mth_basics.h"
+
+namespace caesar
+{
 
 namespace mth
 {
@@ -151,4 +154,6 @@ public:
 
 }
 
-#endif // !MTH_SEGMENT_FUNCTION_H
+}
+
+#endif // !CAESAR_MTH_SEGMENT_FUNCTION_H

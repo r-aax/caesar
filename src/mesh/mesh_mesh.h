@@ -3,12 +3,15 @@
 ///
 /// Declaration of unstructured surface mesh.
 
-#ifndef MESH_MESH_H
-#define MESH_MESH_H
+#ifndef CAESAR_MESH_MESH_H
+#define CAESAR_MESH_MESH_H
 
 #include "utils/utils.h"
 #include "mesh_zone.h"
 #include "mesh_boundaries.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -559,4 +562,6 @@ public:
 
 }
 
-#endif // MESH_MESH_H
+}
+
+#endif // !CAESAR_MESH_MESH_H

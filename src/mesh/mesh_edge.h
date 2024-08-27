@@ -3,11 +3,14 @@
 ///
 /// Mesh edge declaration.
 
-#ifndef MESH_EDGE_H
-#define MESH_EDGE_H
+#ifndef CAESAR_MESH_EDGE_H
+#define CAESAR_MESH_EDGE_H
 
 #include "mesh_node.h"
 #include "utils/utils.h"
+
+namespace caesar
+{
 
 namespace mesh
 {
@@ -245,4 +248,6 @@ public:
 
 }
 
-#endif // MESH_EDGE_H
+}
+
+#endif // !CAESAR_MESH_EDGE_H

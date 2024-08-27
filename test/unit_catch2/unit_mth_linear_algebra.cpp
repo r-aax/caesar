@@ -4,11 +4,9 @@
 /// Tests for linear algebra.
 
 #include <catch2/catch_test_macros.hpp>
-#include "mth/mth_linear_algebra.h"
+#include "caesar.h"
 
-#include "mth/mth_basics.h"
-
-#include <iostream>
+using namespace caesar;
 
 TEST_CASE("Eigenvalues and eigenvectors", "[mth]")
 {

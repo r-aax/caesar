@@ -6,10 +6,13 @@
 /// - trivial graph,
 /// - full graph.
 
-#ifndef GRAPH_GRAPH_FACTORY_H
-#define GRAPH_GRAPH_FACTORY_H
+#ifndef CAESAR_GRAPH_GRAPH_FACTORY_H
+#define CAESAR_GRAPH_GRAPH_FACTORY_H
 
 #include "graph.h"
+
+namespace caesar
+{
 
 namespace graph
 {
@@ -86,4 +89,6 @@ public:
 
 }
 
-#endif // !GRAPH_GRAPH_FACTORY_H
+}
+
+#endif // !CAESAR_GRAPH_GRAPH_FACTORY_H

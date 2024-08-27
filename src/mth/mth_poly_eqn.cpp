@@ -13,6 +13,9 @@
 
 using namespace std;
 
+namespace caesar
+{
+
 namespace mth
 {
 
@@ -231,5 +234,7 @@ directed_nearest_root(double x,
 }
 
 /// @}
+
+}
 
 }

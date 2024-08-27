@@ -5,6 +5,9 @@
 
 #include "parl_buffers.h"
 
+namespace caesar
+{
+
 namespace parl
 {
 
@@ -67,5 +70,7 @@ Buffers::print_all(ostream& os)
 }
 
 /// @}
+
+}
 
 }

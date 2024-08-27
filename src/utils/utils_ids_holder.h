@@ -3,12 +3,15 @@
 ///
 /// Object with id and loc_id.
 
-#ifndef UTILS_IDS_HOLDER_H
-#define UTILS_IDS_HOLDER_H
+#ifndef CAESAR_UTILS_IDS_HOLDER_H
+#define CAESAR_UTILS_IDS_HOLDER_H
 
 #include <string>
 
 using namespace std;
+
+namespace caesar
+{
 
 namespace utils
 {
@@ -104,4 +107,6 @@ public:
 
 }
 
-#endif // !UTILS_ID_HOLDER_H
+}
+
+#endif // !CAESAR_UTILS_ID_HOLDER_H
