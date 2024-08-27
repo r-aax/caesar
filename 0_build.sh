@@ -95,8 +95,4 @@ then
 
     LINES=`find src test -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
     echo "number of lines         = $LINES"
-    CRYS_LINES=`find src/crys -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
-    echo "number of lines in crys = $CRYS_LINES"
-    LIBS_LINES=`find src/libs -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
-    echo "number of lines in libs = $LIBS_LINES"
 fi
