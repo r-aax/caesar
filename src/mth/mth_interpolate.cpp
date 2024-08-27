@@ -4,8 +4,9 @@
 /// Implementation of interpolation, extrapolation, addition definition, etc.
 
 #include "mth_interpolate.h"
+
 #include "mth_basics.h"
-#include "utils/utils_debug.h"
+#include "diag/diag.h"
 
 namespace mth
 {

@@ -1,5 +1,5 @@
 # caesar
 
-packages:
-catch2
-nlohmann-json3-dev
+1. Necessary packages.
+
+`sudo apt install catch2 ` (for unit-tests)

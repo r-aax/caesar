@@ -13,29 +13,30 @@ LINKER = mpicxx
 #-------------------------------------------------------------------------------
 
 # Make options.
-FLAGS = -MMD -MP -std=c++20 -fopenmp \
+FLAGS = -MMD -MP -fopenmp \
         -Werror -pedantic-errors -Wall -Wextra -Wpedantic \
-        -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicated-branches \
-        -Wduplicated-cond -Wextra-semi -Wfloat-equal -Wlogical-op -Wnon-virtual-dtor \
+        -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy \
+        -Wfloat-equal -Wlogical-op -Wnon-virtual-dtor \
         -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo
-FLAGS_F = $(FLAGS) -O3
-FLAGS_D = $(FLAGS) -DDEBUG
-FLAGS_T = $(FLAGS)
-FLAGS_P = $(FLAGS) -pg
+FLAGS_F = $(FLAGS) -std=c++11 -O3
+FLAGS_D = $(FLAGS) -std=c++11 -DDEBUG
+# Catch2 v3 requires c++ 14.
+FLAGS_T = $(FLAGS) -std=c++14
+FLAGS_P = $(FLAGS) -std=c++11 -pg
 
 #-------------------------------------------------------------------------------
 
 # Includes.
-INCLUDES = -I.
+INCLUDES = -Isrc
 
 #-------------------------------------------------------------------------------
 
 # Files.
-SOURCES = $(shell find . -type f -name "*.cpp")
-TESTS_SOURCES = $(shell find ../test/unit_catch2 -type f -name "*.cpp")
+SOURCES = $(shell find src -type f -name "*.cpp")
+TESTS_SOURCES = $(shell find test/unit_catch2 -type f -name "*.cpp")
 SOURCES_F = $(SOURCES)
 SOURCES_D = $(SOURCES)
-SOURCES_T = $(filter-out ./caesar.cpp, $(SOURCES)) $(TESTS_SOURCES)
+SOURCES_T = $(filter-out src/caesar.cpp, $(SOURCES)) $(TESTS_SOURCES)
 SOURCES_P = $(SOURCES)
 
 #-------------------------------------------------------------------------------
@@ -59,7 +60,7 @@ ALL_DEPS = $(DEPS_F) $(DEPS_D) $(DEPS_T) $(DEPS_P)
 #-------------------------------------------------------------------------------
 
 # Libraries.
-LIBS = -lm -lboost_program_options -lboost_filesystem -fopenmp
+LIBS = -lm -fopenmp
 LIBS_F = $(LIBS)
 LIBS_D = $(LIBS)
 LIBS_T = $(LIBS) -lCatch2Main -lCatch2

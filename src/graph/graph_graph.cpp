@@ -4,7 +4,9 @@
 /// Graph implementation.
 
 #include "graph_graph.h"
+
 #include "graph_cubic_graph_reduce_history.h"
+#include "mth/mth.h"
 
 namespace graph
 {
@@ -136,7 +138,7 @@ Graph::get_edge(size_t i) const
 Vertex*
 Graph::get_random_vertex() const
 {
-    return get_vertex(static_cast<size_t>(experimental::randint(0, static_cast<int>(order() - 1))));
+    return get_vertex(static_cast<size_t>(mth::randint(0, static_cast<int>(order() - 1))));
 }
 
 /// \brief Get random edge.
@@ -146,7 +148,7 @@ Graph::get_random_vertex() const
 Edge*
 Graph::get_random_edge() const
 {
-    return get_edge(static_cast<size_t>(experimental::randint(0, static_cast<int>(size() - 1))));
+    return get_edge(static_cast<size_t>(mth::randint(0, static_cast<int>(size() - 1))));
 }
 
 /// \brief Find vertex by id.

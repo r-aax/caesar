@@ -3,6 +3,8 @@
 
 #include "mth_statistics.h"
 
+#include <numeric>
+
 namespace mth
 {
 

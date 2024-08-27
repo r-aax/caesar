@@ -4,7 +4,8 @@
 /// Colorable object implementation.
 
 #include "utils_colorable.h"
-#include "utils_debug.h"
+
+#include "diag/diag.h"
 #include "mth/mth.h"
 
 namespace utils

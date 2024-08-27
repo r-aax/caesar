@@ -6,13 +6,21 @@
 #ifndef UTILS_STRING_H
 #define UTILS_STRING_H
 
-#include "includes.h"
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace utils
 {
 
 /// \addtogroup utils
 /// @{
+
+// Check if string starts with prefix.
+bool
+str_starts_with(const string& s,
+                const string& pre);
 
 // Find word.
 bool

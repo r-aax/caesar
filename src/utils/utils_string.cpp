@@ -11,6 +11,38 @@ namespace utils
 /// \addtogroup utils
 /// @{
 
+/// \brief Check if string starts with prefix.
+///
+/// Check if string s starts with string pre.
+///
+/// \param[in] s   String.
+/// \param[in] pre Prefix.
+///
+/// \return
+/// true - if string s starts with pre,
+/// false - otherwise.
+bool
+str_starts_with(const string& s,
+                const string& pre)
+{
+    auto sn { s.size() }, pren { pre.size() };
+
+    if (pren > sn)
+    {
+        return false;
+    }
+
+    for (size_t i = 0; i < pren; ++i)
+    {
+        if (s[i] != pre[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 /// \brief Find word.
 ///
 /// Find next word (spaces are ignored).

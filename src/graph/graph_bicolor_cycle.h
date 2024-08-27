@@ -6,7 +6,12 @@
 #ifndef GRAPH_BICOLOR_CYCLE_H
 #define GRAPH_BICOLOR_CYCLE_H
 
+#include <vector>
+#include <set>
+
 #include "graph_edge.h"
+
+using namespace std;
 
 namespace graph
 {

@@ -6,7 +6,12 @@
 #ifndef GRAPH_VERTEX_H
 #define GRAPH_VERTEX_H
 
+#include <iostream>
+#include <vector>
+
 #include "utils/utils.h"
+
+using namespace std;
 
 namespace graph
 {

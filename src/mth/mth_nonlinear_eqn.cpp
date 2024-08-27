@@ -5,6 +5,7 @@
 
 #include "mth_nonlinear_eqn.h"
 #include "mth_basics.h"
+#include "tools/tools.h"
 
 namespace mth
 {
@@ -12,12 +13,12 @@ namespace mth
 /// \addtogroup mth
 /// @{
 
-/// \brief Check solver is ready for using.
+/// \brief Check readyness for use.
 ///
-/// Check solver is ready for use.
+/// Check readyness for use.
 ///
 /// \return
-/// true - if solver is ready,
+/// true - if ready for use,
 /// false - otherwise.
 bool
 NonlinearEqn::is_ready() const
@@ -62,7 +63,7 @@ NonlinearEqn::solve(Function1D f,
                     double& root) const
 {
     // Debug checkers.
-    DEBUG_CHECK_ERROR(is_ready(), "solver is not ready for using");
+    DEBUG_CHECK_ERROR(is_ready(), "not ready for solving nonlinear equation");
     DEBUG_CHECK_ERROR(segm[0] <= segm[1], "wrong interval for solving nonlinear equation");
 
     SegmentFunction sf(f, data, segm);

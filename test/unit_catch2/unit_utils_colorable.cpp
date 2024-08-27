@@ -3,10 +3,10 @@
 ///
 /// Colorable object tests.
 
-#include "utils/utils.h"
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include "utils/utils_colorable.h"
 
-TEST_CASE("colorable : object that can be colored", "[utils]")
+TEST_CASE("Colorable : object that can be colored", "[utils]")
 {
     SECTION("check all methods")
     {

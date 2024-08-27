@@ -3,16 +3,17 @@
 ///
 /// Timer tests.
 
-#include "utils/utils.h"
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include "utils/utils_timer.h"
+#include "mth/mth.h"
 
-TEST_CASE("timer : multiple measure the time", "[utils]")
+TEST_CASE("Timer : multiple measure the time", "[utils]")
 {
     SECTION("check all methods")
     {
         utils::Timer t;
 
-        CHECK(t.get() == 0.0);
+        CHECK(mth::is_zero(t.get()));
 
         t.start();
         double a = t.get();

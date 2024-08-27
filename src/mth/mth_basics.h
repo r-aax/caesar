@@ -1,30 +1,38 @@
+/// \file
+/// \brief Mathematical basics.
 ///
-/// @file
-/// @brief Определение математических примитивов.
-///
+/// Basic data and functions for math.
 
 #ifndef MTH_BASICS_H
 #define MTH_BASICS_H
 
-#include "mth_sle.h"
-#include "utils/utils.h"
+// The only place for <cmath> include.
+#include <cmath>
 
-/// @addtogroup mth
+// The only place for <algorithm> include.
+#include <algorithm>
+
+#include <vector>
+#include <utility>
+
+using namespace std;
+
+/// \addtogroup mth
 /// @{
 
-/// @brief Приставка "кило".
+/// \brief Kilo prefix (1000, 10^3).
 #define MTH_KILO 1.0e+3
 
-/// @brief Приставка "мега".
+/// \brief Mega prefix (1000000, 10^6).
 #define MTH_MEGA 1.0e+6
 
-/// @brief Приставка "милли".
+/// \brief Milli prefix (0.001, 10^-3).
 #define MTH_MILLI 1.0e-3
 
-/// @brief Приставка "микро".
+/// \brief Micro prefix (0.000001, 10^-6).
 #define MTH_MICRO 1.0e-6
 
-/// @brief 100 процентов.
+/// \brief One hundred percent.
 #define HUNDRED_PERCENTS 100.0
 
 /// @}
@@ -32,17 +40,42 @@
 namespace mth
 {
 
-/// @addtogroup mth
+/// \addtogroup mth
 /// @{
 
 /// \brief Small value.
-const double Eps { 1.0e-10 };
+const double Eps { 1.0e-12 };
 
 /// \brief Pi.
 const double Pi { 3.14159265358979323846264338328 };
 
 /// \brief Degrees count in one radian.
 const double OneRadianDegrees { 180.0 / Pi };
+
+/// \brief Order.
+enum class Order
+{
+    /// \brief Less than.
+    Lt,
+
+    /// \brief Inside.
+    In = Lt,
+
+    /// \brief Equal.
+    Eq,
+
+    /// \brief On onject.
+    On = Eq,
+
+    /// \brief Greater than.
+    Gt,
+
+    /// \brief Outside.
+    Out = Gt,
+
+    /// \brief Undefined value.
+    Unknown
+};
 
 /// \brief Check if number is even.
 ///
@@ -94,7 +127,7 @@ is_near(double x,
         double y,
         double eps = Eps)
 {
-    return abs(x - y) <= eps;
+    return fabs(x - y) <= eps;
 }
 
 /// \brief Check if two doubles are equal.
@@ -129,38 +162,15 @@ is_zero(double x)
     return is_eq(x, 0.0);
 }
 
-/// @brief Порядок.
-enum class Order
-{
-    /// @brief Значение меньше.
-    Lt,
-
-    /// @brief Значение внутри.
-    In = Lt,
-
-    /// @brief Значение равно.
-    Eq,
-
-    /// @brief Значение на.
-    On = Eq,
-
-    /// @brief Значение больше.
-    Gt,
-
-    /// @brief Значение вне.
-    Out = Gt,
-
-    /// @brief Неизвестное значение.
-    Unknown
-};
-
-/// @brief Знак числа.
+/// \brief Sign.
 ///
-/// @tparam T - Тип числа.
-/// @param [in] x - Число.
+/// Sign of value.
 ///
-/// @return
-/// Знак числа.
+/// \tparam T     Type.
+/// \param [in] x Value.
+///
+/// \return
+/// Sign.
 template<typename T>
 T
 sgn(T x)
@@ -181,13 +191,15 @@ sgn(T x)
     }
 }
 
-/// @brief Куб значения.
+/// \brief Cube.
 ///
-/// @tparam T - Тип значения.
-/// @param [in] x - Значение.
+/// Value in cube.
 ///
-/// @return
-/// Куб значения.
+/// \tparam T     Type.
+/// \param [in] x Value.
+///
+/// \return
+/// Cube value.
 template<typename T>
 T
 cube(T x)
@@ -248,14 +260,16 @@ in_bounds(T x,
     return in_bounds(x, v[0], v[1]);
 }
 
-/// @brief Bringing the value into bounds.
+/// \brief Bringing the value into bounds.
 ///
-/// @tparam T - Type of numbes.
-/// @param [in] x - Number.
-/// @param [in] l - Low bound.
-/// @param [in] h - High bound.
+/// Bring value to bounds.
 ///
-/// @return
+/// \tparam T     Type of numbes.
+/// \param [in] x Number.
+/// \param [in] l Low bound.
+/// \param [in] h High bound.
+///
+/// \return
 /// Number in bounds.
 template<typename T>
 T
@@ -266,7 +280,7 @@ to_bounds(T x,
     return (x < l) ? l : ((x > h) ? h : x);
 }
 
-// Применение формулы Пифагора в трехмерном случае.
+// Pythagorian theorem for 3 values.
 double
 pyth(double a,
      double b,
@@ -299,6 +313,11 @@ radians_to_degrees(double r)
 {
     return r * OneRadianDegrees;
 }
+
+// Random integer value in range.
+int
+randint(int lo,
+        int hi);
 
 /// @}
 

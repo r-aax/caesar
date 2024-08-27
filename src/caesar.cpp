@@ -13,7 +13,7 @@
 /// \param[in] argv Arguments.
 ///
 /// \return
-/// Retunr code.
+/// Return code.
 int
 main(int argc, char** argv)
 {

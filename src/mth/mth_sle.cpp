@@ -1,11 +1,12 @@
+/// \file
+/// \brief System of linear equations solving.
 ///
-/// @file
-/// @brief Реализация класса для решения СЛАУ.
-///
+/// System of linear equations solving.
+
+#include "mth_sle.h"
 
 #include <iostream>
 
-#include "mth_sle.h"
 #include "mth_basics.h"
 
 using namespace std;
@@ -13,26 +14,26 @@ using namespace std;
 namespace mth
 {
 
-/// @addtogroup mth
+/// \addtogroup mth
 /// @{
 
-/// @brief Решение системы двух уравнений с двумя неизвестными.
+/// \brief Two equations with two variables.
 ///
 /// @f$ a_1 * x + b_1 * y + c_1 = 0 @f$ \n
 /// @f$ a_2 * x + b_2 * y + c_2 = 0 @f$
 ///
-/// @param [in] a1 - Коэффициент при x в первом уравнении.
-/// @param [in] b1 - Коэффициент при y в первом уравнении.
-/// @param [in] c1 - Свободный коэффициент в первом уравнении.
-/// @param [in] a2 - Коэффициент при x во втором уравнении.
-/// @param [in] b2 - Коэффициент при y во втором уравнении.
-/// @param [in] c2 - Свободный коэффициент во втором уравнении.
-/// @param [in] x - Указатель на первую переменную.
-/// @param [in] y - Указатель на вторую переменную.
+/// \param[in] a1 Coefficient for x in the first equation.
+/// \param[in] b1 Coefficient for y in the first equation.
+/// \param[in] c1 Free coefficient in the first equation.
+/// \param[in] a2 Coefficient for x in the second equation.
+/// \param[in] b2 Coefficient for y in the second equation.
+/// \param[in] c2 Free coefficient in the second equation.
+/// \param[in] x  First variable pointer.
+/// \param[in] y  Second variable pointer.
 ///
-/// @return
-/// <c>true</c>, решение найдено в штатном режиме,
-/// <c>false</c>, в процессе решения произошло деление на ноль.
+/// \return
+/// true - if system is solved,
+/// false - otherwise.
 bool
 solve_system_2(double a1,
                double b1,
@@ -45,32 +46,32 @@ solve_system_2(double a1,
 {
     double d = a1 * b2 - a2 * b1;
 
-    // При делении на ноль пусть возвращаются бесконечности.
+    // Let be infinities if d is zero.
     *x = -(c1 * b2 - c2 * b1) / d;
     *y = -(c1 * a2 - c2 * a1) / (-d);
 
     return !mth::is_zero(d);
 }
 
-/// @brief Решене тридиагональной системы методом прогонки.
+/// \brief Tridiagonal system solving.
 ///
 /// @f$ A_i x_{i - 1} + C_i x_i + B_i x_{i + 1} = F_i, i = 1,n - 1 @f$
 /// @f$ x_0 = q_0, x_n = q_n @f$
 ///
-/// @param [in] n - Размерность системы (в системе участвуют переменные от x[0] до x[n]).
-/// @param [in] q0 - Значение x0.
-/// @param [in] qn - Значение qn.
-/// @param [in] a - Коэффициенты матрицы под главной диагональю.
-/// @param [in] c - Коэффициенты матрицы на главной диагонали.
-/// @param [in] b - Коэффициенты матрицы над главной диагональю.
-/// @param [in] f - Коэффициенты правой части системы.
-/// @param [in] alfa - Вспомогательные коэффициенты.
-/// @param [in] beta - Вспомогательные коэффициенты.
-/// @param [out] x - Неизвестные.
+/// \param[in]  n    System dimension (we use variables x[0] .. x[n]).
+/// \param[in]  q0   Value q0.
+/// \param[in]  qn   Value qn.
+/// \param[in]  a    Coefficients under main diagonal.
+/// \param[in]  c    Coefficients on main diagonal.
+/// \param[in]  b    Coefficients above main diagonal.
+/// \param[in]  f    Coefficients in the right part.
+/// \param[in]  alfa Help coefficients.
+/// \param[in]  beta Help coefficients.
+/// \param[out] x    Variables.
 ///
-/// @return
-/// <c>true</c>, решение найдено в штатном режиме,
-/// <c>false</c>, в процессе решения произошло деление на ноль.
+/// \return
+/// true - if system is solved with common result,
+/// false - if we encountered division by zero.
 bool
 solve_tridiagonal_system(int n,
                          double q0,
@@ -83,7 +84,7 @@ solve_tridiagonal_system(int n,
                          double *beta,
                          double *x)
 {
-    // Прямой шаг.
+    // Forward step.
 
     alfa[1] = 0.0;
     beta[1] = q0;
@@ -101,7 +102,7 @@ solve_tridiagonal_system(int n,
         beta[i + 1] = (f[i] - a[i] * beta[i]) / d;
     }
 
-    // Обратный шаг.
+    // Back step.
 
     x[n] = qn;
 

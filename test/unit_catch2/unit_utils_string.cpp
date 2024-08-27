@@ -3,15 +3,16 @@
 ///
 /// Unit-tests for utils_string.
 
-#include "utils/utils.h"
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include "utils/utils_string.h"
 
 TEST_CASE("string : find_word function", "[utils]")
 {
     SECTION("find all words")
     {
         string s { "  one  two   three    four  " };
-        int p { 0 }, len { 0 };
+        size_t p { 0 };
+        size_t len { 0 };
         bool r { false };
 
         r = utils::find_word(s, 0, p, len);
@@ -39,12 +40,30 @@ TEST_CASE("string : find_word function", "[utils]")
     }
 }
 
+TEST_CASE("string : split_into_words function", "[utils]")
+{
+    SECTION("comma separator")
+    {
+        const string comma { "," };
+        const string s { "one,two,three" };
+        vector<string> ss;
+
+        utils::split_into_words(s, comma, ss);
+
+        CHECK(ss.size() == 3);
+        CHECK(ss[0] == "one");
+        CHECK(ss[1] == "two");
+        CHECK(ss[2] == "three");
+    }
+}
+
 TEST_CASE("string : find_substr_in_double_quotes function", "[utils]")
 {
     SECTION("positive and neagtive cases")
     {
         string s { "  \"test\"  " };
-        int p { 0 }, len { 0 };
+        size_t p { 0 };
+        size_t len { 0 };
         bool r { false };
 
         r = utils::find_substr_in_double_quotes(s, 0, p, len);
@@ -57,6 +76,19 @@ TEST_CASE("string : find_substr_in_double_quotes function", "[utils]")
 
         r = utils::find_substr_in_double_quotes(s, 100, p, len);
         CHECK_FALSE(r);
+    }
+
+    SECTION("find empty substring")
+    {
+        string s { "\"\"" };
+        size_t p { 0 };
+        size_t len { 0 };
+        bool r { false };
+
+        r = utils::find_substr_in_double_quotes(s, 0, p, len);
+        CHECK(r);
+        CHECK(p == 1);
+        CHECK(len == 0);
     }
 }
 
@@ -77,7 +109,7 @@ TEST_CASE("string : find_interval_int_bounds_in_str", "[utils]")
     SECTION("positive and neagtive cases")
     {
         string s { "bounds = [10-30]" };
-        int lo { 0 }, hi { 0 };
+        size_t lo { 0 }, hi { 0 };
         bool r { false };
 
         r = utils::find_interval_int_bounds_in_str(s, lo, hi);

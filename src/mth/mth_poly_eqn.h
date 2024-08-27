@@ -1,7 +1,7 @@
+/// \file
+/// \brief Polynom equations.
 ///
-/// @file
-/// @brief Описание решения уравнений.
-///
+/// Polynom equations.
 
 #ifndef MTH_POLY_EQN_H
 #define MTH_POLY_EQN_H
@@ -9,17 +9,17 @@
 namespace mth
 {
 
-/// @addtogroup mth
+/// \addtogroup mth
 /// @{
 
-// Поиск вещественных корней квадратного уравнения.
+// Find real roots of square equation.
 int
 find_real_roots_eq2(double a,
                     double b,
                     double c,
                     double *roots);
 
-// Поиск вещественных корней кубического уравнения.
+// Find real roots of cubic equation.
 int
 find_real_roots_eq3(double a,
                     double b,
@@ -29,13 +29,13 @@ find_real_roots_eq3(double a,
                     double eps_ai_bi_zero,
                     double eps_image);
 
-// Поиск ближайшего корня.
+// Find nearest root.
 double
 nearest_root(double x,
              double *roots,
              int roots_count);
 
-// Направленный поиск ближайшего корня.
+// Directed look for nearest root.
 double
 directed_nearest_root(double x,
                       double *roots,

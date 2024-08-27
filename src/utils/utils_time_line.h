@@ -6,7 +6,11 @@
 #ifndef UTILS_TIME_LINE_H
 #define UTILS_TIME_LINE_H
 
+#include <string>
+
 #include "utils_time.h"
+
+using namespace std;
 
 namespace utils
 {

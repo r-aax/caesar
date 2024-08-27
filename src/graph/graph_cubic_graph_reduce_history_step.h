@@ -6,7 +6,11 @@
 #ifndef CUBIC_GRAPH_REDUCE_HISTORY_STEP_H
 #define CUBIC_GRAPH_REDUCE_HISTORY_STEP_H
 
+#include <iostream>
+
 #include "utils/utils.h"
+
+using namespace std;
 
 namespace graph
 {

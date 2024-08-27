@@ -4,8 +4,10 @@
 /// Graph vertex implementation.
 
 #include "graph_vertex.h"
+
 #include "graph_edge.h"
 #include "utils/utils.h"
+#include "mth/mth.h"
 
 namespace graph
 {

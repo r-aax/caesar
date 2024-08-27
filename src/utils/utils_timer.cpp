@@ -4,7 +4,8 @@
 /// Timer implementation.
 
 #include "utils_timer.h"
-#include "includes.h"
+
+#include <omp.h>
  
 namespace utils
 {

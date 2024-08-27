@@ -12,10 +12,8 @@ fi
 # Clear.
 function clean()
 {
-    cd src
     make clean
-    cd ..
-    rm -rf doc/html src/gmon.out profile.txt
+    rm -rf doc/html gmon.out profile.txt
 }
 
 # Start build.
@@ -31,9 +29,7 @@ if [ "$MODE" = "fast" ] || [ "$MODE" = "all" ]
 then
     echo ".... Build FAST version      ...."
 
-    cd src
     make fast
-    cd ..
 
     if [ "$?" -ne 0 ]
     then
@@ -47,9 +43,7 @@ if [ "$MODE" = "debug" ] || [ "$MODE" = "all" ]
 then
     echo ".... Build DEBUG version     ...."
 
-    cd src
     make debug
-    cd ..
 
     if [ "$?" -ne 0 ]
     then
@@ -77,11 +71,9 @@ if [ "$MODE" = "test" ] || [ "$MODE" = "all" ]
 then
     echo ".... Build and run testing   ...."
 
-    cd src
     make test
-    cd ..
 
-    ./src/caesar_t
+    ./caesar_t
 fi
 
 # Profile.
@@ -89,13 +81,11 @@ if [ "$MODE" = "profile" ] || [ "$MODE" = "all" ]
 then
     echo ".... Build and run profiling ...."
 
-    cd src
     make profile
-    cd ..
 
     rm -f gmon.out
-    src/caesar_p
-    gprof ./src/caesar_p gmon.out > profile.txt
+    ./caesar_p
+    gprof caesar_p gmon.out > profile.txt
 fi
 
 # Statistics.
@@ -104,5 +94,9 @@ then
     echo ".... Collecting statistics   ...."
 
     LINES=`find src test -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
-    echo "number of lines = $LINES"
+    echo "number of lines         = $LINES"
+    CRYS_LINES=`find src/crys -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
+    echo "number of lines in crys = $CRYS_LINES"
+    LIBS_LINES=`find src/libs -regex '.*\.\(cpp\|h\)' -type f -print0 | xargs -0 cat | wc -l`
+    echo "number of lines in libs = $LIBS_LINES"
 fi

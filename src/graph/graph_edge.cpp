@@ -5,6 +5,8 @@
 
 #include "graph_edge.h"
 
+#include "mth/mth.h"
+
 namespace graph
 {
 

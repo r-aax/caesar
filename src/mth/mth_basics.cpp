@@ -1,34 +1,51 @@
+/// \file
+/// \brief Mathematical primitives implementation.
 ///
-/// @file
-/// @brief Реализация математических примитивов.
-///
+/// Mathematical primitives.
 
 #include "mth_basics.h"
 
-#include <iostream>
-#include <cassert>
-#include <cmath>
+// Only place for <random> include.
+#include <random>
 
 namespace mth
 {
 
-/// @addtogroup mth
+/// \addtogroup mth
 /// @{
 
-/// @brief Применение теоремы Пифагора в трехмерном случае.
+/// \brief Pythagorian theorem.
 ///
-/// @param [in] a - Расстояние вдоль оси <c>OX</c>.
-/// @param [in] b - Расстояние вдоль оси <c>OY</c>.
-/// @param [in] c - Расстояние вдоль оси <c>OZ</c>.
+/// Hypotenuse calculation by pythagorian theorem.
 ///
-/// @return
-/// Длина гипотенузы.
+/// \param[in] a Distance along OX axis.
+/// \param[in] b Distance along OY axis.
+/// \param[in] c Distance along OZ axis.
+///
+/// \return
+/// Hypotenuse length.
 double
 pyth(double a,
      double b,
      double c)
 {
     return sqrt(a * a + b * b + c * c);
+}
+
+/// \brief Random integer value in range.
+///
+/// Random integer value in range (lo <= x <= hi).
+///
+/// \param[in] lo Lower bound.
+/// \param[in] hi High bound.
+///
+/// \return
+/// Random value.
+int
+randint(int lo,
+        int hi)
+{
+    return lo + (rand() % (hi - lo + 1));
 }
 
 /// @}

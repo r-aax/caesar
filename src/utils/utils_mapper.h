@@ -1,11 +1,18 @@
 /// \file
 /// \brief Mapper class for support correspondence of string names and enum names.
+///
+/// Mapper for hold coherency between strings and enums.
 
 #ifndef UTILS_MAPPER_H
 #define UTILS_MAPPER_H
 
-#include "includes.h"
-#include "utils_debug.h"
+#include <vector>
+#include <map>
+#include <limits>
+
+#include "diag/diag.h"
+
+using namespace std;
 
 namespace utils
 {
@@ -21,6 +28,12 @@ class Mapper
 {
 
 private:
+
+    /// \brief Low index of enum.
+    size_t lo;
+
+    /// \brief High index of enum.
+    size_t hi;
 
     /// \brief Vector of names.
     vector<string> names;
@@ -44,14 +57,18 @@ public:
     {
         what = what_;
         names = names_;
+        lo = static_cast<size_t>(T::First);
+        hi = static_cast<size_t>(T::Last);
 
         // Names count.
         size_t n = names.size();
 
+        DEBUG_CHECK_ERROR(n == (hi - lo + 1), "wrong number of names in mapper");
+
         // Create map.
         for (size_t i = 0; i < n; ++i)
         {
-            m[names[i]] = static_cast<T>(i);
+            m[names[i]] = static_cast<T>(i + lo);
         }
     }
 
@@ -70,7 +87,7 @@ public:
     const string&
     get_name(T e) const
     {
-        return names[static_cast<size_t>(e)];
+        return names[static_cast<size_t>(e) - lo];
     }
 
     /// \brief Try to find name.
@@ -96,7 +113,7 @@ public:
     T
     get_enum(const string& name) const
     {
-        auto f = m.find(name);
+        auto f { m.find(name) };
 
         if (f == m.end())
         {
@@ -133,7 +150,7 @@ public:
     string
     all_names_string() const
     {
-        string s = names[0];
+        string s { names[0] };
 
         for (size_t i = 1; i < names.size(); ++i)
         {

@@ -2,7 +2,6 @@
 *.d
 *.so
 *.pyc
-caesar
 caesar_f
 caesar_d
 caesar_t

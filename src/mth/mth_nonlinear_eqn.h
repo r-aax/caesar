@@ -1,5 +1,5 @@
 /// \file
-/// \brief Declaration methods solving nonlinear equations.
+/// \brief Nonlinear equations declaration.
 ///
 /// List of available mathods:
 /// - bisection method,
@@ -17,7 +17,7 @@ namespace mth
 /// \addtogroup mth
 /// @{
 
-/// \brief Nonlinear equation solver method.
+/// \brief Nonlinear equation solve method.
 enum class NonlinearEqnMethodType
 {
     /// \brief Bisection method.
@@ -33,7 +33,7 @@ enum class NonlinearEqnMethodType
     Undefined
 };
 
-/// \brief Result of nonlinear equation solver.
+/// \brief Result of nonlinear equation solve.
 enum class NonlinearEqnStatus
 {
     /// \brief Equation doesn't need to be solved.
@@ -78,7 +78,7 @@ private:
     /// \brief Maximum count of iterations.
     int max_iters_count { 0 };
 
-    // Check solver is ready for using.
+    // Check for using readyness.
     bool
     is_ready() const;
 

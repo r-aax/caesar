@@ -1,33 +1,36 @@
+/// \file
+/// \brief Polynom equations.
 ///
-/// @file
-/// @brief Решение полиномиальных уравнений.
-///
+/// Polynom equations implementation.
 
 #include "mth_poly_eqn.h"
-#include "mth_basics.h"
 
 #include <iostream>
 #include <complex>
 #include <limits>
+
+#include "mth_basics.h"
 
 using namespace std;
 
 namespace mth
 {
 
-/// @addtogroup mth
+/// \addtogroup mth
 /// @{
 
-/// @brief Поиск вещественных корней квадратного уравнения.
+/// \brief Find square equation real roots.
 ///
-/// @param [in] a - Значение параметра при x^2.
-/// @param [in] b - Значение параметра при x.
-/// @param [in] c - Значение свободного члена.
-/// @param [out] roots - Указатель на результаты.
+/// @f$ a x^2 + b x + c = 0 @f$
 ///
-/// @return
-/// Количество вещественных корней уравнения (от 0 до 2).
-/// Корни могут повторяться, это не проверяется.
+/// \param[in]  a     Coefficient for при x^2.
+/// \param[in]  b     Coefficient for x.
+/// \param[in]  c     Free coefficient.
+/// \param[out] roots Pointer to result roots.
+///
+/// \return
+/// Count of roots (from 0 to 2).
+/// It is possible to appear equal roots.
 int
 find_real_roots_eq2(double a,
                     double b,
@@ -36,7 +39,8 @@ find_real_roots_eq2(double a,
 {
     if (mth::is_zero(a))
     {
-        // Вырожденные уравнения игнорируем.
+        // Degenerative case.
+        // Ignore it.
         return 0;
     }
 
@@ -55,20 +59,21 @@ find_real_roots_eq2(double a,
     return 2;
 }
 
-/// @brief Поиск корней кубического уравнения для нахождения толщины подледной пленки.
-/// Берутся только вещественные корни.
+/// \brief Find real root for cubic equation.
 ///
-/// @param [in] a - Значение параметра при x^3.
-/// @param [in] b - Значение параметра при x^2.
-/// @param [in] c - Значение параметра при x.
-/// @param [in] d - Значение свободного члена.
-/// @param [out] roots - Указатель на результаты.
-/// @param [in] eps_ai_bi_zero - Малая величина для проверки подходящих alfa, beta.
-/// @param [in] eps_image - Малая величина для отсечения комплексных корней.
+/// @f$ a x^3 + b x^2 + c x + d = 0 @f$
 ///
-/// @return
-/// Количество вещественных корней кубического уравнения (от 0 до 3).
-/// Корни могут повторяться, это не проверяется.
+/// \param[in]  a              Coefficient for x^3.
+/// \param[in]  b              Coefficient for x^2.
+/// \param[in]  c              Coefficient for x.
+/// \param[in]  d              Free coefficient.
+/// \param[out] roots          Pointer to results.
+/// \param[in]  eps_ai_bi_zero Small value for alfa and beta check.
+/// \param[in]  eps_image      Small value for decline image parts
+///
+/// \return
+/// Count of real roots (from 0 to 3).
+/// It is possible to appear equal roots.
 int
 find_real_roots_eq3(double a,
                     double b,
@@ -83,20 +88,16 @@ find_real_roots_eq3(double a,
         return find_real_roots_eq2(b, c, d, roots);
     }
 
-    // Коэффициенты для приведения уравнения.
     double p = (3.0 * a * c - b * b) / (3.0 * a * a);
     double q = (2.0 * b * b * b - 9.0 * a * b * c + 27.0 * a * a * d) / (27.0 * a * a * a);
 
-    // Считаем Q. Сразу создаем комплексное число, так как все равно корень извлекать.
     complex<double> Q(p * p * p / 27.0 + q * q / 4.0, 0.0);
     complex<double> sQ = sqrt(Q);
-
-    // Генерируем альфы и беты.
     complex<double> alfas[3], betas[3];
     complex<double> s(0.0, sqrt(3.0));
     complex<double> pl;
 
-    // Вычисляем альфы и беты.
+    // Alfas and betas generation.
     pl = -q / 2.0 + sQ;
     alfas[0] = pow(pl, 1.0 / 3.0);
     alfas[1] = alfas[0] * (-1.0 + s) / 2.0;
@@ -106,7 +107,7 @@ find_real_roots_eq3(double a,
     betas[1] = betas[0] * (-1.0 + s) / 2.0;
     betas[2] = betas[0] * (-1.0 - s) / 2.0;
 
-    // Сопрягаем альфы и беты.
+    // Alfas and betas pairing.
     int root_i = 0;
     for (int i = 0; i < 3; i++)
     {
@@ -132,14 +133,14 @@ find_real_roots_eq3(double a,
     return root_i;
 }
 
-/// @brief Поиск ближайшего корня.
+/// \brief Nearest root searching.
 ///
-/// @param [in] x - Старый корень.
-/// @param [in] roots - Корни.
-/// @param [in] roots_count - Количество корней.
+/// \param[in] x           Old root.
+/// \param[in] roots       New roots.
+/// \param[in] roots_count New roots count.
 ///
-/// @return
-/// Новое значение корня.
+/// \return
+/// New root value.
 double
 nearest_root(double x,
              double *roots,
@@ -163,23 +164,22 @@ nearest_root(double x,
     return cur_r;
 }
 
-/// @brief Направленный поиск ближайшего корня.
+/// \brief Nearest root directed search.
 ///
-/// Поиск ближайшего корня с учетом напрвления.
-/// Сначала выполняется безусловный поиск ближайшего корня.
-/// Потом учиывается направление:
-/// dir > 0 - попытка найти ближайший корень, больше текущего,
-/// dir < 0 - попытка найти ближайший корень, меньше текущего,
-/// dir == 0 - возвращается ближайший как есть.
+/// First we find nearest root.
+/// Then direction is taken into account:
+/// dir > 0 - try to find root greater that current,
+/// dir < 0 - try to find root less than current,
+/// dir == 0 - return as is
 ///
-/// @param [in] x - Старый корень.
-/// @param [in] roots - Корни.
-/// @param [in] roots_count - Количество корней.
-/// @param [in] dir - Направление поиска.
-/// @param [in] max_possible_diff - Максимальное допустимое отклонение при направленном поиске.
+/// \param[in] x                 Old root.
+/// \param[in] roots             New roots.
+/// \param[in] roots_count       New roots count.
+/// \param[in] dir               Search direction.
+/// \param[in] max_possible_diff Maximum diff to nearest root with given direction.
 ///
-/// @return
-/// Новое значение корня.
+/// \return
+/// New root value.
 double
 directed_nearest_root(double x,
                       double *roots,

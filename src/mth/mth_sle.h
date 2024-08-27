@@ -1,7 +1,7 @@
+/// \file
+/// \brief System of linear equation solving.
 ///
-/// @file
-/// @brief Интерфейс класса для решения СЛАУ.
-///
+/// System of equation solving.
 
 #ifndef MTH_SLE_H
 #define MTH_SLE_H
@@ -9,10 +9,10 @@
 namespace mth
 {
 
-/// @addtogroup mth
+/// \addtogroup mth
 /// @{
 
-// Решение системы двух уравнений с двумя неизвестными.
+// System of two equations with two variables.
 bool
 solve_system_2(double a1,
                double b1,
@@ -23,7 +23,7 @@ solve_system_2(double a1,
                double *x,
                double *y);
 
-// Решене тридиагональной системы методом прогонки.
+// Solving with tridiagonal algorithm.
 bool
 solve_tridiagonal_system(int n,
                          double q0,

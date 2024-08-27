@@ -6,11 +6,15 @@
 #ifndef GRAPH_GRAPH_H
 #define GRAPH_GRAPH_H
 
+#include <iostream>
+
 #include "utils/utils.h"
 #include "graph_vertex.h"
 #include "graph_edge.h"
 #include "graph_cubic_graph_reduce_history.h"
 #include "graph_bicolor_cycle.h"
+
+using namespace std;
 
 namespace graph
 {
