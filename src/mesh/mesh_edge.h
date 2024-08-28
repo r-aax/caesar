@@ -7,6 +7,8 @@
 #define CAESAR_MESH_EDGE_H
 
 #include "mesh_node.h"
+#include "mesh_nodes_holder.h"
+#include "mesh_cells_holder.h"
 #include "utils/utils.h"
 
 namespace caesar
@@ -24,7 +26,9 @@ class Cell;
 class Edge
     : public utils::DataHolder,
       public utils::IdsHolder,
-      public utils::Markable
+      public utils::Markable,
+      public NodesHolder,
+      public CellsHolder
 {
     friend class Cell;
     friend class Zone;
@@ -35,12 +39,6 @@ private:
 
     /// \brief Color.
     int color { -1 };
-
-    /// \brief Links to nodes.
-    vector<Node*> nodes;
-
-    /// \brief Links to cells.
-    vector<Cell*> cells;
 
 public:
 
@@ -84,30 +82,6 @@ public:
     operator<<(ostream& os,
                const Edge& e);
 
-    /// \brief Get nodes count.
-    ///
-    /// Get nodes count.
-    ///
-    /// \return
-    /// Nodes count.
-    inline size_t
-    nodes_count() const
-    {
-        return nodes.size();
-    }
-
-    /// \brief Get cells count.
-    ///
-    /// Get cells count.
-    ///
-    /// \return
-    /// Cells count.
-    inline size_t
-    cells_count() const
-    {
-        return cells.size();
-    }
-
     //
     // Some edge flags.
     //
@@ -142,38 +116,6 @@ public:
     bool
     is_cross() const;
 
-    /// \brief Get Node 0.
-    ///
-    /// Get node 0.
-    ///
-    /// \return
-    /// Node 0.
-    inline Node*
-    node_0()
-    {
-        return nodes[0];
-    }
-
-    /// \brief Get Node 01
-    ///
-    /// Get node 1.
-    ///
-    /// \return
-    /// Node 1.
-    inline Node*
-    node_1()
-    {
-        return nodes[1];
-    }
-
-    // Cell 0.
-    Cell*
-    cell_0();
-
-    // Cell 1.
-    Cell*
-    cell_1();
-
     // Domain of cell 0.
     size_t
     domain_0();
@@ -181,32 +123,6 @@ public:
     // Domain of cell 1.
     size_t
     domain_1();
-
-    //
-    // Links manipulation.
-    //
-
-    /// \brief Add node.
-    ///
-    /// Add node.
-    ///
-    /// \param[in] n Node.
-    inline void
-    add_node(Node* n)
-    {
-        nodes.push_back(n);
-    }
-
-    /// \brief Add cell.
-    ///
-    /// Add cell.
-    ///
-    /// \param[in] c Cell.
-    inline void
-    add_cell(Cell* c)
-    {
-        cells.push_back(c);
-    }
 
     //
     // Data access.

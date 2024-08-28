@@ -9,6 +9,9 @@
 #include "utils/utils.h"
 #include "mesh_zone.h"
 #include "mesh_boundaries.h"
+#include "mesh_nodes_holder.h"
+#include "mesh_edges_holder.h"
+#include "mesh_cells_holder.h"
 
 namespace caesar
 {
@@ -21,6 +24,9 @@ namespace mesh
 
 /// \brief Unstructured surface mesh.
 class Mesh
+    : public NodesHolder,
+      public EdgesHolder,
+      public CellsHolder
 {
     friend class Remesher;
     friend class Decomposer;
@@ -308,7 +314,7 @@ public:
 
         double v { 0.0 };
 
-        for (auto c : node->cells)
+        for (auto c : node->cells())
         {
             v += c->get_data_element<TData>(index);
         }
@@ -377,14 +383,14 @@ public:
                      Node* b)
     {
         // Check all edges.
-        for (auto e : a->edges)
+        for (auto e : a->edges())
         {
-            if ((e->nodes[0] == a) && (e->nodes[1] == b))
+            if ((e->node(0) == a) && (e->node(1) == b))
             {
                 return e;
             }
 
-            if ((e->nodes[0] == b) && (e->nodes[1] == a))
+            if ((e->node(0) == b) && (e->node(1) == a))
             {
                 return e;
             }
@@ -396,10 +402,10 @@ public:
         // Allocate data for edge.
         e->allocate_data<TEdgeData>();
 
-        e->nodes.push_back(a);
-        a->edges.push_back(e);
-        e->nodes.push_back(b);
-        b->edges.push_back(e);
+        e->add_node(a);
+        a->add_edge(e);
+        e->add_node(b);
+        b->add_edge(e);
         edges.push_back(e);
 
         return e;

@@ -323,17 +323,17 @@ Mesh::distribute_edges_between_zones()
 {
     for (auto e : edges)
     {
-        size_t cn = e->cells.size();
+        size_t cn = e->cells_count();
 
         DEBUG_CHECK_ERROR((cn == 1) || (cn == 2), "wrong count of incident cells for edge");
 
-        Zone* z0 = e->cells[0]->zone;
+        Zone* z0 = e->cell(0)->zone;
 
         z0->edges.push_back(e);
 
         if (cn > 1)
         {
-            Zone* z1 = e->cells[1]->zone;
+            Zone* z1 = e->cell(1)->zone;
 
             if (z1 != z0)
             {

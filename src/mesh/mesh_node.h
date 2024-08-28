@@ -12,6 +12,8 @@
 
 #include "mesh_node_data_element.h"
 #include "mesh_cell_data_element.h"
+#include "mesh_edges_holder.h"
+#include "mesh_cells_holder.h"
 #include "geom/geom.h"
 #include "utils/utils.h"
 
@@ -33,20 +35,14 @@ class Cell;
 class Node
     : public utils::DataHolder,
       public utils::IdsHolder,
-      public utils::Markable
+      public utils::Markable,
+      public EdgesHolder,
+      public CellsHolder
 {
     friend class Cell;
     friend class Zone;
     friend class Mesh;
     friend class Remesher;
-
-public:
-
-    /// \brief Links to edges.
-    vector<Edge*> edges;
-
-    /// \brief Links to cells.
-    vector<Cell*> cells;
 
 private:
 
@@ -130,59 +126,9 @@ public:
     operator<<(ostream& os,
                const Node& n);
 
-    /// \brief Get edges count.
-    ///
-    /// Get edges count.
-    ///
-    /// \return
-    /// Edges count.
-    inline size_t
-    edges_count() const
-    {
-        return edges.size();
-    }
-
-    /// \brief Get cells count.
-    ///
-    /// Get cells count.
-    ///
-    /// \return
-    /// Cells count.
-    inline size_t
-    cells_count() const
-    {
-        return cells.size();
-    }
-
     // Check if node is inner.
     bool
     is_inner() const;
-
-    //
-    // Links manupulations.
-    //
-
-    /// \brief Add edge.
-    ///
-    /// Add edge.
-    ///
-    /// \param[in] e Edge.
-    inline void
-    add_edge(Edge* e)
-    {
-        edges.push_back(e);
-    }
-
-    /// \brief Add cell.
-    ///
-    /// Add cell.
-    ///
-    /// \param[in] c Cell.
-    inline void
-    add_cell(Cell* c)
-    {
-        cells.push_back(c);
-    }
 
     //
     // Data access.

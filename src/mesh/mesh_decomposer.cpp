@@ -160,12 +160,12 @@ Decomposer::post_decompose(Mesh& mesh)
             if (d0 == r)
             {
                 // d1 - neighbour domain, c1 - ghost cell.
-                mesh.boundaries.add(d1, e->cell_0(), e->cell_1());
+                mesh.boundaries.add(d1, e->cell(0), e->cell(1));
             }
             else if (d1 == r)
             {
                 // d0 - neighbour domain, c0 - ghost cell.
-                mesh.boundaries.add(d0, e->cell_1(), e->cell_0());
+                mesh.boundaries.add(d0, e->cell(1), e->cell(0));
             }
         }
     }

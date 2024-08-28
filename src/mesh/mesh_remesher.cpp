@@ -83,9 +83,9 @@ Remesher::remeshing_nsteps(Mesh& mesh,
     // Form vector of iterations number for all cells.
     for (auto c : mesh.cells)
     {
-        double min_side = geom::Vector::triangle_min_side_length(c->nodes[0]->point,
-                                                                 c->nodes[1]->point,
-                                                                 c->nodes[2]->point);
+        double min_side = geom::Vector::triangle_min_side_length(c->node(0)->point,
+                                                                 c->node(1)->point,
+                                                                 c->node(2)->point);
 
         ns.push_back(static_cast<int>(c->ice_shift / (min_side * f)) + 1);
     }
@@ -164,7 +164,7 @@ Remesher::remesh_prisms(Mesh& mesh,
         {
             double ice_shift = 0.0;
 
-            for (auto c : n->cells)
+            for (auto c : n->cells())
             {
                 ice_shift += c->ice_shift;
             }
@@ -233,7 +233,7 @@ Remesher::init_ice_dirs(Mesh& mesh)
     {
         n->ice_dir.zero();
 
-        for (auto c : n->cells)
+        for (auto c : n->cells())
         {
             n->ice_dir.add(c->ice_dir);
         }
@@ -263,7 +263,7 @@ Remesher::normals_smoothing(Mesh& mesh,
         {
             geom::Vector new_ice_dir;
 
-            for (auto n : c->nodes)
+            for (auto n : c->nodes())
             {
                 double w { max(s * (1.0 - (c->ice_dir * n->ice_dir)), k) };
 
@@ -279,7 +279,7 @@ Remesher::normals_smoothing(Mesh& mesh,
         {
             geom::Vector new_ice_dir;
 
-            for (auto c : n->cells)
+            for (auto c : n->cells())
             {
                 double w { 1.0 / c->area };
 
@@ -312,12 +312,12 @@ Remesher::define_ice_shifts(Mesh& mesh)
         {
             double a { 0.0 }, b { 0.0 }, not_used { 0.0 };
 
-            geom::prismatoid_volume_coefficients(c->nodes[0]->point,
-                                                 c->nodes[1]->point,
-                                                 c->nodes[2]->point,
-                                                 c->nodes[0]->ice_dir,
-                                                 c->nodes[1]->ice_dir,
-                                                 c->nodes[2]->ice_dir,
+            geom::prismatoid_volume_coefficients(c->node(0)->point,
+                                                 c->node(1)->point,
+                                                 c->node(2)->point,
+                                                 c->node(0)->ice_dir,
+                                                 c->node(1)->ice_dir,
+                                                 c->node(2)->ice_dir,
                                                  c->normal,
                                                  a, b, not_used);
 
@@ -354,12 +354,12 @@ Remesher::define_ice_shifts(Mesh& mesh)
     {
         double x { 0.0 };
 
-        for (auto c : n->cells)
+        for (auto c : n->cells())
         {
             x += c->ice_shift;
         }
 
-        n->ice_shift = (x / static_cast<double>(n->cells.size()));
+        n->ice_shift = (x / static_cast<double>(n->cells_count()));
     }
 }
 
@@ -403,8 +403,8 @@ Remesher::heights_smoothing(Mesh& mesh,
                 continue;
             }
 
-            Cell* c1 { e->cell_0() };
-            Cell* c2 { e->cell_1() };
+            Cell* c1 { e->cell(0) };
+            Cell* c2 { e->cell(1) };
 
             // We suppose h1 > h2
             if (c1->ice_shift < c2->ice_shift)
@@ -462,14 +462,14 @@ Remesher::move_nodes(Mesh& mesh)
     // Update rest and actual ice volumes.
     for (auto c : mesh.cells)
     {
-        const geom::Vector& p1 { c->nodes[0]->point };
-        const geom::Vector& p2 { c->nodes[1]->point };
-        const geom::Vector& p3 { c->nodes[2]->point };
+        const geom::Vector& p1 { c->node(0)->point };
+        const geom::Vector& p2 { c->node(1)->point };
+        const geom::Vector& p3 { c->node(2)->point };
         geom::Vector np1, np2, np3;
 
-        geom::Vector::add(p1, c->nodes[0]->shift, np1);
-        geom::Vector::add(p2, c->nodes[1]->shift, np2);
-        geom::Vector::add(p3, c->nodes[2]->shift, np3);
+        geom::Vector::add(p1, c->node(0)->shift, np1);
+        geom::Vector::add(p2, c->node(1)->shift, np2);
+        geom::Vector::add(p3, c->node(2)->shift, np3);
 
         double v { geom::displaced_triangle_volume(p1, p2, p3,
                                                    np1, np2, np3) };
@@ -503,7 +503,7 @@ Remesher::calc_laplacian(Node* node,
 
     dv.zero();
 
-    for (auto c : node->cells)
+    for (auto c : node->cells())
     {
         double weight { 0.0 };
         geom::Vector to_center;
@@ -566,7 +566,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
 
             // Create matrix of normals.
             vector<vector<double>> m;
-            for (auto c : node->cells)
+            for (auto c : node->cells())
             {
                 m.push_back(vector<double> { c->normal.x, c->normal.y, c->normal.z });
             }
@@ -576,10 +576,10 @@ Remesher::null_space_smoothing(Mesh& mesh,
             mth::transpose(m, tm);
 
             // Create matrix of areas.
-            vector<vector<double>> w(node->cells.size(), vector<double>(node->cells.size(), 0.0));
-            for (size_t i = 0; i < node->cells.size(); ++i)
+            vector<vector<double>> w(node->cells_count(), vector<double>(node->cells_count(), 0.0));
+            for (size_t i = 0; i < node->cells_count(); ++i)
             {
-                w[i][i] = node->cells[i]->area;
+                w[i][i] = node->cell(i)->area;
             }
 
             // Perform multiplication tm * w * m.

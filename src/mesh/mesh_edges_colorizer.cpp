@@ -35,8 +35,8 @@ EdgesColorizer::colorize_edges(Mesh& mesh)
         if (e->cells_count() > 1)
         {
             // Inner edge.
-            g->add_edge(static_cast<size_t>(e->cell_0()->get_loc_id()),
-                        static_cast<size_t>(e->cell_1()->get_loc_id()));
+            g->add_edge(static_cast<size_t>(e->cell(0)->get_loc_id()),
+                        static_cast<size_t>(e->cell(1)->get_loc_id()));
         }
         else
         {
@@ -46,7 +46,7 @@ EdgesColorizer::colorize_edges(Mesh& mesh)
             graph::Vertex* v = g->new_vertex();
 
             // Now add new edge.
-            g->add_edge(static_cast<size_t>(e->cell_0()->get_loc_id()),
+            g->add_edge(static_cast<size_t>(e->cell(0)->get_loc_id()),
                         static_cast<size_t>(v->get_id()));
         }
     }

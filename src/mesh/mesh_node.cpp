@@ -38,11 +38,11 @@ operator<<(ostream& os,
     os << "node " << setw(5) << n.get_ids_string() << " :";
 
     // Print edges.
-    size_t en = n.edges.size();
+    size_t en = n.edges_count();
     os << " edges(";
     for (size_t i = 0; i < en; ++i)
     {
-        os << n.edges[i]->get_id();
+        os << n.edge(i)->get_id();
 
         if (i < en - 1)
         {
@@ -52,11 +52,11 @@ operator<<(ostream& os,
     os << "),";
 
     // Print cells.
-    size_t cn = n.cells.size();
+    size_t cn = n.cells_count();
     os << " cells(";
     for (size_t i = 0; i < cn; ++i)
     {
-        os << n.cells[i]->get_id();
+        os << n.cell(i)->get_id();
 
         if (i < cn - 1)
         {
@@ -78,7 +78,7 @@ operator<<(ostream& os,
 bool
 Node::is_inner() const
 {
-    for (const auto e : edges)
+    for (auto e : edges())
     {
         if (!e->is_inner())
         {
@@ -99,12 +99,12 @@ Node::calc_outer_normal()
 {
     normal.zero();
 
-    for (auto cell : cells)
+    for (auto cell : cells())
     {
         normal.add(cell->normal);
     }
 
-    normal.div(static_cast<double>(cells.size()));
+    normal.div(static_cast<double>(cells_count()));
 }
 
 /// @}

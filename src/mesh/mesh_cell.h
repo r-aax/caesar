@@ -8,6 +8,8 @@
 
 #include "mesh_cell_data_element.h"
 #include "mesh_edge.h"
+#include "mesh_nodes_holder.h"
+#include "mesh_edges_holder.h"
 #include "geom/geom.h"
 #include "phys/phys.h"
 #include "utils/utils.h"
@@ -27,7 +29,9 @@ class Zone;
 class Cell
     : public utils::DataHolder,
       public utils::IdsHolder,
-      public utils::Markable
+      public utils::Markable,
+      public NodesHolder,
+      public EdgesHolder
 {
     friend class Node;
     friend class Edge;
@@ -46,18 +50,12 @@ private:
 
 public:
 
-    /// \brief Links to nodes.
-    vector<Node*> nodes;
-
     /// \brief Fictitious points.
     ///
     /// Use fictitious points define fictitious orientaton of the cell.
     vector<geom::Vector> fictitious_points;
 
 private:
-
-    /// \brief Links to edges.
-    vector<Edge*> edges;
 
     /// \brief Zone.
     Zone* zone { nullptr };
@@ -157,56 +155,6 @@ public:
         return zone;
     }
 
-    /// \brief Get nodes count.
-    ///
-    /// Get nodes count.
-    ///
-    /// \return
-    /// Nodes count.
-    inline size_t
-    nodes_count() const
-    {
-        return nodes.size();
-    }
-
-    /// \brief Get edges count.
-    ///
-    /// Get edges count.
-    ///
-    /// \return
-    /// Edges count.
-    inline size_t
-    edges_count() const
-    {
-        return edges.size();
-    }
-
-    //
-    // Links manipulation.
-    //
-
-    /// \brief Add node.
-    ///
-    /// Add node.
-    ///
-    /// \param[in] n Node.
-    inline void
-    add_node(Node* n)
-    {
-        nodes.push_back(n);
-    }
-
-    /// \brief Add edge.
-    ///
-    /// Add edge.
-    ///
-    /// \param[in] e Edge.
-    inline void
-    add_edge(Edge* e)
-    {
-        edges.push_back(e);
-    }
-
     /// \brief Link to zone.
     ///
     /// Link to zone.
@@ -220,7 +168,7 @@ public:
 
     // Get neighbour through the edge.
     Cell*
-    get_neighbour(const Edge* e) const;
+    get_neighbour(Edge* e);
 
     // Fill list of neighbours by nodes.
     void

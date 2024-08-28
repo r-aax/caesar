@@ -10,6 +10,9 @@
 #include "mesh_node.h"
 #include "mesh_edge.h"
 #include "mesh_cell.h"
+#include "mesh_nodes_holder.h"
+#include "mesh_edges_holder.h"
+#include "mesh_cells_holder.h"
 
 namespace caesar
 {
@@ -22,6 +25,9 @@ namespace mesh
 
 /// \brief Mesh zone.
 class Zone
+    : public NodesHolder,
+      public EdgesHolder,
+      public CellsHolder
 {
     friend class Mesh;
     friend class Filer;

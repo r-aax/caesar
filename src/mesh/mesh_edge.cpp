@@ -34,11 +34,11 @@ operator<<(ostream& os,
     os << "edge " << setw(5) << e.get_ids_string() << " :";
 
     // Print nodes.
-    size_t nn = e.nodes.size();
+    size_t nn = e.nodes_count();
     os << " nodes(";
     for (size_t i = 0; i < nn; ++i)
     {
-        os << e.nodes[i]->get_id();
+        os << e.node(i)->get_id();
 
         if (i < nn - 1)
         {
@@ -48,11 +48,11 @@ operator<<(ostream& os,
     os << "),";
 
     // Print cells.
-    size_t cn = e.cells.size();
+    size_t cn = e.cells_count();
     os << " cells(";
     for (size_t i = 0; i < cn; ++i)
     {
-        os << e.cells[i]->get_id();
+        os << e.cell(i)->get_id();
 
         if (i < cn - 1)
         {
@@ -81,31 +81,7 @@ operator<<(ostream& os,
 bool
 Edge::is_cross() const
 {
-    return is_inner() && (cells[0]->domain != cells[1]->domain);
-}
-
-/// \brief Cell 0.
-///
-/// Get cell 0.
-///
-/// \return
-/// Cell 0.
-Cell*
-Edge::cell_0()
-{
-    return cells[0];
-}
-
-/// \brief Cell 1.
-///
-/// Get cell 1.
-///
-/// \return
-/// Cell 1.
-Cell*
-Edge::cell_1()
-{
-    return cells[1];
+    return is_inner() && (cell(0)->domain != cell(1)->domain);
 }
 
 /// \brief Domain of cell 0.
@@ -117,7 +93,7 @@ Edge::cell_1()
 size_t
 Edge::domain_0()
 {
-    Cell* c = cell_0();
+    Cell* c = cell(0);
 
     DEBUG_CHECK_ERROR(c != nullptr, "edge has no 0-th cell");
 
@@ -133,7 +109,7 @@ Edge::domain_0()
 size_t
 Edge::domain_1()
 {
-    Cell* c = cell_1();
+    Cell* c = cell(1);
 
     DEBUG_CHECK_ERROR(c != nullptr, "edge has no 1-st cell");
 
@@ -150,7 +126,7 @@ Edge::domain_1()
 void
 Edge::calc_length()
 {
-    length = nodes[0]->get_point().dist_to(nodes[1]->get_point());
+    length = node(0)->get_point().dist_to(node(1)->get_point());
 }
 
 /// @}

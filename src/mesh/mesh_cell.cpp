@@ -41,11 +41,11 @@ operator<<(ostream& os,
     os << " d" << c.domain;
 
     // Print nodes.
-    size_t nn = c.nodes.size();
+    size_t nn = c.nodes_count();
     os << ", nodes(";
     for (size_t i = 0; i < nn; ++i)
     {
-        os << c.nodes[i]->get_id();
+        os << c.node(i)->get_id();
 
         if (i < nn - 1)
         {
@@ -55,11 +55,11 @@ operator<<(ostream& os,
     os << "),";
 
     // Print edges.
-    size_t en = c.edges.size();
+    size_t en = c.edges_count();
     os << " edges(";
     for (size_t i = 0; i < en; ++i)
     {
-        os << c.edges[i]->get_id();
+        os << c.edge(i)->get_id();
 
         if (i < en - 1)
         {
@@ -96,11 +96,18 @@ operator<<(ostream& os,
 ///
 /// Neighbour face.
 Cell*
-Cell::get_neighbour(const Edge* e) const
+Cell::get_neighbour(Edge* e)
 {
-    DEBUG_CHECK_ERROR(e->cells.size() == 2, "unable to take cell neighbour for border edge");
+    DEBUG_CHECK_ERROR(e->cells_count() == 2, "unable to take cell neighbour for border edge");
 
-    return (e->cells[0] == this) ? e->cells[1] : e->cells[0];
+    if (e->cell(0) == this)
+    {
+        return e->cell(1);
+    }
+    else
+    {
+        return e->cell(0);
+    }
 }
 
 /// \brief Fill list of neighbours by nodes.
@@ -115,9 +122,9 @@ Cell::get_neighbours_by_nodes(vector<Cell*>& ngh)
 
     ngh.clear();
 
-    for (auto n : nodes)
+    for (auto n : nodes())
     {
-        for (auto c : n->cells)
+        for (auto c : n->cells())
         {
             if (c != this)
             {
@@ -139,7 +146,7 @@ Cell::get_neighbours_by_nodes(vector<Cell*>& ngh)
 void
 Cell::init_fictitious_points()
 {
-    for (auto node : nodes)
+    for (auto node : nodes())
     {
         fictitious_points.push_back(geom::Vector(node->point));
     }
@@ -160,9 +167,9 @@ Cell::init_neighbourhood()
 void
 Cell::calc_area()
 {
-    area = geom::Vector::triangle_area(nodes[0]->point,
-                                       nodes[1]->point,
-                                       nodes[2]->point);
+    area = geom::Vector::triangle_area(node(0)->point,
+                                       node(1)->point,
+                                       node(2)->point);
 }
 
 /// \brief Calculate center vector.
@@ -171,7 +178,7 @@ Cell::calc_center()
 {
     center.zero();
 
-    for (auto n : nodes)
+    for (auto n : nodes())
     {
         center.add(n->point);
     }
@@ -185,7 +192,7 @@ Cell::calc_center()
 void
 Cell::calc_outer_normal()
 {
-    geom::Vector::calc_outer_normal(nodes[0]->point, nodes[1]->point, nodes[2]->point, normal);
+    geom::Vector::calc_outer_normal(node(0)->point, node(1)->point, node(2)->point, normal);
 }
 
 /// \brief Calculate fictitious outer normal.
