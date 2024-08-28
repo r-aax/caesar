@@ -307,7 +307,7 @@ degrees_to_radians(double d)
 ///
 /// Convert radians to degrees.
 ///
-/// \param[n] r Radians.
+/// \param[in] r Radians.
 ///
 /// \return
 /// Degrees.

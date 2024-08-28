@@ -19,6 +19,9 @@ namespace utils
 /// \addtogroup utils
 /// @{
 
+/// \brief Class that can hold identifiers.
+///
+/// Class that can hold identifiers.
 class IdsHolder
 {
 

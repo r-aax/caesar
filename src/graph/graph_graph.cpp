@@ -1105,10 +1105,10 @@ Graph::edges_coloring_greedy()
 /// Restore and repaint cubic graph step for unique edge.
 /// Restoring and repainting is possible only when both result edges lay on single bicolor cycle.
 ///
-/// \param[in]     h  History of reduce.
-/// \param[in,out] bc Bicolor cycle.
-/// \param[in,out] e1 First edge.
-/// \param[in,out] e2 Second edge.
+/// \param[in]     h         History of reduce.
+/// \param[in,out] bc        Bicolor cycle.
+/// \param[in,out] result_e1 First edge.
+/// \param[in,out] result_e2 Second edge.
 void
 Graph::restore_and_repaint_cubic_graph_step_unique_edge(const CubicGraphReduceHistory& h,
                                                         BicolorCycle& bc,
@@ -1158,9 +1158,9 @@ Graph::restore_and_repaint_cubic_graph_step_unique_edge(const CubicGraphReduceHi
 ///
 /// Restore anf repaint cubic graph for unique edge when colors of result edges are equal.
 ///
-/// \param[in]     h  History.
-/// \param[in,out] e1 First edge.
-/// \param[in,out] e2 Second edge.
+/// \param[in]     h         History.
+/// \param[in,out] result_e1 First edge.
+/// \param[in,out] result_e2 Second edge.
 void
 Graph::restore_and_repaint_cubic_graph_step_unique_edge_eq_colors(const CubicGraphReduceHistory& h,
                                                                   Edge* result_e1,
@@ -1201,9 +1201,9 @@ Graph::restore_and_repaint_cubic_graph_step_unique_edge_eq_colors(const CubicGra
 ///
 /// Restore and repaint cubic graph unique edge when colors of result edges are not equal.
 ///
-/// \param[in]     h  History.
-/// \param[in,out] e1 First edge.
-/// \param[in,out] e2 Second edge.
+/// \param[in]     h         History.
+/// \param[in,out] result_e1 First edge.
+/// \param[in,out] result_e2 Second edge.
 void
 Graph::restore_and_repaint_cubic_graph_step_unique_edge_ne_colors(const CubicGraphReduceHistory& h,
                                                                   Edge* result_e1,

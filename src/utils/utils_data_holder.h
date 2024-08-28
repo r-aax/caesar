@@ -17,6 +17,9 @@ namespace utils
 /// \addtogroup utils
 /// @{
 
+/// \brief Class that can hold data.
+///
+/// Class that can hold data.
 class DataHolder
 {
 

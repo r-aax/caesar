@@ -14,7 +14,25 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
-// Set all options in the same time.
+/// \brief Set all options in the same time.
+///
+/// Set remesh options.
+///
+/// \param[in] method_               Remesh method.
+/// \param[in] hi_as_zero_threshold_ Zero height threshold.
+/// \param[in] nsteps_min_           Remesh minimum steps count.
+/// \param[in] nsteps_max_           Remesh maximum steps count.
+/// \param[in] nsteps_hi_side_fact_  Minimum value of height / min_side.
+/// \param[in] nsteps_ignore_part_   Part of cells we can ignore while defining remesh steps count.
+/// \param[in] nsmooth_steps_        Normals smooth steps count.
+/// \param[in] nsmooth_s_            Normals smooth parameter.
+/// \param[in] nsmooth_k_            Normals smooth parameter.
+/// \param[in] hsmooth_steps_        Heights smooth steps count.
+/// \param[in] hsmooth_alfa_         Heights smooth parameter.
+/// \param[in] hsmooth_beta_         Heights smooth parameter.
+/// \param[in] nss_steps_            Null-space smooth steps count.
+/// \param[in] nss_epsilon_          Null-space smooth parameter.
+/// \param[in] nss_st_               Null-space smooth parameter.
 void
 RemeshOptions::set(RemeshMethod method_,
                    double hi_as_zero_threshold_,
