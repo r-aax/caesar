@@ -44,7 +44,7 @@ class Node
     friend class Mesh;
     friend class Remesher;
 
-private:
+public:
 
     //
     // Geometry data.
@@ -74,8 +74,6 @@ private:
 
     /// \brief Vector shift of node.
     geom::Vector shift;
-
-public:
 
 #ifdef DEBUG
     static int counter;

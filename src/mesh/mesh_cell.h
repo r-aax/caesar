@@ -41,21 +41,17 @@ class Cell
     friend class Remesher;
     friend class Decomposer;
 
-private:
+public:
 
     /// \brief Domain number.
     ///
     /// By default there is only one domain with number zero.
     size_t domain { 0 };
 
-public:
-
     /// \brief Fictitious points.
     ///
     /// Use fictitious points define fictitious orientaton of the cell.
     vector<geom::Vector> fictitious_points;
-
-private:
 
     /// \brief Zone.
     Zone* zone { nullptr };
@@ -79,12 +75,8 @@ private:
     /// \brief Outer normal.
     geom::Vector normal;
 
-public:
-
     /// \brief Fictitious outer normal.
     geom::Vector fictitious_normal;
-
-public:
 
     //
     // Remesher data.
@@ -107,8 +99,6 @@ public:
 
     /// \brief Ice shift (m).
     double ice_shift { 0.0 };
-
-public:
 
 #ifdef DEBUG
     static int counter;
