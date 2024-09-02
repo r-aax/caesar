@@ -87,7 +87,7 @@ public:
 
             for (size_t j = 0; j < boundaries[i].size(); ++j)
             {
-                buffer[j] = boundaries[i].pairs[j].first->get_data_element<TData>(index);
+                buffer[j] = boundaries[i].pairs[j].first->get_element<TData>(index);
             }
         }
     }
@@ -114,7 +114,7 @@ public:
 
             for (size_t j = 0; j < boundaries[i].size(); ++j)
             {
-                boundaries[i].pairs[j].second->set_data_element<TData>(index, buffer[j]);
+                boundaries[i].pairs[j].second->set_element<TData>(index, buffer[j]);
             }
         }
     }

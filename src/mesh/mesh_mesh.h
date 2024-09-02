@@ -316,7 +316,7 @@ public:
 
         for (auto c : node->cells())
         {
-            v += c->get_data_element<TData>(index);
+            v += c->get_element<TData>(index);
         }
 
         return v / static_cast<double>(cnt);
@@ -541,7 +541,7 @@ public:
 
             for (size_t i = 0; i < domains_cells[r].size(); ++i)
             {
-                buffer[i] = domains_cells[r][i]->get_data_element<TCellData>(index);
+                buffer[i] = domains_cells[r][i]->get_element<TCellData>(index);
             }
         }
 
@@ -557,7 +557,7 @@ public:
 
                 for (size_t i = 0; i < domains_cells[ri].size(); ++i)
                 {
-                    domains_cells[ri][i]->set_data_element<TCellData>(index, buffer[i]);
+                    domains_cells[ri][i]->set_element<TCellData>(index, buffer[i]);
                 }
             }
         }

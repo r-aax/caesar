@@ -6,7 +6,7 @@
 #ifndef CAESAR_MESH_CELL_H
 #define CAESAR_MESH_CELL_H
 
-#include "mesh_cell_data_element.h"
+#include "mesh_cell_element.h"
 #include "mesh_edge.h"
 #include "mesh_nodes_holder.h"
 #include "mesh_edges_holder.h"
@@ -235,9 +235,9 @@ public:
         return normal;
     }
 
-    /// \brief Get data from cell.
+    /// \brief Get element from cell.
     ///
-    /// Get data from cell.
+    /// Get element from cell.
     ///
     /// \tparam    TData Type of data.
     /// \param[in] index Index of data element.
@@ -246,44 +246,44 @@ public:
     /// Value.
     template<typename TData>
     double
-    get_data_element(int index) const
+    get_element(int index) const
     {
-        CellDataElement cde { static_cast<CellDataElement>(index) };
+        CellElement ce { static_cast<CellElement>(index) };
 
-        switch (cde)
+        switch (ce)
         {
-            case CellDataElement::CellMark:
+            case CellElement::CellMark:
                 return get_mark();
 
-            case CellDataElement::CellId:
+            case CellElement::CellId:
                 return get_id();
 
-            case CellDataElement::Domain:
+            case CellElement::Domain:
                 return static_cast<double>(domain);
 
-            case CellDataElement::Area:
+            case CellElement::Area:
                 return area;
 
-            case CellDataElement::NormalX:
+            case CellElement::NormalX:
                 return normal.x;
 
-            case CellDataElement::NormalY:
+            case CellElement::NormalY:
                 return normal.y;
 
-            case CellDataElement::NormalZ:
+            case CellElement::NormalZ:
                 return normal.z;
 
-            case CellDataElement::FictitiousNormalX:
+            case CellElement::FictitiousNormalX:
                 return fictitious_normal.x;
 
-            case CellDataElement::FictitiousNormalY:
+            case CellElement::FictitiousNormalY:
                 return fictitious_normal.y;
 
-            case CellDataElement::FictitiousNormalZ:
+            case CellElement::FictitiousNormalZ:
                 return fictitious_normal.z;
 
             default:
-                return get_data<TData>()->get_data_element(index);
+                return get_data<TData>()->get_element(index);
         }
     }
 
@@ -292,40 +292,37 @@ public:
     /// Set data to cell.
     ///
     /// \tparam    TData           Type of data.
-    /// \param[in] index           Index of data element.
+    /// \param[in] index           Index of element.
     /// \param[in] v               Value.
     /// \param[in] is_debug_ignore Debug ignore if we try to set fild not intended for it
     template<typename TData>
     void
-    set_data_element(int index,
-                     double v,
-                     bool is_debug_ignore = false)
+    set_element(int index,
+                double v)
     {
-        CellDataElement cde { static_cast<CellDataElement>(index) };
+        CellElement ce { static_cast<CellElement>(index) };
 
-        (void)is_debug_ignore;
-
-        switch (cde)
+        switch (ce)
         {
-            case CellDataElement::CellMark:
+            case CellElement::CellMark:
                 set_mark(static_cast<int>(v));
                 break;
 
-            case CellDataElement::CellId:
-            case CellDataElement::Domain:
-            case CellDataElement::Area:
-            case CellDataElement::NormalX:
-            case CellDataElement::NormalY:
-            case CellDataElement::NormalZ:
-            case CellDataElement::FictitiousNormalX:
-            case CellDataElement::FictitiousNormalY:
-            case CellDataElement::FictitiousNormalZ:
+            case CellElement::CellId:
+            case CellElement::Domain:
+            case CellElement::Area:
+            case CellElement::NormalX:
+            case CellElement::NormalY:
+            case CellElement::NormalZ:
+            case CellElement::FictitiousNormalX:
+            case CellElement::FictitiousNormalY:
+            case CellElement::FictitiousNormalZ:
                 DEBUG_CHECK_ERROR(is_debug_ignore, "unable to set cell data element "
-                                                   + CellDataElementMapper.get_name(cde));
+                                                   + CellElementMapper.get_name(ce));
                 break;
 
             default:
-                get_data<TData>()->set_data_element(index, v);
+                get_data<TData>()->set_element(index, v);
                 break;
         }
     }

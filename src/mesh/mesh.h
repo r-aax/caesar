@@ -6,8 +6,8 @@
 #ifndef CAESAR_MESH_H
 #define CAESAR_MESH_H
 
-#include "mesh_node_data_element.h"
-#include "mesh_cell_data_element.h"
+#include "mesh_node_element.h"
+#include "mesh_cell_element.h"
 #include "mesh_mesh.h"
 #include "mesh_remesher.h"
 #include "mesh_decomposer.h"

@@ -1,10 +1,10 @@
 /// \file
-/// \brief Node data element enumeration.
+/// \brief Node element enumeration.
 ///
-/// Node data element enumeration.
+/// Node element enumeration.
 
-#ifndef CAESAR_MESH_NODE_DATA_ELEMENT_H
-#define CAESAR_MESH_NODE_DATA_ELEMENT_H
+#ifndef CAESAR_MESH_NODE_ELEMENT_H
+#define CAESAR_MESH_NODE_ELEMENT_H
 
 #include "utils/utils.h"
 
@@ -17,8 +17,8 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
-/// \brief Node data element.
-enum class NodeDataElement
+/// \brief Node element.
+enum class NodeElement
 {
     /// \brief First element.
     First = 0,
@@ -42,8 +42,8 @@ enum class NodeDataElement
     Last = NodeId
 };
 
-/// \brief Node data element mapper.
-extern utils::Mapper<NodeDataElement> NodeDataElementMapper;
+/// \brief Node element mapper.
+extern utils::Mapper<NodeElement> NodeElementMapper;
 
 /// @}
 
@@ -51,4 +51,4 @@ extern utils::Mapper<NodeDataElement> NodeDataElementMapper;
 
 }
 
-#endif // !CAESAR_MESH_NODE_DATA_ELEMENT_H
+#endif // !CAESAR_MESH_NODE_ELEMENT_H

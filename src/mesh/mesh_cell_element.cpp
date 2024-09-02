@@ -1,9 +1,9 @@
 /// \file
-/// \brief Cell data element.
+/// \brief Cell element.
 ///
-/// Cell data elements enumeration.
+/// Cell elements enumeration.
 
-#include "mesh_cell_data_element.h"
+#include "mesh_cell_element.h"
 
 namespace caesar
 {
@@ -14,10 +14,10 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
-/// \brief Cell data element mapper.
-utils::Mapper<CellDataElement> CellDataElementMapper
+/// \brief Cell element mapper.
+utils::Mapper<CellElement> CellElementMapper
 {
-    "cell data element",
+    "cell element",
     vector<string>
     {
         "CellMark", "CellId", "Domain",

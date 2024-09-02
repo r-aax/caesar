@@ -1,10 +1,10 @@
 /// \file
-/// \brief Cell data elements enumeration.
+/// \brief Cell elements enumeration.
 ///
-/// Cell data elements enumeration.
+/// Cell elements enumeration.
 
-#ifndef CAESAR_MESH_CELL_DATA_ELEMENT_H
-#define CAESAR_MESH_CELL_DATA_ELEMENT_H
+#ifndef CAESAR_MESH_CELL_ELEMENT_H
+#define CAESAR_MESH_CELL_ELEMENT_H
 
 #include "utils/utils.h"
 
@@ -17,8 +17,8 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
-/// \brief Cell data element.
-enum class CellDataElement
+/// \brief Cell element.
+enum class CellElement
 {
     /// \brief First element.
     First = 0,
@@ -58,7 +58,7 @@ enum class CellDataElement
 };
 
 /// \brief Cell data element mapper.
-extern utils::Mapper<CellDataElement> CellDataElementMapper;
+extern utils::Mapper<CellElement> CellElementMapper;
 
 /// @}
 
@@ -66,4 +66,4 @@ extern utils::Mapper<CellDataElement> CellDataElementMapper;
 
 }
 
-#endif // !CAESAR_MESH_CELL_DATA_ELEMENT_H
+#endif // !CAESAR_MESH_CELL_ELEMENT_H

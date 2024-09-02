@@ -10,8 +10,8 @@
 #include <iostream>
 #include <iomanip>
 
-#include "mesh_node_data_element.h"
-#include "mesh_cell_data_element.h"
+#include "mesh_node_element.h"
+#include "mesh_cell_element.h"
 #include "mesh_edges_holder.h"
 #include "mesh_cells_holder.h"
 #include "geom/geom.h"
@@ -144,40 +144,40 @@ public:
         return point;
     }
 
-    /// \brief Get data from node.
+    /// \brief Get element from node.
     ///
-    /// Get data from node.
+    /// Get element from node.
     ///
     /// \tparam    TData Type of data.
-    /// \param[in] index Index of data element.
+    /// \param[in] index Index of element.
     ///
     /// \return
     /// Value.
     template<typename TData>
     double
-    get_data_element(int index) const
+    get_element(int index) const
     {
-        NodeDataElement nde { static_cast<NodeDataElement>(index) };
+        NodeElement ne { static_cast<NodeElement>(index) };
 
-        switch (nde)
+        switch (ne)
         {
-            case NodeDataElement::X:
+            case NodeElement::X:
                 return point.x;
 
-            case NodeDataElement::Y:
+            case NodeElement::Y:
                 return point.y;
 
-            case NodeDataElement::Z:
+            case NodeElement::Z:
                 return point.z;
 
-            case NodeDataElement::NodeMark:
+            case NodeElement::NodeMark:
                 return get_mark();
 
-            case NodeDataElement::NodeId:
+            case NodeElement::NodeId:
                 return get_id();
 
             default:
-                return get_data<TData>()->get_data_element(index);
+                return get_data<TData>()->get_element(index);
         }
     }
 
@@ -186,39 +186,39 @@ public:
     /// Set data to node.
     ///
     /// \tparam    TData Type of data.
-    /// \param[in] index Index of data element.
+    /// \param[in] index Index of element.
     /// \param[in] v     Value.
     template<typename TData>
     void
-    set_data_element(int index,
-                     double v)
+    set_element(int index,
+                double v)
     {
-        NodeDataElement nde { static_cast<NodeDataElement>(index) };
+        NodeElement ne { static_cast<NodeElement>(index) };
 
-        switch (nde)
+        switch (ne)
         {
-            case NodeDataElement::X:
+            case NodeElement::X:
                 point.x = v;
                 break;
 
-            case NodeDataElement::Y:
+            case NodeElement::Y:
                 point.y = v;
                 break;
 
-            case NodeDataElement::Z:
+            case NodeElement::Z:
                 point.z = v;
                 break;
 
-            case NodeDataElement::NodeMark:
+            case NodeElement::NodeMark:
                 set_mark(static_cast<int>(v));
                 break;
 
-            case NodeDataElement::NodeId:
-                DEBUG_ERROR("unable to set node data element " + NodeDataElementMapper.get_name(nde));
+            case NodeElement::NodeId:
+                DEBUG_ERROR("unable to set node data element " + NodeElementMapper.get_name(ne));
                 break;
 
             default:
-                get_data<TData>()->set_data_element(index, v);
+                get_data<TData>()->set_element(index, v);
                 break;
         }
     }
