@@ -62,6 +62,7 @@ TEST_CASE("Mapper : mapper betweeen names and enums", "[utils]")
         CHECK(m.get_enum("Zero") == TestEnumFrom0::Zero);
         CHECK(m.get_enum("One") == TestEnumFrom0::One);
         CHECK(m.get_enum("Two") == TestEnumFrom0::Two);
+        CHECK(m.get_enum("Three") > TestEnumFrom0::Last);
     }
 
     SECTION("test enum from 10")
@@ -74,5 +75,6 @@ TEST_CASE("Mapper : mapper betweeen names and enums", "[utils]")
         CHECK(m.get_enum("Ten") == TestEnumFrom10::Ten);
         CHECK(m.get_enum("Eleven") == TestEnumFrom10::Eleven);
         CHECK(m.get_enum("Twelve") == TestEnumFrom10::Twelve);
+        CHECK(m.get_enum("Thirteen") > TestEnumFrom10::Last);
     }
-} 
+}
