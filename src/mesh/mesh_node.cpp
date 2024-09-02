@@ -107,6 +107,22 @@ Node::calc_outer_normal()
     normal.div(static_cast<double>(cells_count()));
 }
 
+/// \brief Calculate ice shift.
+///
+/// Calculate ice shift as mean value of incident cells ice shifts.
+void
+Node::calc_ice_shift()
+{
+    double x { 0.0 };
+
+    for (auto c : cells())
+    {
+        x += c->ice_shift;
+    }
+
+    ice_shift = (x / static_cast<double>(cells_count()));
+}
+
 /// @}
 
 }

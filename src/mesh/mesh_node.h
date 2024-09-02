@@ -241,6 +241,10 @@ public:
     // Calculate outer normal.
     void
     calc_outer_normal();
+
+    // Calculate ice shift.
+    void
+    calc_ice_shift();
 };
 
 /// @}

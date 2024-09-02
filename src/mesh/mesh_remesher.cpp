@@ -352,14 +352,7 @@ Remesher::define_ice_shifts(Mesh& mesh)
     // Define ice shifts for all nodes.
     for (auto n : mesh.nodes)
     {
-        double x { 0.0 };
-
-        for (auto c : n->cells())
-        {
-            x += c->ice_shift;
-        }
-
-        n->ice_shift = (x / static_cast<double>(n->cells_count()));
+        n->calc_ice_shift();
     }
 }
 
