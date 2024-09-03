@@ -57,12 +57,10 @@ public:
     /// \brief Holder for all elements.
     NodesEdgesCellsHolder all;
 
-private:
+    /// \brief Holder for own elements.
+    NodesEdgesCellsHolder own;
 
-    /// \brief List of edges of current process.
-    ///
-    /// This list should be initialized after decomposition.
-    vector<Edge*> own_edges;
+private:
 
     /// \brief Own edges by colors.
     vector<vector<Edge*>> own_edges_by_colors;
@@ -72,11 +70,6 @@ private:
 
     /// \brief Cells for gather.
     vector<vector<Cell*>> domains_cells;
-
-    /// \brief List of cells of current process.
-    ///
-    /// This list should be initialized after decomposition.
-    vector<Cell*> own_cells;
 
     /// \brief Information about borders.
     Boundaries boundaries;
@@ -164,30 +157,6 @@ public:
         return zones;
     }
 
-    /// \brief Get own edges list.
-    ///
-    /// Get own edges list.
-    ///
-    /// \return
-    /// Own edges list.
-    inline vector<Edge*>&
-    get_own_edges()
-    {
-        return own_edges;
-    }
-
-    /// \brief Get own cells list.
-    ///
-    /// Get own cells list.
-    ///
-    /// \return
-    /// Own cells list.
-    inline vector<Cell*>&
-    get_own_cells()
-    {
-        return own_cells;
-    }
-
     //
     // Get numbers of objects.
     //
@@ -202,30 +171,6 @@ public:
     zones_count() const
     {
         return zones.size();
-    }
-
-    /// \brief Get own edges count.
-    ///
-    /// Get own edges count.
-    ///
-    /// \return
-    /// Own edges count.
-    inline size_t
-    own_edges_count() const
-    {
-        return own_edges.size();
-    }
-
-    /// \brief Get own cells count.
-    ///
-    /// Get own cells count.
-    ///
-    /// \return
-    /// Own cells count.
-    inline size_t
-    own_cells_count() const
-    {
-        return own_cells.size();
     }
 
     /// \brief Get mean data of cells around the node.

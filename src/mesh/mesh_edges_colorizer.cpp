@@ -24,11 +24,10 @@ namespace mesh
 void
 EdgesColorizer::colorize_edges(Mesh& mesh)
 {
-    graph::Graph* g = graph::GraphFactory::create_edgeless_graph(mesh.own_cells_count());
-    vector<Edge*>& mesh_own_edges { mesh.get_own_edges() };
+    graph::Graph* g = graph::GraphFactory::create_edgeless_graph(mesh.own.cells_count());
 
     // Add all edges.
-    for (auto e : mesh_own_edges)
+    for (auto e : mesh.own.edges())
     {
         DEBUG_CHECK_ERROR(e->cells_count() > 0, "mesh edge without cells is detected");
 
@@ -62,7 +61,7 @@ EdgesColorizer::colorize_edges(Mesh& mesh)
     {
         int color = g->get_edge(i)->get_color();
 
-        mesh.register_edge_color(mesh_own_edges[i], color);
+        mesh.register_edge_color(mesh.own.edge(i), color);
     }
 
     DEBUG_CHECK_ERROR(mesh.is_own_edges_colors_distribution_correct(),

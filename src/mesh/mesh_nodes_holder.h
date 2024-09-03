@@ -81,6 +81,15 @@ public:
         nodes_.push_back(n);
     }
 
+    /// \brief Clear.
+    ///
+    /// Clear all elements.
+    inline void
+    clear_nodes()
+    {
+        nodes_.clear();
+    }
+
     /// \brief Get node (const version).
     ///
     /// Get node (const version).

@@ -110,7 +110,7 @@ Mesh::print_info(ostream& s,
       << varlocation_cellcentered.first << " " << varlocation_cellcentered.second << endl;
     s << "Nodes vector size          : " << all.nodes_count() << endl;
     s << "Edges vector size          : " << all.edges_count() << endl;
-    s << "Own edges vector size      : " << own_edges_count() << endl;
+    s << "Own edges vector size      : " << own.edges_count() << endl;
     s << "Own edges colors histogram :";
 
     int total_edges_colors_count { 0 };
@@ -124,7 +124,7 @@ Mesh::print_info(ostream& s,
     s << " : total = " << total_edges_colors_count << endl;
 
     s << "Cells vector size          : " << all.cells_count() << endl;
-    s << "Own cells vector size      : " << own_cells_count() << endl;
+    s << "Own cells vector size      : " << own.cells_count() << endl;
     s << "............................" << endl;
     s << "Zones count                : " << zones.size() << endl;
 
@@ -212,15 +212,15 @@ void
 Mesh::init_local_identifiers()
 {
     #pragma omp parallel for
-    for (size_t i = 0; i < own_edges_count(); ++i)
+    for (size_t i = 0; i < own.edges_count(); ++i)
     {
-        own_edges[i]->set_loc_id(static_cast<int>(i));
+        own.edge(i)->set_loc_id(static_cast<int>(i));
     }
 
     #pragma omp parallel for
-    for (size_t i = 0; i < own_cells_count(); ++i)
+    for (size_t i = 0; i < own.cells_count(); ++i)
     {
-        own_cells[i]->set_loc_id(static_cast<int>(i));
+        own.cell(i)->set_loc_id(static_cast<int>(i));
     }
 }
 
@@ -255,7 +255,7 @@ Mesh::register_edge_color(Edge* e,
 bool
 Mesh::is_own_edges_colors_distribution_correct() const
 {
-    size_t cnt { own_edges_count() };
+    size_t cnt { own.edges_count() };
     size_t vec_cnt { 0 }, hist_cnt { 0 };
 
     for (size_t i = 0; i < max_edges_colors_count; ++i)

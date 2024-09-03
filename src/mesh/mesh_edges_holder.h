@@ -81,6 +81,15 @@ public:
         edges_.push_back(e);
     }
 
+    /// \brief Clear.
+    ///
+    /// Clear all elements.
+    inline void
+    clear_edges()
+    {
+        edges_.clear();
+    }
+
     /// \brief Get edge (const version).
     ///
     /// Get edge (const version).

@@ -81,6 +81,15 @@ public:
         cells_.push_back(c);
     }
 
+    /// \brief Clear.
+    ///
+    /// Clear all elements.
+    inline void
+    clear_cells()
+    {
+        cells_.clear();
+    }
+
     /// \brief Get cell (const version).
     ///
     /// Get cell (const version).

@@ -108,7 +108,7 @@ Decomposer::post_decompose(Mesh& mesh)
     size_t r = parl::mpi_rank();
 
     // Clear old vectors.
-    mesh.own_cells.clear();
+    mesh.own.clear_cells();
 
     // Domains cells is matrix.
     mesh.domains_cells.resize(s);
@@ -120,7 +120,7 @@ Decomposer::post_decompose(Mesh& mesh)
 
         if (d == r)
         {
-            mesh.own_cells.push_back(c);
+            mesh.own.add_cell(c);
         }
 
         mesh.domains_cells[d].push_back(c);
@@ -143,7 +143,7 @@ Decomposer::post_decompose(Mesh& mesh)
 
         if (is_own)
         {
-            mesh.own_edges.push_back(e);
+            mesh.own.add_edge(e);
         }
     }
 
