@@ -207,6 +207,30 @@ public:
         return normal_;
     }
 
+    /// \brief Move point.
+    ///
+    /// Move point.
+    ///
+    /// \param[in] v Vector.
+    inline void
+    move(const geom::Vector& v)
+    {
+        point_.add(v);
+    }
+
+    // Calculate normal.
+    void
+    calc_normal();
+
+    /// \brief Calculate geometry.
+    ///
+    /// Calculate geometry.
+    inline void
+    calc_geometry()
+    {
+        calc_normal();
+    }
+
     /// \brief Save geometry.
     ///
     /// Save geometry.
@@ -226,21 +250,6 @@ public:
         point_.set(original_point_);
         normal_.set(original_normal_);
     }
-
-    /// \brief Move point.
-    ///
-    /// Move point.
-    ///
-    /// \param[in] v Vector.
-    inline void
-    move(const geom::Vector& v)
-    {
-        point_.add(v);
-    }
-
-    // Calculate normal.
-    void
-    calc_normal();
 
     //
     // Work with remesh data.

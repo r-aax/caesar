@@ -40,18 +40,29 @@ private:
     /// \brief Color.
     int color { -1 };
 
-public:
-
     //
     // Geometry data.
     //
 
+    /// \brief Original length of the edge.
+    double original_length_ { 0.0 };
+
     /// \brief Length of the edge.
-    double length { 0.0 };
+    double length_ { 0.0 };
+
+    //
+    // Memory leak control.
+    //
+
+public:
 
 #ifdef DEBUG
     static int counter;
 #endif // DEBUG
+
+    //
+    // Constructors/destructors.
+    //
 
     /// \brief Default constructor.
     ///
@@ -77,13 +88,17 @@ public:
 
     }
 
+    //
+    // Print.
+    //
+
     // Print function.
     friend ostream&
     operator<<(ostream& os,
                const Edge& e);
 
     //
-    // Some edge flags.
+    // Simple properties.
     //
 
     /// \brief Check if edge is inner.
@@ -125,6 +140,70 @@ public:
     domain_1();
 
     //
+    // Work with geometry.
+    //
+
+    /// \brief Get original length.
+    ///
+    /// Get original length.
+    ///
+    /// \return
+    /// Original length.
+    inline double
+    original_length() const
+    {
+        return original_length_;
+    }
+
+    /// \brief Get length.
+    ///
+    /// Get length.
+    ///
+    /// \return
+    /// Length.
+    inline double
+    length() const
+    {
+        return length_;
+    }
+
+    /// \brief Calculate length.
+    ///
+    /// Calculate length - distance betweeen two points.
+    inline void
+    calc_length()
+    {
+        length_ = node(0)->point().dist_to(node(1)->point());
+    }
+
+    /// \brief Calculate geometry.
+    ///
+    /// Calculate geometry.
+    inline void
+    calc_geometry()
+    {
+        calc_length();
+    }
+
+    /// \brief Save geometry.
+    ///
+    /// Save geometry.
+    inline void
+    save_geometry()
+    {
+        original_length_ = length_;
+    }
+
+    /// \brief Restore geometry.
+    ///
+    /// Restore geometry.
+    inline void
+    restore_geometry()
+    {
+        length_ = original_length_;
+    }
+
+    //
     // Data access.
     //
 
@@ -150,14 +229,6 @@ public:
     {
         color = color_;
     }
-
-    //
-    // Geometry.
-    //
-
-    // Calculate length.
-    void
-    calc_length();
 };
 
 /// @}

@@ -21,6 +21,10 @@ namespace mesh
 int Edge::counter = 0;
 #endif // DEBUG
 
+//
+// Print.
+//
+
 /// \brief Print function.
 ///
 /// Print edge to stream.
@@ -62,13 +66,13 @@ operator<<(ostream& os,
     os << "),";
 
     // Print other data.
-    os << " length = " << e.length << " m";
+    os << " length = " << e.length() << " m";
 
     return os;
 }
 
 //
-// Some edge flags.
+// Edge properties.
 //
 
 /// \brief Check if edge is cross-domain.
@@ -114,19 +118,6 @@ Edge::domain_1()
     DEBUG_CHECK_ERROR(c != nullptr, "edge has no 1-st cell");
 
     return c->domain;
-}
-
-//
-// Geometry.
-//
-
-/// \brief Calculate length.
-///
-/// Calculate length - distance betweeen two points.
-void
-Edge::calc_length()
-{
-    length = node(0)->point().dist_to(node(1)->point());
 }
 
 /// @}
