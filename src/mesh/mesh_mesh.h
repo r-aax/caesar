@@ -12,6 +12,9 @@
 #include "mesh_nodes_holder.h"
 #include "mesh_edges_holder.h"
 #include "mesh_cells_holder.h"
+#include "mesh_node_data_stub.h"
+#include "mesh_edge_data_stub.h"
+#include "mesh_cell_data_stub.h"
 
 namespace caesar
 {
@@ -129,6 +132,15 @@ public:
         {
             c->free_data_if_not_null<TCellData>();
         }
+    }
+
+    /// \brief Default free data.
+    ///
+    /// Default free data.
+    void
+    free_data_if_null()
+    {
+        free_data_if_null<NodeDataStub, EdgeDataStub, CellDataStub>();
     }
 
     // Print information.

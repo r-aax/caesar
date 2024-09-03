@@ -317,8 +317,7 @@ public:
             case CellElement::FictitiousNormalX:
             case CellElement::FictitiousNormalY:
             case CellElement::FictitiousNormalZ:
-                DEBUG_CHECK_ERROR(is_debug_ignore, "unable to set cell data element "
-                                                   + CellElementMapper.get_name(ce));
+                DEBUG_ERROR("unable to set cell data element " + CellElementMapper.get_name(ce));
                 break;
 
             default:

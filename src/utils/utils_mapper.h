@@ -120,7 +120,7 @@ public:
 
         if (f == m.end())
         {
-            DEBUG_ERROR("unknown " + what + " " + name);
+            DEBUG_WARNING("unknown " + what + " " + name);
 
             // We have to return value not corresponded with any name.
             return static_cast<T>(static_cast<int>(T::Last) + 1);
