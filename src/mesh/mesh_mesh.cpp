@@ -329,7 +329,7 @@ Mesh::distribute_edges_between_zones()
 
         Zone* z0 = e->cell(0)->zone;
 
-        z0->edges.push_back(e);
+        z0->add_edge(e);
 
         if (cn > 1)
         {
@@ -337,7 +337,7 @@ Mesh::distribute_edges_between_zones()
 
             if (z1 != z0)
             {
-                z1->edges.push_back(e);
+                z1->add_edge(e);
             }
         }
     }

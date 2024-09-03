@@ -37,20 +37,15 @@ public:
     /// \brief Name of zone.
     string name { "" };
 
-    /// \brief Count of nodes.
-    size_t nodes_count { 0 };
+    /// \brief Count of nodes read from file.
+    ///
+    /// We expect exactly this count of nodes.
+    size_t expected_nodes_count { 0 };
 
-    /// \brief Count of elements.
-    size_t elements_count { 0 };
-
-    /// \brief List of points.
-    vector<Node*> nodes;
-
-    /// \brief List of edges.
-    vector<Edge*> edges;
-
-    /// \brief List of cells.
-    vector<Cell*> cells;
+    /// \brief Count of elements read from file.
+    ///
+    /// We expect exactly this count of elements.
+    size_t expected_elements_count { 0 };
 
     /// \brief Heat from anti-icing system (J / (m^2 * s)).
     double q_ais { 0.0 };

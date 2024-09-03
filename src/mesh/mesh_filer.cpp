@@ -189,7 +189,7 @@ void
 Filer::get_zone_nodes_count_from_string(Zone* zone,
                                         const string& s)
 {
-    zone->nodes_count = static_cast<size_t>(utils::get_int_from_str_after_eq_sign(s));
+    zone->expected_nodes_count = static_cast<size_t>(utils::get_int_from_str_after_eq_sign(s));
 }
 
 /// \brief Get zone elements count from string.
@@ -202,7 +202,7 @@ void
 Filer::get_zone_elements_count_from_string(Zone* zone,
                                            const string& s)
 {
-    zone->elements_count = static_cast<size_t>(utils::get_int_from_str_after_eq_sign(s));
+    zone->expected_elements_count = static_cast<size_t>(utils::get_int_from_str_after_eq_sign(s));
 }
 
 /// \brief Get zone varlocation from string.
@@ -312,17 +312,17 @@ Filer::store_zone_links(Zone* zone,
                         ofstream& f)
 {
     // Set local identifiers to marks.
-    for (size_t i = 0; i < zone->nodes.size(); ++i)
+    for (size_t i = 0; i < zone->nodes_count(); ++i)
     {
-        zone->nodes[i]->set_mark(static_cast<int>(i));
+        zone->node(i)->set_mark(static_cast<int>(i));
     }
 
     // Store links.
-    for (size_t i = 0; i < zone->cells.size(); ++i)
+    for (size_t i = 0; i < zone->cells_count(); ++i)
     {
-        f << (zone->cells[i]->node(0)->get_mark() + 1) << " "
-          << (zone->cells[i]->node(1)->get_mark() + 1) << " "
-          << (zone->cells[i]->node(2)->get_mark() + 1) << endl;
+        f << (zone->cell(i)->node(0)->get_mark() + 1) << " "
+          << (zone->cell(i)->node(1)->get_mark() + 1) << " "
+          << (zone->cell(i)->node(2)->get_mark() + 1) << endl;
     }
 }
 

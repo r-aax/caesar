@@ -63,10 +63,10 @@ public:
         DEBUG_CHECK_ERROR(links.size() == 3, "wrong element-node link line");
 
         // Objects.
-        Cell* c = zone->cells[cell_index];
-        Node* n0 = zone->nodes[links[0] - 1];
-        Node* n1 = zone->nodes[links[1] - 1];
-        Node* n2 = zone->nodes[links[2] - 1];
+        Cell* c = zone->cell(cell_index);
+        Node* n0 = zone->node(links[0] - 1);
+        Node* n1 = zone->node(links[1] - 1);
+        Node* n2 = zone->node(links[2] - 1);
         Edge* e01 = mesh.find_or_add_edge<TEdgeData>(n0, n1);
         Edge* e12 = mesh.find_or_add_edge<TEdgeData>(n1, n2);
         Edge* e20 = mesh.find_or_add_edge<TEdgeData>(n2, n0);
@@ -121,21 +121,23 @@ public:
 
         for (size_t v = 0; v < mesh.varlocation_cellcentered.first - 1; ++v)
         {
-            DEBUG_CHECK_ERROR(data[v].size() == zone->nodes_count, "wrong size of nodes data array");
+            DEBUG_CHECK_ERROR(data[v].size() == zone->expected_nodes_count,
+                              "wrong size of nodes data array");
         }
 
         for (size_t v = mesh.varlocation_cellcentered.first - 1;
              v < mesh.varlocation_cellcentered.second;
              ++v)
         {
-            DEBUG_CHECK_ERROR(data[v].size() == zone->elements_count, "wrong size of cells data array");
+            DEBUG_CHECK_ERROR(data[v].size() == zone->expected_elements_count,
+                              "wrong size of cells data array");
         }
 
 #endif // DEBUG
 
         // Build nodes.
         // Add all nodes to mesh list, and to local zone nodes list.
-        for (size_t i = 0; i < zone->nodes_count; ++i)
+        for (size_t i = 0; i < zone->expected_nodes_count; ++i)
         {
             // Make new node.
             Node* new_node = new Node(data[0][i], data[1][i], data[2][i]);
@@ -152,7 +154,7 @@ public:
                 // We need to add new node.
                 points_bag.insert(h);
                 mesh.get_nodes().push_back(new_node);
-                zone->nodes.push_back(new_node);
+                zone->add_node(new_node);
             }
             else
             {
@@ -163,7 +165,7 @@ public:
                 {
                     // No such node, add it.
                     mesh.get_nodes().push_back(new_node);
-                    zone->nodes.push_back(new_node);
+                    zone->add_node(new_node);
                 }
                 else
                 {
@@ -171,7 +173,7 @@ public:
 
                     new_node->free_data<TNodeData>();
                     delete new_node;
-                    zone->nodes.push_back(found_node);
+                    zone->add_node(found_node);
                 }
             }
         }
@@ -184,14 +186,14 @@ public:
                         ? static_cast<int>(NodeElementMapper.get_enum(name))
                         : static_cast<int>(node_data_element_mapper.get_enum(name));
 
-            for (size_t i = 0; i < zone->nodes_count; ++i)
+            for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
-                zone->nodes[i]->set_element<TNodeData>(index, data[v][i]);
+                zone->node(i)->set_element<TNodeData>(index, data[v][i]);
             }
         }
 
         // Build cells.
-        for (size_t i = 0; i < zone->elements_count; ++i)
+        for (size_t i = 0; i < zone->expected_elements_count; ++i)
         {
             Cell* cell = new Cell();
 
@@ -200,7 +202,7 @@ public:
 
             cell->link_zone(zone);
             mesh.get_cells().push_back(cell);
-            zone->cells.push_back(cell);
+            zone->add_cell(cell);
         }
 
         // Init cells.
@@ -213,9 +215,9 @@ public:
                         ? static_cast<int>(CellElementMapper.get_enum(name))
                         : static_cast<int>(cell_data_element_mapper.get_enum(name));
 
-            for (size_t i = 0; i < zone->elements_count; ++i)
+            for (size_t i = 0; i < zone->cells_count(); ++i)
             {
-                zone->cells[i]->set_element<TCellData>(index, data[v][i]);
+                zone->cell(i)->set_element<TCellData>(index, data[v][i]);
             }
         }
     }
@@ -356,7 +358,7 @@ public:
                 data.clear();
 
                 // Links.
-                for (size_t i = 0; i < current_zone->elements_count; ++i)
+                for (size_t i = 0; i < current_zone->expected_elements_count; ++i)
                 {
                     getline(f, line);
                     get_zone_links_from_string<TEdgeData>(mesh, current_zone, line, i);
@@ -436,23 +438,23 @@ public:
                           "wrong varlocation cellcentered for storing data")
 
         // First element is X.
-        for (size_t i = 0; i < zone->nodes_count; ++i)
+        for (size_t i = 0; i < zone->nodes_count(); ++i)
         {
-            f << zone->nodes[i]->point().x << " ";
+            f << zone->node(i)->point().x << " ";
         }
         f << endl;
 
         // Second element is Y.
-        for (size_t i = 0; i < zone->nodes_count; ++i)
+        for (size_t i = 0; i < zone->nodes_count(); ++i)
         {
-            f << zone->nodes[i]->point().y << " ";
+            f << zone->node(i)->point().y << " ";
         }
         f << endl;
 
         // Third element is Z.
-        for (size_t i = 0; i < zone->nodes_count; ++i)
+        for (size_t i = 0; i < zone->nodes_count(); ++i)
         {
-            f << zone->nodes[i]->point().z << " ";
+            f << zone->node(i)->point().z << " ";
         }
         f << endl;
 
@@ -464,9 +466,9 @@ public:
                         ? static_cast<int>(NodeElementMapper.get_enum(name))
                         : static_cast<int>(node_data_element_mapper.get_enum(name));
 
-            for (size_t i = 0; i < zone->nodes_count; ++i)
+            for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
-                f << zone->nodes[i]->get_element<TNodeData>(index) << " ";
+                f << zone->node(i)->get_element<TNodeData>(index) << " ";
             }
 
             f << endl;
@@ -482,9 +484,9 @@ public:
                         ? static_cast<int>(CellElementMapper.get_enum(name))
                         : static_cast<int>(cell_data_element_mapper.get_enum(name));
 
-            for (size_t i = 0; i < zone->elements_count; ++i)
+            for (size_t i = 0; i < zone->cells_count(); ++i)
             {
-                f << zone->cells[i]->get_element<TCellData>(index) << " ";
+                f << zone->cell(i)->get_element<TCellData>(index) << " ";
             }
 
             f << endl;
@@ -555,10 +557,10 @@ public:
             f << "ZONE T=\"" << current_zone->name << "\"" << endl;
 
             // Nodes count line.
-            f << "NODES=" << current_zone->nodes_count << endl;
+            f << "NODES=" << current_zone->nodes_count() << endl;
 
             // Elements count line.
-            f << "ELEMENTS=" << current_zone->elements_count << endl;
+            f << "ELEMENTS=" << current_zone->cells_count() << endl;
 
             // Datapacking line.
             f << "DATAPACKING=BLOCK" << endl;
