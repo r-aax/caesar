@@ -9,9 +9,7 @@
 #include "utils/utils.h"
 #include "mesh_zone.h"
 #include "mesh_boundaries.h"
-#include "mesh_nodes_holder.h"
-#include "mesh_edges_holder.h"
-#include "mesh_cells_holder.h"
+#include "mesh_nodes_edges_cells_holder.h"
 #include "mesh_node_data_stub.h"
 #include "mesh_edge_data_stub.h"
 #include "mesh_cell_data_stub.h"
@@ -27,9 +25,6 @@ namespace mesh
 
 /// \brief Unstructured surface mesh.
 class Mesh
-    : public NodesHolder,
-      public EdgesHolder,
-      public CellsHolder
 {
     friend class Remesher;
     friend class Decomposer;
@@ -57,11 +52,12 @@ private:
     /// \brief Zones list.
     vector<Zone*> zones;
 
-    /// \brief List of all nodes.
-    vector<Node*> nodes;
+public:
 
-    /// \brief List of all edges.
-    vector<Edge*> edges;
+    /// \brief Holder for all elements.
+    NodesEdgesCellsHolder all;
+
+private:
 
     /// \brief List of edges of current process.
     ///
@@ -73,9 +69,6 @@ private:
 
     /// \brief Own edges colors histogram.
     vector<int> own_edges_colors_histogram;
-
-    /// \brief List of all cells.
-    vector<Cell*> cells;
 
     /// \brief Cells for gather.
     vector<vector<Cell*>> domains_cells;
@@ -116,19 +109,19 @@ public:
     free_data_if_null()
     {
         // Delete nodes.
-        for (auto n : nodes)
+        for (auto n : all.nodes())
         {
             n->free_data_if_not_null<TNodeData>();
         }
 
         // Delete edges.
-        for (auto e : edges)
+        for (auto e : all.edges())
         {
             e->free_data_if_not_null<TEdgeData>();
         }
 
         // Delete cells.
-        for (auto c : cells)
+        for (auto c : all.cells())
         {
             c->free_data_if_not_null<TCellData>();
         }
@@ -171,30 +164,6 @@ public:
         return zones;
     }
 
-    /// \brief Get nodes list.
-    ///
-    /// Get nodes list.
-    ///
-    /// \return
-    /// Nodes list.
-    inline vector<Node*>&
-    get_nodes()
-    {
-        return nodes;
-    }
-
-    /// \brief Get edges list.
-    ///
-    /// Get edges list.
-    ///
-    /// \return
-    /// Edges list.
-    inline vector<Edge*>&
-    get_edges()
-    {
-        return edges;
-    }
-
     /// \brief Get own edges list.
     ///
     /// Get own edges list.
@@ -205,18 +174,6 @@ public:
     get_own_edges()
     {
         return own_edges;
-    }
-
-    /// \brief Get cells list.
-    ///
-    /// Get cells list.
-    ///
-    /// \return
-    /// Cells list.
-    inline vector<Cell*>&
-    get_cells()
-    {
-        return cells;
     }
 
     /// \brief Get own cells list.
@@ -247,30 +204,6 @@ public:
         return zones.size();
     }
 
-    /// \brief Get nodes count.
-    ///
-    /// Get nodes count.
-    ///
-    /// \return
-    /// Nodes count.
-    inline size_t
-    nodes_count() const
-    {
-        return nodes.size();
-    }
-
-    /// \brief Get edges count.
-    ///
-    /// Get edges count.
-    ///
-    /// \return
-    /// Edges count.
-    inline size_t
-    edges_count() const
-    {
-        return edges.size();
-    }
-
     /// \brief Get own edges count.
     ///
     /// Get own edges count.
@@ -281,18 +214,6 @@ public:
     own_edges_count() const
     {
         return own_edges.size();
-    }
-
-    /// \brief Get cells count.
-    ///
-    /// Get cells count.
-    ///
-    /// \return
-    /// Cells count.
-    inline size_t
-    cells_count() const
-    {
-        return cells.size();
     }
 
     /// \brief Get own cells count.
@@ -418,7 +339,7 @@ public:
         a->add_edge(e);
         e->add_node(b);
         b->add_edge(e);
-        edges.push_back(e);
+        all.add_edge(e);
 
         return e;
     }
@@ -465,7 +386,7 @@ public:
     age_layer()
     {
         #pragma omp parallel for
-        for (auto c : cells)
+        for (auto c : all.cells())
         {
             c->get_data<TCellData>()->age_layer();
         }
@@ -481,7 +402,7 @@ public:
     restore_layer()
     {
         #pragma omp parallel for
-        for (auto c : cells)
+        for (auto c : all.cells())
         {
             c->get_data<TCellData>()->restore_layer();
         }

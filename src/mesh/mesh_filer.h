@@ -153,7 +153,7 @@ public:
                 // No such hash in set - so no such node.
                 // We need to add new node.
                 points_bag.insert(h);
-                mesh.get_nodes().push_back(new_node);
+                mesh.all.add_node(new_node);
                 zone->add_node(new_node);
             }
             else
@@ -164,7 +164,7 @@ public:
                 if (!found_node)
                 {
                     // No such node, add it.
-                    mesh.get_nodes().push_back(new_node);
+                    mesh.all.add_node(new_node);
                     zone->add_node(new_node);
                 }
                 else
@@ -201,7 +201,7 @@ public:
             cell->allocate_data<TCellData>();
 
             cell->link_zone(zone);
-            mesh.get_cells().push_back(cell);
+            mesh.all.add_cell(cell);
             zone->add_cell(cell);
         }
 

@@ -42,7 +42,7 @@ main(int argc, char** argv)
     // Add some ice.
     //
 
-    for (auto c : mesh.get_cells())
+    for (auto c : mesh.all.cells())
     {
         c->ice_shift = 0.1;
     }

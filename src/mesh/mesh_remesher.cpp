@@ -34,7 +34,7 @@ void
 Remesher::zero_ice(Mesh& mesh)
 {
     #pragma omp parallel for
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->ice_shift = 0.0;
     }
@@ -51,7 +51,7 @@ Remesher::zero_ice_below_threshold(Mesh& mesh,
                                    double thr)
 {
     #pragma omp parallel for
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         if (c->ice_shift < thr)
         {
@@ -81,7 +81,7 @@ Remesher::remeshing_nsteps(Mesh& mesh,
     double f { opts.get_nsteps_hi_side_fact() };
 
     // Form vector of iterations number for all cells.
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         double min_side = geom::Vector::triangle_min_side_length(c->node(0)->point(),
                                                                  c->node(1)->point(),
@@ -142,7 +142,7 @@ Remesher::remesh_prisms(Mesh& mesh,
 
     // Init ice chunks and zero ice height.
     #pragma omp parallel for
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->ice_chunk = c->area * c->ice_shift / steps;
         c->ice_shift = 0.0;
@@ -153,14 +153,14 @@ Remesher::remesh_prisms(Mesh& mesh,
     {
         // Calculate ice shifts for cells.
         #pragma omp parallel for
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             c->ice_shift = c->ice_chunk / c->area;
         }
 
         // Move nodes.
         #pragma omp parallel for
-        for (auto n : mesh.nodes)
+        for (auto n : mesh.all.nodes())
         {
             double ice_shift = 0.0;
 
@@ -193,7 +193,7 @@ Remesher::remesh_prisms(Mesh& mesh,
 void
 Remesher::init_target_rest_ice(Mesh& mesh)
 {
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->target_ice = c->ice_shift * c->area;
         c->rest_ice = c->target_ice;
@@ -210,7 +210,7 @@ void
 Remesher::calc_ice_chunks(Mesh& mesh,
                           int rest_iterations)
 {
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->ice_chunk = c->rest_ice / rest_iterations;
     }
@@ -225,13 +225,13 @@ void
 Remesher::init_ice_dirs(Mesh& mesh)
 {
     // Cell ice dir it is just its normals.
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->ice_dir.set(c->normal);
     }
 
     // Ice dir for node is average of all incident cells ice dirs.
-    for (auto n : mesh.nodes)
+    for (auto n : mesh.all.nodes())
     {
         n->ice_dir.zero();
 
@@ -261,7 +261,7 @@ Remesher::normals_smoothing(Mesh& mesh,
     for (int i = 0; i < steps; ++i)
     {
         // Smooth cells' ice directions throught nodes' ice directions.
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             geom::Vector new_ice_dir;
 
@@ -277,7 +277,7 @@ Remesher::normals_smoothing(Mesh& mesh,
         }
 
         // Smooth nodes' ice directions throught cells' ice directions.
-        for (auto n : mesh.nodes)
+        for (auto n : mesh.all.nodes())
         {
             geom::Vector new_ice_dir;
 
@@ -305,7 +305,7 @@ Remesher::define_ice_shifts(Mesh& mesh)
     static double small_value { 1.0e-10 };
 
     // Define ice shifts for cells.
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->ice_shift = c->ice_chunk / c->area;
 
@@ -352,7 +352,7 @@ Remesher::define_ice_shifts(Mesh& mesh)
     }
 
     // Define ice shifts for all nodes.
-    for (auto n : mesh.nodes)
+    for (auto n : mesh.all.nodes())
     {
         n->calc_ice_shift();
     }
@@ -377,19 +377,19 @@ Remesher::heights_smoothing(Mesh& mesh,
         double max_h { 0.0 };
 
         // While redistributing we work with local ice chunks.
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             c->loc_ice_chunk = c->ice_chunk;
         }
 
         // Calculate max h.
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             max_h = max(max_h, c->ice_shift);
         }
 
         // Process all inner edges.
-        for (auto e : mesh.edges)
+        for (auto e : mesh.all.edges())
         {
             double mid_area { 0.0 }, delta_v { 0.0 };
 
@@ -430,7 +430,7 @@ Remesher::heights_smoothing(Mesh& mesh,
         }
 
         // Put local ice chunks back.
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             c->ice_chunk  = c->loc_ice_chunk;
         }
@@ -449,13 +449,13 @@ void
 Remesher::move_nodes(Mesh& mesh)
 {
     // Define shifts.
-    for (auto n : mesh.nodes)
+    for (auto n : mesh.all.nodes())
     {
         geom::Vector::mul(n->ice_dir, n->ice_shift, n->shift);
     }
 
     // Update rest and actual ice volumes.
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         const geom::Vector& p1 { c->node(0)->point() };
         const geom::Vector& p2 { c->node(1)->point() };
@@ -478,7 +478,7 @@ Remesher::move_nodes(Mesh& mesh)
     }
 
     // Move nodes.
-    for (auto n : mesh.nodes)
+    for (auto n : mesh.all.nodes())
     {
         n->move(n->shift);
     }
@@ -542,14 +542,14 @@ Remesher::null_space_smoothing(Mesh& mesh,
     for (int stepi = 0; stepi < steps; ++stepi)
     {
         // Save cells area.
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             c->calc_area();
             c->saved_area = c->area;
         }
 
         // Loop for all nodes.
-        for (auto node : mesh.nodes)
+        for (auto node : mesh.all.nodes())
         {
             node->shift.zero();
 
@@ -621,7 +621,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
         }
 
         // Apply shifts.
-        for (auto node : mesh.nodes)
+        for (auto node : mesh.all.nodes())
         {
             node->move(node->shift);
         }
@@ -630,7 +630,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
         mesh.update_cells_geometry();
 
         // Correct rest ice by areas.
-        for (auto c : mesh.cells)
+        for (auto c : mesh.all.cells())
         {
             if (c->saved_area > 0.0)
             {

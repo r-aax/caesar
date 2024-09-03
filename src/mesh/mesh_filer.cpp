@@ -36,11 +36,11 @@ Filer::export_stl(Mesh& mesh,
     }
 
     // Print cells count.
-    int32_t cnt { static_cast<int32_t>(mesh.cells_count()) };
+    int32_t cnt { static_cast<int32_t>(mesh.all.cells_count()) };
     fwrite(&cnt, sizeof(cnt), 1, fl);
 
     // Export all cells.
-    for (auto c : mesh.get_cells())
+    for (auto c : mesh.all.cells())
     {
         float x1 { static_cast<float>(c->node(0)->point().x) };
         float y1 { static_cast<float>(c->node(0)->point().y) };

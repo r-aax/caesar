@@ -27,7 +27,7 @@ class NodesEdgesCellsHolder
       public EdgesHolder,
       public CellsHolder
 {
-}
+};
 
 /// @}
 

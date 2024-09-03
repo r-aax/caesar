@@ -37,19 +37,19 @@ Mesh::Mesh()
 Mesh::~Mesh()
 {
     // Delete nodes.
-    for (auto n : nodes)
+    for (auto n : all.nodes())
     {
         delete n;
     }
 
     // Delete edges.
-    for (auto e : edges)
+    for (auto e : all.edges())
     {
         delete e;
     }
 
     // Delete cells.
-    for (auto c : cells)
+    for (auto c : all.cells())
     {
         delete c;
     }
@@ -108,8 +108,8 @@ Mesh::print_info(ostream& s,
     s << endl;
     s << "Varlocation cellcentered   : "
       << varlocation_cellcentered.first << " " << varlocation_cellcentered.second << endl;
-    s << "Nodes vector size          : " << nodes_count() << endl;
-    s << "Edges vector size          : " << edges_count() << endl;
+    s << "Nodes vector size          : " << all.nodes_count() << endl;
+    s << "Edges vector size          : " << all.edges_count() << endl;
     s << "Own edges vector size      : " << own_edges_count() << endl;
     s << "Own edges colors histogram :";
 
@@ -123,7 +123,7 @@ Mesh::print_info(ostream& s,
 
     s << " : total = " << total_edges_colors_count << endl;
 
-    s << "Cells vector size          : " << cells_count() << endl;
+    s << "Cells vector size          : " << all.cells_count() << endl;
     s << "Own cells vector size      : " << own_cells_count() << endl;
     s << "............................" << endl;
     s << "Zones count                : " << zones.size() << endl;
@@ -155,7 +155,7 @@ Mesh::print_elements(const vector<int>& nodes_ids_range,
                      const vector<int>& cells_ids_range,
                      ostream& s) const
 {
-    for (auto n : nodes)
+    for (auto n : all.nodes())
     {
         if (mth::in_bounds(n->get_id(), nodes_ids_range))
         {
@@ -163,7 +163,7 @@ Mesh::print_elements(const vector<int>& nodes_ids_range,
         }
     }
 
-    for (auto e : edges)
+    for (auto e : all.edges())
     {
         if (mth::in_bounds(e->get_id(), edges_ids_range))
         {
@@ -171,7 +171,7 @@ Mesh::print_elements(const vector<int>& nodes_ids_range,
         }
     }
 
-    for (auto c : cells)
+    for (auto c : all.cells())
     {
         if (mth::in_bounds(c->get_id(), cells_ids_range))
         {
@@ -189,21 +189,21 @@ void
 Mesh::init_global_identifiers()
 {
     #pragma omp parallel for
-    for (size_t i = 0; i < nodes_count(); ++i)
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
-        nodes[i]->set_id(static_cast<int>(i));
+        all.node(i)->set_id(static_cast<int>(i));
     }
 
     #pragma omp parallel for
-    for (size_t i = 0; i < edges_count(); ++i)
+    for (size_t i = 0; i < all.edges_count(); ++i)
     {
-        edges[i]->set_id(static_cast<int>(i));
+        all.edge(i)->set_id(static_cast<int>(i));
     }
 
     #pragma omp parallel for
-    for (size_t i = 0; i < cells_count(); ++i)
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
-        cells[i]->set_id(static_cast<int>(i));
+        all.cell(i)->set_id(static_cast<int>(i));
     }
 }
 
@@ -304,7 +304,7 @@ Mesh::find_zone(const string& name) const
 Node*
 Mesh::find_node(const geom::Vector& point) const
 {
-    for (auto node : nodes)
+    for (auto node : all.nodes())
     {
         if (node->point().is_strict_eq(point))
         {
@@ -321,7 +321,7 @@ Mesh::find_node(const geom::Vector& point) const
 void
 Mesh::distribute_edges_between_zones()
 {
-    for (auto e : edges)
+    for (auto e : all.edges())
     {
         size_t cn = e->cells_count();
 
@@ -350,13 +350,13 @@ void
 Mesh::mark_mesh_border_nodes_and_cells()
 {
     #pragma omp parallel for
-    for (auto node : nodes)
+    for (auto node : all.nodes())
     {
         node->set_mark(1);
     }
 
     #pragma omp parallel for
-    for (auto cell : cells)
+    for (auto cell : all.cells())
     {
         cell->set_mark(1);
     }
@@ -369,7 +369,7 @@ void
 Mesh::init_cells_neighbourhoods()
 {
     #pragma omp parallel for
-    for (auto cell : cells)
+    for (auto cell : all.cells())
     {
         cell->init_neighbourhood();
     }
@@ -387,7 +387,7 @@ Mesh::update_cells_geometry()
 {
     // Calculate geometry for cells.
     #pragma omp parallel for
-    for (auto c : cells)
+    for (auto c : all.cells())
     {
         c->calc_area();
         c->calc_center();
@@ -405,14 +405,14 @@ Mesh::update_geometry()
 
     // Calculate geometry for edgs.
     #pragma omp parallel for
-    for (auto e : edges)
+    for (auto e : all.edges())
     {
         e->calc_length();
     }
 
     // Calculate geometry for nodes.
     #pragma omp parallel for
-    for (auto n : nodes)
+    for (auto n : all.nodes())
     {
         n->calc_normal();
     }
@@ -426,7 +426,7 @@ Mesh::update_fictitious_geometry()
 {
     // Calculate fictitious normals.
     #pragma omp parallel for
-    for (auto c : cells)
+    for (auto c : all.cells())
     {
         c->calc_fictitious_outer_normal();
     }
@@ -439,7 +439,7 @@ void
 Mesh::restore_nodes_point()
 {
     #pragma omp parallel for
-    for (auto n : nodes)
+    for (auto n : all.nodes())
     {
         n->restore_geometry();
     }

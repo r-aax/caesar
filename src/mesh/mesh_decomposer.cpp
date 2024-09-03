@@ -31,11 +31,11 @@ Decomposer::set_cells_diapason_with_domain(Mesh& mesh,
                                            size_t domain)
 {
     DEBUG_CHECK_ERROR(lo <= hi, "wrong cells diapason");
-    DEBUG_CHECK_ERROR(hi < mesh.cells.size(), "wrong higher bound of cells diapason");
+    DEBUG_CHECK_ERROR(hi < mesh.all.cells_count(), "wrong higher bound of cells diapason");
 
     for (size_t i = lo; i <= hi; ++i)
     {
-        mesh.cells[i]->domain = domain;
+        mesh.all.cell(i)->domain = domain;
     }
 }
 
@@ -47,7 +47,7 @@ Decomposer::set_cells_diapason_with_domain(Mesh& mesh,
 void
 Decomposer::decompose_no(Mesh& mesh)
 {
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->domain = 0;
     }
@@ -63,7 +63,7 @@ void
 Decomposer::decompose_random(Mesh& mesh,
                              size_t dn)
 {
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         c->domain = static_cast<size_t>(mth::randint(0, static_cast<int>(dn) - 1));
     }
@@ -79,7 +79,7 @@ void
 Decomposer::decompose_linear(Mesh& mesh,
                              size_t dn)
 {
-    size_t n = mesh.cells.size();
+    size_t n = mesh.all.cells_count();
     size_t lo = 0, hi = 0;
     size_t cnt = n / dn, r = n % dn;
 
@@ -114,7 +114,7 @@ Decomposer::post_decompose(Mesh& mesh)
     mesh.domains_cells.resize(s);
 
     // Fill domain cells and own cells.
-    for (auto c : mesh.cells)
+    for (auto c : mesh.all.cells())
     {
         size_t d = c->get_domain();
 
@@ -127,7 +127,7 @@ Decomposer::post_decompose(Mesh& mesh)
     }
 
     // Fill own edges list.
-    for (auto e : mesh.edges)
+    for (auto e : mesh.all.edges())
     {
         bool is_own { false };
 
@@ -151,7 +151,7 @@ Decomposer::post_decompose(Mesh& mesh)
     mesh.boundaries.allocate();
 
     // Process boundary cells.
-    for (auto e : mesh.edges)
+    for (auto e : mesh.all.edges())
     {
         if (e->is_cross())
         {
