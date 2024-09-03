@@ -148,7 +148,7 @@ Cell::init_fictitious_points()
 {
     for (auto node : nodes())
     {
-        fictitious_points.push_back(geom::Vector(node->point));
+        fictitious_points.push_back(geom::Vector(node->point()));
     }
 }
 
@@ -167,9 +167,9 @@ Cell::init_neighbourhood()
 void
 Cell::calc_area()
 {
-    area = geom::Vector::triangle_area(node(0)->point,
-                                       node(1)->point,
-                                       node(2)->point);
+    area = geom::Vector::triangle_area(node(0)->point(),
+                                       node(1)->point(),
+                                       node(2)->point());
 }
 
 /// \brief Calculate center vector.
@@ -180,7 +180,7 @@ Cell::calc_center()
 
     for (auto n : nodes())
     {
-        center.add(n->point);
+        center.add(n->point());
     }
 
     center.div(static_cast<double>(nodes_count()));
@@ -192,7 +192,7 @@ Cell::calc_center()
 void
 Cell::calc_outer_normal()
 {
-    geom::Vector::calc_outer_normal(node(0)->point, node(1)->point, node(2)->point, normal);
+    geom::Vector::calc_outer_normal(node(0)->point(), node(1)->point(), node(2)->point(), normal);
 }
 
 /// \brief Calculate fictitious outer normal.

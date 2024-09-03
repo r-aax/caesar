@@ -144,7 +144,7 @@ public:
             new_node->allocate_data<TNodeData>();
 
             // Calculate hash.
-            uint64_t h = new_node->get_point().hash();
+            uint64_t h = new_node->point().hash();
 
             if (points_bag.find(h) == points_bag.end())
             {
@@ -157,7 +157,7 @@ public:
             else
             {
                 // Try to find node.
-                Node* found_node = mesh.find_node(new_node->get_point());
+                Node* found_node = mesh.find_node(new_node->point());
 
                 if (!found_node)
                 {
@@ -438,21 +438,21 @@ public:
         // First element is X.
         for (size_t i = 0; i < zone->nodes_count; ++i)
         {
-            f << zone->nodes[i]->get_point().x << " ";
+            f << zone->nodes[i]->point().x << " ";
         }
         f << endl;
 
         // Second element is Y.
         for (size_t i = 0; i < zone->nodes_count; ++i)
         {
-            f << zone->nodes[i]->get_point().y << " ";
+            f << zone->nodes[i]->point().y << " ";
         }
         f << endl;
 
         // Third element is Z.
         for (size_t i = 0; i < zone->nodes_count; ++i)
         {
-            f << zone->nodes[i]->get_point().z << " ";
+            f << zone->nodes[i]->point().z << " ";
         }
         f << endl;
 

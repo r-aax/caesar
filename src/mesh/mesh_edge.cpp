@@ -126,7 +126,7 @@ Edge::domain_1()
 void
 Edge::calc_length()
 {
-    length = node(0)->get_point().dist_to(node(1)->get_point());
+    length = node(0)->point().dist_to(node(1)->point());
 }
 
 /// @}

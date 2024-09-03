@@ -83,9 +83,9 @@ Remesher::remeshing_nsteps(Mesh& mesh,
     // Form vector of iterations number for all cells.
     for (auto c : mesh.cells)
     {
-        double min_side = geom::Vector::triangle_min_side_length(c->node(0)->point,
-                                                                 c->node(1)->point,
-                                                                 c->node(2)->point);
+        double min_side = geom::Vector::triangle_min_side_length(c->node(0)->point(),
+                                                                 c->node(1)->point(),
+                                                                 c->node(2)->point());
 
         ns.push_back(static_cast<int>(c->ice_shift / (min_side * f)) + 1);
     }
@@ -172,7 +172,9 @@ Remesher::remesh_prisms(Mesh& mesh,
             ice_shift /= static_cast<double>(n->cells_count());
 
             // Move node.
-            geom::Vector::fma(n->normal, ice_shift, n->point, n->point);
+            geom::Vector v;
+            geom::Vector::mul(n->normal(), ice_shift, v);
+            n->move(v);
         }
 
         mesh.update_geometry();
@@ -312,9 +314,9 @@ Remesher::define_ice_shifts(Mesh& mesh)
         {
             double a { 0.0 }, b { 0.0 }, not_used { 0.0 };
 
-            geom::prismatoid_volume_coefficients(c->node(0)->point,
-                                                 c->node(1)->point,
-                                                 c->node(2)->point,
+            geom::prismatoid_volume_coefficients(c->node(0)->point(),
+                                                 c->node(1)->point(),
+                                                 c->node(2)->point(),
                                                  c->node(0)->ice_dir,
                                                  c->node(1)->ice_dir,
                                                  c->node(2)->ice_dir,
@@ -455,9 +457,9 @@ Remesher::move_nodes(Mesh& mesh)
     // Update rest and actual ice volumes.
     for (auto c : mesh.cells)
     {
-        const geom::Vector& p1 { c->node(0)->point };
-        const geom::Vector& p2 { c->node(1)->point };
-        const geom::Vector& p3 { c->node(2)->point };
+        const geom::Vector& p1 { c->node(0)->point() };
+        const geom::Vector& p2 { c->node(1)->point() };
+        const geom::Vector& p3 { c->node(2)->point() };
         geom::Vector np1, np2, np3;
 
         geom::Vector::add(p1, c->node(0)->shift, np1);
@@ -478,7 +480,7 @@ Remesher::move_nodes(Mesh& mesh)
     // Move nodes.
     for (auto n : mesh.nodes)
     {
-        geom::Vector::add(n->point, n->shift, n->point);
+        n->move(n->shift);
     }
 }
 
@@ -502,7 +504,7 @@ Remesher::calc_laplacian(Node* node,
         geom::Vector to_center;
 
         weight = c->area / c->saved_area;
-        geom::Vector::sub(c->center, node->point, to_center);
+        geom::Vector::sub(c->center, node->point(), to_center);
         to_center.mul(weight);
         dv.add(to_center);
         weights += weight;
@@ -621,7 +623,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
         // Apply shifts.
         for (auto node : mesh.nodes)
         {
-            node->point.add(node->shift);
+            node->move(node->shift);
         }
 
         // Recalculate geometry.

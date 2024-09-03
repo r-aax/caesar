@@ -22,6 +22,10 @@ namespace mesh
 int Node::counter = 0;
 #endif // DEBUG
 
+//
+// Print.
+//
+
 /// \brief Print function.
 ///
 /// Print node to stream.
@@ -68,6 +72,10 @@ operator<<(ostream& os,
     return os;
 }
 
+//
+// Simple properties.
+//
+
 /// \brief Check if node is inner.
 ///
 /// Check node is inner.
@@ -90,22 +98,26 @@ Node::is_inner() const
 }
 
 //
-// Geometry.
+// Work with geometry.
 //
 
 /// \brief Calculate outer normal.
 void
-Node::calc_outer_normal()
+Node::calc_normal()
 {
-    normal.zero();
+    normal_.zero();
 
-    for (auto cell : cells())
+    for (auto c : cells())
     {
-        normal.add(cell->normal);
+        normal_.add(c->normal);
     }
 
-    normal.div(static_cast<double>(cells_count()));
+    normal_.div(static_cast<double>(cells_count()));
 }
+
+//
+// Work with remesh data.
+//
 
 /// \brief Calculate ice shift.
 ///

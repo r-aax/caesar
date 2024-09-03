@@ -306,7 +306,7 @@ Mesh::find_node(const geom::Vector& point) const
 {
     for (auto node : nodes)
     {
-        if (node->point.is_strict_eq(point))
+        if (node->point().is_strict_eq(point))
         {
             return node;
         }
@@ -414,7 +414,7 @@ Mesh::update_geometry()
     #pragma omp parallel for
     for (auto n : nodes)
     {
-        n->calc_outer_normal();
+        n->calc_normal();
     }
 }
 
@@ -441,7 +441,7 @@ Mesh::restore_nodes_point()
     #pragma omp parallel for
     for (auto n : nodes)
     {
-        n->restore_point();
+        n->restore_geometry();
     }
 }
 

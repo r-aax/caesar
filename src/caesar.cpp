@@ -32,7 +32,28 @@ main(int argc, char** argv)
 #endif
 
     mesh::Mesh mesh;
+
     mesh::Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
-    mesh::Filer::store_mesh(mesh, "res.dat");
+
+    // Original mesh.
+    mesh::Filer::store_mesh(mesh, "out/sphere0.dat");
+
+    //
+    // Add some ice.
+    //
+
+    for (auto c : mesh.get_cells())
+    {
+        c->ice_shift = 0.1;
+    }
+
+    mesh::RemeshOptions opts;
+    cout << opts << endl;
+    mesh::Remesher::remesh(mesh, opts);
+    mesh::Filer::store_mesh(mesh, "out/sphere1.dat");
+
+    // Restore geometry.
+    mesh::Filer::store_mesh(mesh, "out/sphere2.dat");
+
     mesh.free_data_if_null();
 }

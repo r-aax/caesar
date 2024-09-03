@@ -44,26 +44,37 @@ class Node
     friend class Mesh;
     friend class Remesher;
 
-public:
+private:
 
     //
     // Geometry data.
+    // Node has geometry data of two types: original and current.
     //
-
-    /// \brief Vector (point).
-    geom::Vector point;
 
     /// \brief Original point.
     ///
-    /// Created once while mesh loading
-    /// it is impossible to change it.
-    const geom::Vector original_point;
+    /// Original point, set once while loading.
+    geom::Vector original_point_;
 
-    /// \brief Outer normal.
-    geom::Vector normal;
+    /// \brief Current point.
+    ///
+    /// Current point.
+    geom::Vector point_;
+
+    /// \brief Original normal.
+    ///
+    /// Original normal, set once while loading.
+    geom::Vector original_normal_;
+
+    /// \brief Current normal.
+    ///
+    /// Current normal.
+    geom::Vector normal_;
+
+public:
 
     //
-    // Tong remesher data.
+    // Remesher data.
     //
 
     /// \brief Ice growing direction.
@@ -75,9 +86,17 @@ public:
     /// \brief Vector shift of node.
     geom::Vector shift;
 
+    //
+    // Memory leak control.
+    //
+
 #ifdef DEBUG
     static int counter;
 #endif // DEBUG
+
+    //
+    // Constructors/destructors.
+    //
 
     /// \brief Default constructor.
     ///
@@ -97,8 +116,8 @@ public:
     Node(double x,
          double y,
          double z)
-        : point(x, y, z),
-          original_point(x, y, z)
+        : original_point_(x, y, z),
+          point_(x, y, z)
     {
 
 #ifdef DEBUG
@@ -119,30 +138,121 @@ public:
 
     }
 
+    //
+    // Print.
+    //
+
     // Print function.
     friend ostream&
     operator<<(ostream& os,
                const Node& n);
+
+    //
+    // Simple properties.
+    //
 
     // Check if node is inner.
     bool
     is_inner() const;
 
     //
-    // Data access.
+    // Work with geometry.
     //
+
+    /// \brief Get original point.
+    ///
+    /// Original point.
+    ///
+    /// \return
+    /// Original point.
+    inline const geom::Vector&
+    original_point() const
+    {
+        return original_point_;
+    }
 
     /// \brief Get point.
     ///
-    /// Get point.
+    /// Point.
     ///
     /// \return
     /// Point.
     inline const geom::Vector&
-    get_point() const
+    point() const
     {
-        return point;
+        return point_;
     }
+
+    /// \brief Get origina normal.
+    ///
+    /// Get original normal.
+    ///
+    /// \return
+    /// Original normal.
+    inline const geom::Vector&
+    original_normal() const
+    {
+        return original_normal_;
+    }
+
+    /// \brief Get normal.
+    ///
+    /// Get normal.
+    ///
+    /// \return
+    /// Normal.
+    inline const geom::Vector&
+    normal() const
+    {
+        return normal_;
+    }
+
+    /// \brief Save geometry.
+    ///
+    /// Save geometry.
+    inline void
+    save_geometry()
+    {
+        original_point_.set(point_);
+        original_normal_.set(normal_);
+    }
+
+    /// \brief Restore geometry.
+    ///
+    /// Restore geometry.
+    inline void
+    restore_geometry()
+    {
+        point_.set(original_point_);
+        normal_.set(original_normal_);
+    }
+
+    /// \brief Move point.
+    ///
+    /// Move point.
+    ///
+    /// \param[in] v Vector.
+    inline void
+    move(const geom::Vector& v)
+    {
+        point_.add(v);
+    }
+
+    // Calculate normal.
+    void
+    calc_normal();
+
+    //
+    // Work with remesh data.
+    //
+
+    // Calculate ice shift.
+    void
+    calc_ice_shift();
+
+    //
+    // Data access.
+    //
 
     /// \brief Get element from node.
     ///
@@ -162,13 +272,13 @@ public:
         switch (ne)
         {
             case NodeElement::X:
-                return point.x;
+                return point_.x;
 
             case NodeElement::Y:
-                return point.y;
+                return point_.y;
 
             case NodeElement::Z:
-                return point.z;
+                return point_.z;
 
             case NodeElement::NodeMark:
                 return get_mark();
@@ -198,15 +308,15 @@ public:
         switch (ne)
         {
             case NodeElement::X:
-                point.x = v;
+                point_.x = v;
                 break;
 
             case NodeElement::Y:
-                point.y = v;
+                point_.y = v;
                 break;
 
             case NodeElement::Z:
-                point.z = v;
+                point_.z = v;
                 break;
 
             case NodeElement::NodeMark:
@@ -222,27 +332,6 @@ public:
                 break;
         }
     }
-
-    //
-    // Geometry.
-    //
-
-    /// \brief Restore point from original.
-    ///
-    /// Restore point from original.
-    void
-    restore_point()
-    {
-        point.set(original_point);
-    }
-
-    // Calculate outer normal.
-    void
-    calc_outer_normal();
-
-    // Calculate ice shift.
-    void
-    calc_ice_shift();
 };
 
 /// @}

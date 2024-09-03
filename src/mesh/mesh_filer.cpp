@@ -42,15 +42,15 @@ Filer::export_stl(Mesh& mesh,
     // Export all cells.
     for (auto c : mesh.get_cells())
     {
-        float x1 { static_cast<float>(c->node(0)->get_point().x) };
-        float y1 { static_cast<float>(c->node(0)->get_point().y) };
-        float z1 { static_cast<float>(c->node(0)->get_point().z) };
-        float x2 { static_cast<float>(c->node(1)->get_point().x) };
-        float y2 { static_cast<float>(c->node(1)->get_point().y) };
-        float z2 { static_cast<float>(c->node(1)->get_point().z) };
-        float x3 { static_cast<float>(c->node(2)->get_point().x) };
-        float y3 { static_cast<float>(c->node(2)->get_point().y) };
-        float z3 { static_cast<float>(c->node(2)->get_point().z) };
+        float x1 { static_cast<float>(c->node(0)->point().x) };
+        float y1 { static_cast<float>(c->node(0)->point().y) };
+        float z1 { static_cast<float>(c->node(0)->point().z) };
+        float x2 { static_cast<float>(c->node(1)->point().x) };
+        float y2 { static_cast<float>(c->node(1)->point().y) };
+        float z2 { static_cast<float>(c->node(1)->point().z) };
+        float x3 { static_cast<float>(c->node(2)->point().x) };
+        float y3 { static_cast<float>(c->node(2)->point().y) };
+        float z3 { static_cast<float>(c->node(2)->point().z) };
         float sub_21_x { x2 - x1 };
         float sub_21_y { y2 - y1 };
         float sub_21_z { z2 - z1 };
