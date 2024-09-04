@@ -14,6 +14,7 @@
 #include "mesh_cell_element.h"
 #include "mesh_edges_holder.h"
 #include "mesh_cells_holder.h"
+#include "mesh_geometrical.h"
 #include "geom/geom.h"
 #include "utils/utils.h"
 
@@ -37,7 +38,8 @@ class Node
       public utils::IdsHolder,
       public utils::Markable,
       public EdgesHolder,
-      public CellsHolder
+      public CellsHolder,
+      public Geometrical
 {
     friend class Cell;
     friend class Zone;
@@ -159,18 +161,6 @@ public:
     // Work with geometry.
     //
 
-    /// \brief Get original point.
-    ///
-    /// Original point.
-    ///
-    /// \return
-    /// Original point.
-    inline const geom::Vector&
-    original_point() const
-    {
-        return original_point_;
-    }
-
     /// \brief Get point.
     ///
     /// Point.
@@ -181,18 +171,6 @@ public:
     point() const
     {
         return point_;
-    }
-
-    /// \brief Get origina normal.
-    ///
-    /// Get original normal.
-    ///
-    /// \return
-    /// Original normal.
-    inline const geom::Vector&
-    original_normal() const
-    {
-        return original_normal_;
     }
 
     /// \brief Get normal.

@@ -10,6 +10,7 @@
 #include "mesh_edge.h"
 #include "mesh_nodes_holder.h"
 #include "mesh_edges_holder.h"
+#include "mesh_geometrical.h"
 #include "geom/geom.h"
 #include "phys/phys.h"
 #include "utils/utils.h"
@@ -31,7 +32,8 @@ class Cell
       public utils::IdsHolder,
       public utils::Markable,
       public NodesHolder,
-      public EdgesHolder
+      public EdgesHolder,
+      public Geometrical
 {
     friend class Node;
     friend class Edge;
@@ -59,24 +61,43 @@ public:
     /// \brief Links to neighbourhood.
     vector<Cell*> neighbourhood;
 
+private:
+
     //
     // Geometry data.
     //
 
-    /// \brief Area.
-    double area { 0.0 };
+    /// \brief Original area.
+    ///
+    /// Original area.
+    double original_area_ { 0.0 };
 
-    /// \brief Saved area.
-    double saved_area { 0.0 };
+    /// \brief Current area.
+    ///
+    /// Current area.
+    double area_ { 0.0 };
 
-    /// \brief Center vector.
-    geom::Vector center;
+    /// \brief Original center.
+    ///
+    /// Original center.
+    geom::Vector original_center_;
 
-    /// \brief Outer normal.
-    geom::Vector normal;
+    /// \brief Center.
+    ///
+    /// Center.
+    geom::Vector center_;
 
-    /// \brief Fictitious outer normal.
-    geom::Vector fictitious_normal;
+    /// \brief Original normal.
+    ///
+    /// Original normal.
+    geom::Vector original_normal_;
+
+    /// \brief Normal.
+    ///
+    /// Normal.
+    geom::Vector normal_;
+
+public:
 
     //
     // Remesher data.
@@ -100,9 +121,20 @@ public:
     /// \brief Ice shift (m).
     double ice_shift { 0.0 };
 
+    /// \brief Saved area.
+    double saved_area { 0.0 };
+
+    //
+    // Memory leak control.
+    //
+
 #ifdef DEBUG
     static int counter;
 #endif // DEBUG
+
+    //
+    // Constructors/destructors.
+    //
 
     /// \brief Default constructor.
     ///
@@ -127,6 +159,10 @@ public:
 #endif // DEBUG
 
     }
+
+    //
+    // Print.
+    //
 
     // Print function.
     friend ostream&
@@ -200,6 +236,10 @@ public:
         return domain;
     }
 
+    //
+    // Work with geometry.
+    //
+
     /// \brief Get area (m^2).
     ///
     /// Get area (m^2).
@@ -207,9 +247,9 @@ public:
     /// \return
     /// Area (m^2).
     inline double
-    get_area() const
+    area() const
     {
-        return area;
+        return area_;
     }
 
     /// \brief Get center vector.
@@ -219,9 +259,9 @@ public:
     /// \return
     /// Center vector.
     inline const geom::Vector&
-    get_center() const
+    center() const
     {
-        return center;
+        return center_;
     }
 
     /// \brief Get normal.
@@ -230,10 +270,63 @@ public:
     ///
     /// \return
     inline const geom::Vector&
-    get_normal() const
+    normal() const
     {
-        return normal;
+        return normal_;
     }
+
+private:
+
+    /// Calculate area.
+    void
+    calc_area();
+
+    /// Calculate center point.
+    void
+    calc_center();
+
+    // Calculate outer normal.
+    void
+    calc_normal();
+
+public:
+
+    /// \brief Calculate geometry.
+    ///
+    /// Calculate geometry.
+    inline void
+    calc_geometry()
+    {
+        calc_area();
+        calc_center();
+        calc_normal();
+    }
+
+    /// \brief Save geometry.
+    ///
+    /// Save geometry.
+    inline void
+    save_geometry()
+    {
+        original_area_ = area_;
+        original_center_.set(center_);
+        original_normal_.set(normal_);
+    }
+
+    /// \brief Restore geometry.
+    ///
+    /// Restore geometry.
+    inline void
+    restore_geometry()
+    {
+        area_ = original_area_;
+        center_.set(original_center_);
+        normal_.set(original_normal_);
+    }
+
+    //
+    // Data access.
+    //
 
     /// \brief Get element from cell.
     ///
@@ -262,25 +355,16 @@ public:
                 return static_cast<double>(domain);
 
             case CellElement::Area:
-                return area;
+                return area_;
 
             case CellElement::NormalX:
-                return normal.x;
+                return normal_.x;
 
             case CellElement::NormalY:
-                return normal.y;
+                return normal_.y;
 
             case CellElement::NormalZ:
-                return normal.z;
-
-            case CellElement::FictitiousNormalX:
-                return fictitious_normal.x;
-
-            case CellElement::FictitiousNormalY:
-                return fictitious_normal.y;
-
-            case CellElement::FictitiousNormalZ:
-                return fictitious_normal.z;
+                return normal_.z;
 
             default:
                 return get_data<TData>()->get_element(index);
@@ -314,9 +398,6 @@ public:
             case CellElement::NormalX:
             case CellElement::NormalY:
             case CellElement::NormalZ:
-            case CellElement::FictitiousNormalX:
-            case CellElement::FictitiousNormalY:
-            case CellElement::FictitiousNormalZ:
                 DEBUG_ERROR("unable to set cell data element " + CellElementMapper.get_name(ce));
                 break;
 
@@ -325,26 +406,6 @@ public:
                 break;
         }
     }
-
-    //
-    // Geometry.
-    //
-
-    /// Calculate area.
-    void
-    calc_area();
-
-    /// Calculate center point.
-    void
-    calc_center();
-
-    // Calculate outer normal.
-    void
-    calc_outer_normal();
-
-    // Calculate fictitious outer normal.
-    void
-    calc_fictitious_outer_normal();
 };
 
 /// @}

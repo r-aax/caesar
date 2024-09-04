@@ -144,7 +144,7 @@ Remesher::remesh_prisms(Mesh& mesh,
     #pragma omp parallel for
     for (auto c : mesh.all.cells())
     {
-        c->ice_chunk = c->area * c->ice_shift / steps;
+        c->ice_chunk = c->area() * c->ice_shift / steps;
         c->ice_shift = 0.0;
     }
 
@@ -155,7 +155,7 @@ Remesher::remesh_prisms(Mesh& mesh,
         #pragma omp parallel for
         for (auto c : mesh.all.cells())
         {
-            c->ice_shift = c->ice_chunk / c->area;
+            c->ice_shift = c->ice_chunk / c->area();
         }
 
         // Move nodes.
@@ -195,7 +195,7 @@ Remesher::init_target_rest_ice(Mesh& mesh)
 {
     for (auto c : mesh.all.cells())
     {
-        c->target_ice = c->ice_shift * c->area;
+        c->target_ice = c->ice_shift * c->area();
         c->rest_ice = c->target_ice;
     }
 }
@@ -227,7 +227,7 @@ Remesher::init_ice_dirs(Mesh& mesh)
     // Cell ice dir it is just its normals.
     for (auto c : mesh.all.cells())
     {
-        c->ice_dir.set(c->normal);
+        c->ice_dir.set(c->normal());
     }
 
     // Ice dir for node is average of all incident cells ice dirs.
@@ -283,7 +283,7 @@ Remesher::normals_smoothing(Mesh& mesh,
 
             for (auto c : n->cells())
             {
-                double w { 1.0 / c->area };
+                double w { 1.0 / c->area() };
 
                 geom::Vector::fma(c->ice_dir, w, new_ice_dir, new_ice_dir);
             }
@@ -307,7 +307,7 @@ Remesher::define_ice_shifts(Mesh& mesh)
     // Define ice shifts for cells.
     for (auto c : mesh.all.cells())
     {
-        c->ice_shift = c->ice_chunk / c->area;
+        c->ice_shift = c->ice_chunk / c->area();
 
         // Trying to calculate ice_shift more accurately.
         if (c->ice_chunk > small_value)
@@ -320,7 +320,7 @@ Remesher::define_ice_shifts(Mesh& mesh)
                                                  c->node(0)->ice_dir,
                                                  c->node(1)->ice_dir,
                                                  c->node(2)->ice_dir,
-                                                 c->normal,
+                                                 c->normal(),
                                                  a, b, not_used);
 
             if (abs(b) > small_value)
@@ -418,7 +418,7 @@ Remesher::heights_smoothing(Mesh& mesh,
             }
             else
             {
-                mid_area = c1->area;
+                mid_area = c1->area();
             }
 
             delta_v = mid_area * min(c1->ice_shift - c2->ice_shift,
@@ -503,8 +503,8 @@ Remesher::calc_laplacian(Node* node,
         double weight { 0.0 };
         geom::Vector to_center;
 
-        weight = c->area / c->saved_area;
-        geom::Vector::sub(c->center, node->point(), to_center);
+        weight = c->area() / c->saved_area;
+        geom::Vector::sub(c->center(), node->point(), to_center);
         to_center.mul(weight);
         dv.add(to_center);
         weights += weight;
@@ -545,7 +545,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
         for (auto c : mesh.all.cells())
         {
             c->calc_area();
-            c->saved_area = c->area;
+            c->saved_area = c->area();
         }
 
         // Loop for all nodes.
@@ -563,7 +563,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
             vector<vector<double>> m;
             for (auto c : node->cells())
             {
-                m.push_back(vector<double> { c->normal.x, c->normal.y, c->normal.z });
+                m.push_back(vector<double> { c->normal().x, c->normal().y, c->normal().z });
             }
 
             // Transpose matrix.
@@ -574,7 +574,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
             vector<vector<double>> w(node->cells_count(), vector<double>(node->cells_count(), 0.0));
             for (size_t i = 0; i < node->cells_count(); ++i)
             {
-                w[i][i] = node->cell(i)->area;
+                w[i][i] = node->cell(i)->area();
             }
 
             // Perform multiplication tm * w * m.
@@ -634,7 +634,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
         {
             if (c->saved_area > 0.0)
             {
-                double k { c->area / c->saved_area };
+                double k { c->area() / c->saved_area };
 
                 c->rest_ice *= k;
             }

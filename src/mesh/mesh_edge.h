@@ -9,6 +9,7 @@
 #include "mesh_node.h"
 #include "mesh_nodes_holder.h"
 #include "mesh_cells_holder.h"
+#include "mesh_geometrical.h"
 #include "utils/utils.h"
 
 namespace caesar
@@ -29,7 +30,8 @@ class Edge
       public utils::ColorHolder,
       public utils::Markable,
       public NodesHolder,
-      public CellsHolder
+      public CellsHolder,
+      public Geometrical
 {
     friend class Cell;
     friend class Zone;
@@ -140,18 +142,6 @@ public:
     //
     // Work with geometry.
     //
-
-    /// \brief Get original length.
-    ///
-    /// Get original length.
-    ///
-    /// \return
-    /// Original length.
-    inline double
-    original_length() const
-    {
-        return original_length_;
-    }
 
     /// \brief Get length.
     ///

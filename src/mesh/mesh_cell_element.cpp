@@ -22,8 +22,7 @@ utils::Mapper<CellElement> CellElementMapper
     {
         "CellMark", "CellId", "Domain",
         "Area",
-        "NormalX", "NormalY", "NormalZ",
-        "FictitiousNormalX", "FictitiousNormalY", "FictitiousNormalZ"
+        "NormalX", "NormalY", "NormalZ"
     }
 };
 

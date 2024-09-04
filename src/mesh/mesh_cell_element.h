@@ -44,17 +44,8 @@ enum class CellElement
     /// \brief Normal Z component.
     NormalZ,
 
-    /// \brief Fictitious normal X component.
-    FictitiousNormalX,
-
-    /// \brief Fictitious normal Y component.
-    FictitiousNormalY,
-
-    /// \brief Fictitious normal Z component.
-    FictitiousNormalZ,
-
     /// \brief Last element.
-    Last = FictitiousNormalZ
+    Last = NormalZ
 };
 
 /// \brief Cell data element mapper.

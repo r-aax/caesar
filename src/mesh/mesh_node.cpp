@@ -109,7 +109,7 @@ Node::calc_normal()
 
     for (auto c : cells())
     {
-        normal_.add(c->normal);
+        normal_.add(c->normal());
     }
 
     normal_.div(static_cast<double>(cells_count()));

@@ -313,10 +313,6 @@ public:
     void
     update_geometry();
 
-    // Update fictitious geometry.
-    void
-    update_fictitious_geometry();
-
     // Restore nodes points.
     void
     restore_nodes_point();

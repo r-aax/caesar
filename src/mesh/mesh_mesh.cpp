@@ -391,7 +391,7 @@ Mesh::update_cells_geometry()
     {
         c->calc_area();
         c->calc_center();
-        c->calc_outer_normal();
+        c->calc_normal();
     }
 }
 
@@ -415,20 +415,6 @@ Mesh::update_geometry()
     for (auto n : all.nodes())
     {
         n->calc_normal();
-    }
-}
-
-/// \brief Update fictitious geometry.
-///
-/// Update fictitious geometry.
-void
-Mesh::update_fictitious_geometry()
-{
-    // Calculate fictitious normals.
-    #pragma omp parallel for
-    for (auto c : all.cells())
-    {
-        c->calc_fictitious_outer_normal();
     }
 }
 

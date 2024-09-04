@@ -70,16 +70,10 @@ operator<<(ostream& os,
 
     // Geometry data.
     os << endl << tab;
-    os << " Area = " << c.area << " m^2";
-    os << ", center = " << c.center;
+    os << " Area = " << c.area() << " m^2";
+    os << ", center = " << c.center();
     os << endl << tab;
-    os << " fictitious_points = "
-       << c.fictitious_points[0] << ", "
-       << c.fictitious_points[1] << ", "
-       << c.fictitious_points[2];
-    os << endl << tab;
-    os << " normal = " << c.normal;
-    os << " fictitious_normal = " << c.fictitious_normal;
+    os << " normal = " << c.normal();
 
     return os;
 }
@@ -164,45 +158,39 @@ Cell::init_neighbourhood()
 //
 
 /// \brief Calculata area.
+///
+/// Calculate area.
 void
 Cell::calc_area()
 {
-    area = geom::Vector::triangle_area(node(0)->point(),
-                                       node(1)->point(),
-                                       node(2)->point());
+    area_ = geom::Vector::triangle_area(node(0)->point(),
+                                        node(1)->point(),
+                                        node(2)->point());
 }
 
 /// \brief Calculate center vector.
+///
+/// Calculate center.
 void
 Cell::calc_center()
 {
-    center.zero();
+    center_.zero();
 
     for (auto n : nodes())
     {
-        center.add(n->point());
+        center_.add(n->point());
     }
 
-    center.div(static_cast<double>(nodes_count()));
+    center_.div(static_cast<double>(nodes_count()));
 }
 
 /// \brief Calculate outer normal.
 ///
 /// Calculate real outer normal.
 void
-Cell::calc_outer_normal()
+Cell::calc_normal()
 {
-    geom::Vector::calc_outer_normal(node(0)->point(), node(1)->point(), node(2)->point(), normal);
-}
-
-/// \brief Calculate fictitious outer normal.
-///
-/// Calculate fictitious outer normal.
-void
-Cell::calc_fictitious_outer_normal()
-{
-    geom::Vector::calc_outer_normal(fictitious_points[0], fictitious_points[1], fictitious_points[2],
-                                    fictitious_normal);
+    geom::Vector::calc_outer_normal(node(0)->point(), node(1)->point(), node(2)->point(), normal_);
 }
 
 /// @}
