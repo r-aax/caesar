@@ -165,6 +165,8 @@ public:
         return length_;
     }
 
+private:
+
     /// \brief Calculate length.
     ///
     /// Calculate length - distance betweeen two points.
@@ -173,6 +175,8 @@ public:
     {
         length_ = node(0)->point().dist_to(node(1)->point());
     }
+
+public:
 
     /// \brief Calculate geometry.
     ///

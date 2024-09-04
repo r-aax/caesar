@@ -218,9 +218,13 @@ public:
         point_.add(v);
     }
 
+private:
+
     // Calculate normal.
     void
     calc_normal();
+
+public:
 
     /// \brief Calculate geometry.
     ///
