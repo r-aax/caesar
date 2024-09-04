@@ -6,6 +6,7 @@
 #ifndef CAESAR_UTILS_H
 #define CAESAR_UTILS_H
 
+#include "utils_color_holder.h"
 #include "utils_colorable.h"
 #include "utils_data_holder.h"
 #include "utils_ids_holder.h"

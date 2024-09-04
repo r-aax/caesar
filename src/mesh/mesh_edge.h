@@ -26,6 +26,7 @@ class Cell;
 class Edge
     : public utils::DataHolder,
       public utils::IdsHolder,
+      public utils::ColorHolder,
       public utils::Markable,
       public NodesHolder,
       public CellsHolder
@@ -36,9 +37,6 @@ class Edge
     friend class Filer;
 
 private:
-
-    /// \brief Color.
-    int color { -1 };
 
     //
     // Geometry data.
@@ -201,33 +199,6 @@ public:
     restore_geometry()
     {
         length_ = original_length_;
-    }
-
-    //
-    // Data access.
-    //
-
-    /// \brief Get color.
-    ///
-    /// Get color.
-    ///
-    /// \return
-    /// Color.
-    inline int
-    get_color() const
-    {
-        return color;
-    }
-
-    /// \brief Set color.
-    ///
-    /// Set color.
-    ///
-    /// \param[in] color_ Color.
-    inline void
-    set_color(int color_)
-    {
-        color = color_;
     }
 };
 
