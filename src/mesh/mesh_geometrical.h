@@ -53,6 +53,16 @@ public:
     /// Restore geometry from original.
     virtual void
     restore_geometry() = 0;
+
+    /// \brief Initial calculate geometry.
+    ///
+    /// Calculate geometry and save to original.
+    void
+    initial_calc_geometry()
+    {
+        calc_geometry();
+        save_geometry();
+    }
 };
 
 /// @}

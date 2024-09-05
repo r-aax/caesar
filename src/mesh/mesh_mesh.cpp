@@ -379,51 +379,76 @@ Mesh::init_cells_neighbourhoods()
 // Geometry.
 //
 
-/// \brief Update cells geometry.
+/// \brief Calculate geometry.
 ///
-/// Update cells geometry.
+/// Calculate geometry.
 void
-Mesh::update_cells_geometry()
+Mesh::calc_geometry()
 {
-    // Calculate geometry for cells.
-    #pragma omp parallel for
-    for (auto c : all.cells())
-    {
-        c->calc_area();
-        c->calc_center();
-        c->calc_normal();
-    }
-}
-
-/// \brief Update geometry.
-///
-/// Update geometry information.
-void
-Mesh::update_geometry()
-{
-    update_cells_geometry();
-
-    // Calculate geometry for edgs.
     #pragma omp parallel for
     for (auto e : all.edges())
     {
-        e->calc_length();
+        e->calc_geometry();
     }
 
-    // Calculate geometry for nodes.
+    #pragma omp parallel for
+    for (auto c : all.cells())
+    {
+        c->calc_geometry();
+    }
+
+    // Normal of node can be calcuulated only after
+    // normals of all incindent cells.
     #pragma omp parallel for
     for (auto n : all.nodes())
     {
-        n->calc_normal();
+        n->calc_geometry();
     }
 }
 
-/// \brief Restore nodes points.
+/// \brief Save geometry.
 ///
-/// Restore nodes points.
+/// Save geometry.
 void
-Mesh::restore_nodes_point()
+Mesh::save_geometry()
 {
+    #pragma omp parallel for
+    for (auto e : all.edges())
+    {
+        e->save_geometry();
+    }
+
+    #pragma omp parallel for
+    for (auto c : all.cells())
+    {
+        c->save_geometry();
+    }
+
+    #pragma omp parallel for
+    for (auto n : all.nodes())
+    {
+        n->save_geometry();
+    }
+}
+
+/// \brief Restore geometry.
+///
+/// Restore geometry.
+void
+Mesh::restore_geometry()
+{
+    #pragma omp parallel for
+    for (auto e : all.edges())
+    {
+        e->restore_geometry();
+    }
+
+    #pragma omp parallel for
+    for (auto c : all.cells())
+    {
+        c->restore_geometry();
+    }
+
     #pragma omp parallel for
     for (auto n : all.nodes())
     {

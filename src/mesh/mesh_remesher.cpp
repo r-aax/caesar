@@ -177,7 +177,7 @@ Remesher::remesh_prisms(Mesh& mesh,
             n->move(v);
         }
 
-        mesh.update_geometry();
+        mesh.calc_geometry();
     }
 }
 
@@ -627,7 +627,7 @@ Remesher::null_space_smoothing(Mesh& mesh,
         }
 
         // Recalculate geometry.
-        mesh.update_cells_geometry();
+        mesh.calc_geometry();
 
         // Correct rest ice by areas.
         for (auto c : mesh.all.cells())
@@ -678,7 +678,7 @@ Remesher::remesh_tong_step(Mesh& mesh,
     null_space_smoothing(mesh, opts);
 
     // Update geometry in the end.
-    mesh.update_geometry();
+    mesh.calc_geometry();
 }
 
 /// \brief Remesh with Tong method.

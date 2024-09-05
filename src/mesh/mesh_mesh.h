@@ -13,6 +13,7 @@
 #include "mesh_node_data_stub.h"
 #include "mesh_edge_data_stub.h"
 #include "mesh_cell_data_stub.h"
+#include "mesh_geometrical.h"
 
 namespace caesar
 {
@@ -25,6 +26,7 @@ namespace mesh
 
 /// \brief Unstructured surface mesh.
 class Mesh
+    : public Geometrical
 {
     friend class Remesher;
     friend class Decomposer;
@@ -305,17 +307,21 @@ public:
     // Geometry.
     //
 
-    // Update cells geometry.
+    // Calculate geometry.
     void
-    update_cells_geometry();
+    calc_geometry();
 
-    // Update geometry.
+    // Save geometry.
     void
-    update_geometry();
+    save_geometry();
 
-    // Restore nodes points.
+    // Restore geometry.
     void
-    restore_nodes_point();
+    restore_geometry();
+
+    //
+    // Layers.
+    //
 
     /// \brief Age layer.
     ///
@@ -370,9 +376,8 @@ public:
     void
     restore_after_remesh()
     {
-        restore_nodes_point();
         restore_layer<TCellData>();
-        update_geometry();
+        restore_geometry();
     }
 
     //
