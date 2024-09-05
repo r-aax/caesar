@@ -377,6 +377,9 @@ public:
         // Init neighbourhoods.
         mesh.init_cells_neighbourhoods();
 
+        // Geometry.
+        mesh.initial_calc_geometry();
+
         return true;
     }
 
