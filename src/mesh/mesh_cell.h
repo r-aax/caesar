@@ -449,7 +449,7 @@ public:
                 // Filter by angle.
                 if (abs(geom::Vector::angle_cos(d, direction)) > cos_threshold)
                 {
-                    double dv { ngh->get_data<TData>(index) - get_data<TData>(index) };
+                    double dv { ngh->get_element<TData>(index) - get_element<TData>(index) };
                     double dr { direction.projection_value(d) };
 
                     // Filter close cells.
