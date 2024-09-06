@@ -101,7 +101,7 @@ public:
              typename TEdgeData,
              typename TCellData>
     void
-    free_data_if_null()
+    free_data_if_not_null()
     {
         // Delete nodes.
         for (auto n : all.nodes())
@@ -126,9 +126,9 @@ public:
     ///
     /// Default free data.
     void
-    free_data_if_null()
+    free_data_if_not_null()
     {
-        free_data_if_null<NodeDataStub, EdgeDataStub, CellDataStub>();
+        free_data_if_not_null<NodeDataStub, EdgeDataStub, CellDataStub>();
     }
 
     // Print information.
@@ -378,6 +378,51 @@ public:
     {
         restore_layer<TCellData>();
         restore_geometry();
+    }
+
+    //
+    // Data access.
+    //
+
+    /// \brief Set data element for all mesh cells.
+    ///
+    /// Set data element for all mesh cells.
+    ///
+    /// \tparam    TCellData Type of cell data.
+    /// \param[in] index     Index of element.
+    /// \param[in] v         Value.
+    template<typename TCellData>
+    void
+    set_all_cells_element(int index,
+                          double v)
+    {
+        #pragma omp parallel for
+        for (auto c : all.cells())
+        {
+            c->set_element<TCellData>(index, v);
+        }
+    }
+
+    /// \brief Set data element for all mesh cells if data is not initialized.
+    ///
+    /// Set data element for all mesh cells if data is not initialized.
+    ///
+    /// \tparam    TCellData Type of cell data.
+    /// \param[in] index     Index of element.
+    /// \param[in] v         Value.
+    template<typename TCellData>
+    void
+    set_all_cells_uninitialized_element(int index,
+                                        double v)
+    {
+        #pragma omp parallel for
+        for (auto c : all.cells())
+        {
+            if (isnan(c->get_element<TCellData>(index)))
+            {
+                c->set_element<TCellData>(index, v);
+            }
+        }
     }
 
     //

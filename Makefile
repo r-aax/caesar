@@ -21,7 +21,7 @@ FLAGS = -MMD -MP -fopenmp \
 FLAGS_F = $(FLAGS) -std=c++11 -O3
 FLAGS_D = $(FLAGS) -std=c++11 -DDEBUG
 # Catch2 v3 requires c++ 14.
-FLAGS_T = $(FLAGS) -std=c++14
+FLAGS_T = $(FLAGS) -std=c++14 -DDEBUG
 FLAGS_P = $(FLAGS) -std=c++11 -pg
 
 #-------------------------------------------------------------------------------

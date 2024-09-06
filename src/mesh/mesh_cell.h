@@ -375,10 +375,9 @@ public:
     ///
     /// Set data to cell.
     ///
-    /// \tparam    TData           Type of data.
-    /// \param[in] index           Index of element.
-    /// \param[in] v               Value.
-    /// \param[in] is_debug_ignore Debug ignore if we try to set fild not intended for it
+    /// \tparam    TData Type of data.
+    /// \param[in] index Index of element.
+    /// \param[in] v     Value.
     template<typename TData>
     void
     set_element(int index,
@@ -405,6 +404,65 @@ public:
                 get_data<TData>()->set_element(index, v);
                 break;
         }
+    }
+
+    /// \brief Get derivative of data by given direction.
+    ///
+    /// Get derivative of data by given direction.
+    ///
+    /// \tparam    TData Cell data.
+    /// \param[in] index Data index.
+    /// \param[in] d     Direction
+    ///
+    /// \return
+    /// Derivative by direction.
+    template<typename TData>
+    double
+    derivative_by_direction(int index,
+                            const geom::Vector& d)
+    {
+        // We consider all cell neighbours by nodes but filter them by condition:
+        // the angle between direction to the neighbour and tau vector is far from straight angle.
+        static const double cos_threshold { 1.0 / sqrt(2.0) };
+
+        // Avoid neighbours to close to our cell.
+        static const double min_dr { 1.0e-6 };
+
+        // Avoid too small tau vector.
+        static const double min_d_mod { 1.0e-6 };
+
+        vector<double> ps;
+
+        if (d.mod() > min_d_mod)
+        {
+            vector<mesh::Cell*> nghs;
+
+            // Calculate dp_dtau through all neighbours by nodes.
+            get_neighbours_by_nodes(nghs);
+
+            for (auto ngh : nghs)
+            {
+                geom::Vector direction;
+
+                geom::Vector::sub(ngh->center(), center(), direction);
+
+                // Filter by angle.
+                if (abs(geom::Vector::angle_cos(d, direction)) > cos_threshold)
+                {
+                    double dv { ngh->get_data<TData>(index) - get_data<TData>(index) };
+                    double dr { direction.projection_value(d) };
+
+                    // Filter close cells.
+                    if (abs(dr) > min_dr)
+                    {
+                        ps.push_back(dv / dr);
+                    }
+                }
+            }
+        }
+
+        // If we have no good neighbours for calculate derivative, make it const.
+        return (ps.empty()) ? 0.0 : mth::mean(ps);
     }
 };
 

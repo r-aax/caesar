@@ -55,5 +55,5 @@ main(int argc, char** argv)
     // Restore geometry.
     mesh::Filer::store_mesh(mesh, "out/sphere2.dat");
 
-    mesh.free_data_if_null();
+    mesh.free_data_if_not_null();
 }
