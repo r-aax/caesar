@@ -35,25 +35,10 @@ main(int argc, char** argv)
 
     mesh::Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
 
-    // Original mesh.
-    mesh::Filer::store_mesh(mesh, "out/sphere0.dat");
-
-    //
-    // Add some ice.
-    //
-
-    for (auto c : mesh.all.cells())
-    {
-        c->ice_shift = 0.1;
-    }
-
-    mesh::RemeshOptions opts;
-    cout << opts << endl;
-    mesh::Remesher::remesh(mesh, opts);
-    mesh::Filer::store_mesh(mesh, "out/sphere1.dat");
-
-    // Restore geometry.
-    mesh::Filer::store_mesh(mesh, "out/sphere2.dat");
+    // store with chosen data
+    mesh.set_variables_names(vector<string> { "X", "Y", "Z" },
+                             vector<string> { "CellMark", "Domain" });
+    mesh::Filer::store_mesh(mesh, "out/sphere.dat");
 
     mesh.free_data_if_not_null();
 }

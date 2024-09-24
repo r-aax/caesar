@@ -81,9 +81,17 @@ private:
 
 public:
 
+    //
+    // Control memory leaks.
+    //
+
 #ifdef DEBUG
     static int counter;
 #endif // DEBUG
+
+    //
+    // Constructors/destructors.
+    //
 
     // Constructor.
     Mesh();
@@ -91,6 +99,10 @@ public:
     // Destructor.
     virtual
     ~Mesh();
+
+    //
+    // Free data.
+    //
 
     /// \brief Free data if not null.
     ///
@@ -130,6 +142,10 @@ public:
     {
         free_data_if_not_null<NodeDataStub, EdgeDataStub, CellDataStub>();
     }
+
+    //
+    // Print functions.
+    //
 
     // Print information.
     void
@@ -233,6 +249,15 @@ public:
     // Check own edges colors distribution correctness.
     bool
     is_own_edges_colors_distribution_correct() const;
+
+    //
+    // Set variables names for mesh storing.
+    //
+
+    // Set variables names.
+    void
+    set_variables_names(const vector<string>& nodes_variables_names,
+                        const vector<string>& cells_variables_names);
 
     //
     // Objects links.

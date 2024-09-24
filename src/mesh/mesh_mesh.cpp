@@ -16,10 +16,18 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+//
+// Control memory leaks.
+//
+
 #ifdef DEBUG
 // Counter initialization.
 int Mesh::counter = 0;
 #endif // DEBUG
+
+//
+// Constructors/destructors.
+//
 
 /// \brief Default constructor.
 Mesh::Mesh()
@@ -85,6 +93,10 @@ Mesh::~Mesh()
 #endif // DEBUG
 
 }
+
+//
+// Print funtions.
+//
 
 /// \brief Print information.
 ///
@@ -265,6 +277,39 @@ Mesh::is_own_edges_colors_distribution_correct() const
     }
 
     return (cnt == vec_cnt) && (cnt == hist_cnt);
+}
+
+//
+// Set variables names for mesh storing.
+//
+
+/// \brief Set variables names.
+///
+/// Set variables names.
+///
+/// \param[in] nodes_variables_names Nodes variables names.
+/// \param[in] cells_variables_names Cells variables names.
+void
+Mesh::set_variables_names(const vector<string>& nodes_variables_names,
+                          const vector<string>& cells_variables_names)
+{
+    variables_names.clear();
+
+    // Copy names from nodes variables names.
+    for (auto s : nodes_variables_names)
+    {
+        variables_names.push_back(s);
+    }
+
+    // Copy names from cells variables names.
+    for (auto s : cells_variables_names)
+    {
+        variables_names.push_back(s);
+    }
+
+    // Correct cellcentered data.
+    varlocation_cellcentered.first = nodes_variables_names.size() + 1;
+    varlocation_cellcentered.second = variables_names.size();
 }
 
 //
