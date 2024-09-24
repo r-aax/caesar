@@ -32,8 +32,11 @@ enum class DecompositionType
     /// \brief Linear decomposition.
     Linear,
 
+    /// \brief Farhat decomposition.
+    Farhat,
+
     /// \brief Last element.
-    Last = Linear
+    Last = Farhat
 };
 
 /// \brief Mesh decomposition type mapper.

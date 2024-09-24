@@ -45,6 +45,11 @@ private:
     decompose_linear(Mesh& mesh,
                      size_t dn);
 
+    // Farhat decomposition.
+    static void
+    decompose_farhat(Mesh& mesh,
+                     size_t dn);
+
     // Post decompose action.
     static void
     post_decompose(Mesh& mesh);

@@ -16,7 +16,7 @@ namespace mesh
 utils::Mapper<DecompositionType> MeshDecompositionTypeMapper
 {
     "mesh decomposition type",
-    vector<string> { "NO", "RANDOM", "LINEAR" }
+    vector<string> { "NO", "RANDOM", "LINEAR", "FARHAT" }
 };
 
 /// @}

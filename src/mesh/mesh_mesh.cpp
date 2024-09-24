@@ -388,6 +388,38 @@ Mesh::distribute_edges_between_zones()
     }
 }
 
+/// \brief Init cells neighbourhoods.
+///
+/// Init neighbourhood for each cell.
+void
+Mesh::init_cells_neighbourhoods()
+{
+    #pragma omp parallel for
+    for (auto cell : all.cells())
+    {
+        cell->init_neighbourhood();
+    }
+}
+
+//
+// Mark functions.
+//
+
+/// \brief Mark cells.
+///
+/// Mark cells.
+///
+/// \param[in] cond Condition for mark.
+void
+Mesh::mark_cells(bool (*cond)(Cell*))
+{
+    #pragma omp parallel for
+    for (auto c : all.cells())
+    {
+        c->set_mark(cond(c) ? 1 : 0);
+    }
+}
+
 /// \brief Mark border nodes and cells.
 ///
 /// Mark border nodes and cells.
@@ -404,19 +436,6 @@ Mesh::mark_mesh_border_nodes_and_cells()
     for (auto cell : all.cells())
     {
         cell->set_mark(1);
-    }
-}
-
-/// \brief Init cells neighbourhoods.
-///
-/// Init neighbourhood for each cell.
-void
-Mesh::init_cells_neighbourhoods()
-{
-    #pragma omp parallel for
-    for (auto cell : all.cells())
-    {
-        cell->init_neighbourhood();
     }
 }
 

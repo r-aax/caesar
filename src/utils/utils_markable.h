@@ -22,7 +22,7 @@ class Markable
 private:
 
     /// \brief Mark.
-    int mark;
+    int mark { 0 };
 
 public:
 
@@ -48,6 +48,8 @@ public:
     }
 
     /// \brief Get mark.
+    ///
+    /// Get mark.
     ///
     /// \return
     /// Mark.

@@ -5,6 +5,8 @@
 
 #include "mesh_decomposer.h"
 
+#include <deque>
+
 #include "parl/parl.h"
 
 namespace caesar
@@ -93,6 +95,80 @@ Decomposer::decompose_linear(Mesh& mesh,
     }
 
     DEBUG_CHECK_ERROR(lo == n, "cells balance error while linear decomposition");
+}
+
+/// \brief Farhat decomposition.
+///
+/// Farhat decomposition.
+///
+/// \param[out] mesh Mesh,
+/// \param[in]  dn   Number of domains.
+void
+Decomposer::decompose_farhat(Mesh& mesh,
+                             size_t dn)
+{
+    size_t n { mesh.all.cells_count() };
+    size_t cnt { n / dn }, r { n % dn };
+
+    // Remove all cell marks.
+    mesh.mark_cells([](Cell* c) { (void)c; return false; });
+
+    //
+    // Now we have to walk mesh in width.
+    //
+
+    // Queue of cells for walk.
+    deque<Cell*> q;
+
+    // Current domain.
+    size_t cur_domain { 0 };
+
+    // Current count of elements in domain.
+    size_t cur_cnt { (cur_domain < r) ? (cnt + 1) : cnt };
+
+    // Walked cells count.
+    size_t walked_cells { 0 };
+
+    // Get 0-th cell of the mesh and put it into the queue.
+    Cell* c { mesh.all.cells()[0] };
+    c->set_mark(1);
+    q.push_back(c);
+
+    // Walk.
+    while (!q.empty())
+    {
+        Cell* c { q.front() };
+
+        q.pop_front();
+        ++walked_cells;
+        c->domain = cur_domain;
+        --cur_cnt;
+
+        // Check domain change.
+        if (cur_cnt == 0)
+        {
+            ++cur_domain;
+            cur_cnt = (cur_domain < r) ? (cnt + 1) : cnt;
+        }
+
+        // Check all neighbours.
+        for (auto e : c->edges())
+        {
+            Cell* nc { c->get_neighbour(e) };
+
+            if (nc && (nc->get_mark() == 0))
+            {
+                nc->set_mark(1);
+                q.push_back(nc);
+            }
+        }
+    }
+
+    CHECK_ERROR(walked_cells == mesh.all.cells_count(),
+                "there are missed cells while Farhat decomposition algorithm");
+
+    // Remove all cell marks.
+    mesh.mark_cells([](Cell* c) { (void)c; return false; });
 }
 
 /// \brief Post decompose action.
@@ -220,12 +296,21 @@ Decomposer::decompose(Mesh& mesh,
 
             break;
 
+        case DecompositionType::Farhat:
+
+            decompose_farhat(mesh, dn);
+
+            break;
+
         default:
             DEBUG_ERROR("unexpected mesh decomposition type");
     }
 
-    // Post decompose.
-    post_decompose(mesh);
+    // Post decompose (only if processes count is equal to domains count).
+    if (parl::mpi_size() == dn)
+    {
+        post_decompose(mesh);
+    }
 }
 
 /// @}

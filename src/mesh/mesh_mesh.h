@@ -320,13 +320,21 @@ public:
     void
     distribute_edges_between_zones();
 
-    // Mark border nodes and cells.
-    void
-    mark_mesh_border_nodes_and_cells();
-
     // Init cells neighbourhoods.
     void
     init_cells_neighbourhoods();
+
+    //
+    // Mark functions.
+    //
+
+    // Mark cells.
+    void
+    mark_cells(bool (*cond)(Cell*));
+
+    // Mark border nodes and cells.
+    void
+    mark_mesh_border_nodes_and_cells();
 
     //
     // Geometry.
