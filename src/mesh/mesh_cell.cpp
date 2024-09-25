@@ -134,18 +134,6 @@ Cell::get_neighbours_by_nodes(vector<Cell*>& ngh)
     }
 }
 
-/// \brief Init fictitious points.
-///
-/// Copy node points to fictitious points.
-void
-Cell::init_fictitious_points()
-{
-    for (auto node : nodes())
-    {
-        fictitious_points.push_back(geom::Vector(node->point()));
-    }
-}
-
 /// \brief Init neighbourhood.
 void
 Cell::init_neighbourhood()

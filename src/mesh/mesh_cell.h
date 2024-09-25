@@ -50,11 +50,6 @@ public:
     /// By default there is only one domain with number zero.
     size_t domain { 0 };
 
-    /// \brief Fictitious points.
-    ///
-    /// Use fictitious points define fictitious orientaton of the cell.
-    vector<geom::Vector> fictitious_points;
-
     /// \brief Zone.
     Zone* zone { nullptr };
 
@@ -199,10 +194,6 @@ public:
     // Fill list of neighbours by nodes.
     void
     get_neighbours_by_nodes(vector<Cell*>& ngh);
-
-    // Init fictitious points.
-    void
-    init_fictitious_points();
 
     // Init neighbourhood.
     void

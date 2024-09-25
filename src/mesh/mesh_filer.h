@@ -78,9 +78,6 @@ public:
         link_edge_cell(e01, c);
         link_edge_cell(e12, c);
         link_edge_cell(e20, c);
-
-        // Init fictitious points.
-        c->init_fictitious_points();
     }
 
     /// \brief Build zone nodes and cells.
