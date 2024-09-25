@@ -39,7 +39,8 @@ main(int argc, char** argv)
 
     // Store with chosen data.
     mesh.set_variables_names(vector<string> { "X", "Y", "Z" },
-                             vector<string> { "CellMark", "CellId", "Domain", "DistFromBorder" });
+                             vector<string> { "CellMark", "CellId", "Domain",
+                                              "DistFromBorder", "DistFromCenter" });
     mesh::Filer::store_mesh(mesh, "out/sphere.dat");
 
     mesh.free_data_if_not_null();

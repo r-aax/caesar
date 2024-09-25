@@ -88,6 +88,19 @@ Edge::is_cross() const
     return is_inner() && (cell(0)->domain != cell(1)->domain);
 }
 
+/// \brief Check if edge is domain inner.
+///
+/// Check if edge is domain inner.
+///
+/// \return
+/// true - if edge is inner for domain,
+/// false - otherwise.
+bool
+Edge::is_domain_inner() const
+{
+    return is_inner() && (cell(0)->domain == cell(1)->domain);
+}
+
 /// \brief Domain of cell 0.
 ///
 /// Get domain of cell 0.

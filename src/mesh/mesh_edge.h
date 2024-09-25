@@ -131,6 +131,10 @@ public:
     bool
     is_cross() const;
 
+    // Check if edge is domain inner.
+    bool
+    is_domain_inner() const;
+
     // Domain of cell 0.
     size_t
     domain_0();

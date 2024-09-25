@@ -35,6 +35,10 @@ private:
     static void
     calc_cells_dist_from_border(Mesh& mesh);
 
+    // Calculate cells dist from center.
+    static void
+    calc_cells_dist_from_center(Mesh& mesh);
+
     // Decompose with type NO.
     static void
     decompose_no(Mesh& mesh);

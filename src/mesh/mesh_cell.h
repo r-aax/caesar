@@ -53,6 +53,9 @@ public:
     /// \brief Distance from border.
     int dist_from_border { 0 };
 
+    /// \brief Distance from center.
+    int dist_from_center { 0 };
+
     /// \brief Zone.
     Zone* zone { nullptr };
 
@@ -363,6 +366,9 @@ public:
             case CellElement::DistFromBorder:
                 return static_cast<double>(dist_from_border);
 
+            case CellElement::DistFromCenter:
+                return static_cast<double>(dist_from_center);
+
             case CellElement::Area:
                 return area_;
 
@@ -403,6 +409,7 @@ public:
             case CellElement::CellId:
             case CellElement::Domain:
             case CellElement::DistFromBorder:
+            case CellElement::DistFromCenter:
             case CellElement::Area:
             case CellElement::NormalX:
             case CellElement::NormalY:

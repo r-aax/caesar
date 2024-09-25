@@ -21,7 +21,7 @@ utils::Mapper<CellElement> CellElementMapper
     vector<string>
     {
         "CellMark", "CellId",
-        "Domain", "DistFromBorder",
+        "Domain", "DistFromBorder", "DistFromCenter",
         "Area",
         "NormalX", "NormalY", "NormalZ"
     }

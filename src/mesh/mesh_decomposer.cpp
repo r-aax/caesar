@@ -85,9 +85,92 @@ Decomposer::calc_cells_dist_from_border(Mesh& mesh)
             {
                 Cell *nc { c->get_neighbour(e) };
 
+                nc->dist_from_border = min(nc->dist_from_border, c->dist_from_border + 1);
+
                 if (nc->get_mark() == 0)
                 {
-                    nc->dist_from_border = c->dist_from_border + 1;
+                    nc->set_mark(1);
+                    q.push_back(nc);
+                }
+            }
+        }
+    }
+
+    // Remove all cell marks.
+    mesh.mark_cells([](Cell* c) { (void)c; return false; });
+}
+
+/// \brief Calculate cells dist from center.
+///
+/// Calculate cells dist from center.
+///
+/// \param[in,out] mesh Mesh.
+void
+Decomposer::calc_cells_dist_from_center(Mesh& mesh)
+{
+    // Init distance from center for all cell as -1.
+    for (auto c : mesh.all.cells())
+    {
+        c->dist_from_center = numeric_limits<int>::max();
+    }
+
+    // Domains cells count.
+    vector<int> domain_cells_count(3, 0);
+
+    // Center cells distances from border.
+    vector<int> domain_center_dist_from_border(3, 0);
+
+    // Calculate distances from border for center cells.
+    for (auto c : mesh.all.cells())
+    {
+        size_t d { c->domain };
+
+        ++domain_cells_count[d];
+        domain_center_dist_from_border[d] = max(domain_center_dist_from_border[d],
+                                                c->dist_from_border);
+    }
+
+    cout << "DOMAIN_:";
+    for (auto x : domain_cells_count) cout << " " << x;
+    cout << endl;
+    cout << "DOMAIN_CENTER_DIST_FROM_BORDER:";
+    for (auto x : domain_center_dist_from_border) cout << " " << x;
+    cout << endl;
+
+    // Remove all cell marks.
+    mesh.mark_cells([](Cell* c) { (void)c; return false; });
+
+    // Queue for cells walking.
+    deque<Cell*> q;
+
+    // Insert all center cells into queue.
+    for (auto c : mesh.all.cells())
+    {
+        if (c->dist_from_border == domain_center_dist_from_border[c->domain])
+        {
+            c->dist_from_center = 0;
+            c->set_mark(1);
+            q.push_back(c);
+        }
+    }
+
+    // Walk all cells.
+    while (!q.empty())
+    {
+        Cell* c { q.front() };
+
+        q.pop_front();
+
+        for (auto e : c->edges())
+        {
+            if (e->is_domain_inner())
+            {
+                Cell *nc { c->get_neighbour(e) };
+
+                nc->dist_from_center = min(nc->dist_from_center, c->dist_from_center + 1);
+
+                if (nc->get_mark() == 0)
+                {
                     nc->set_mark(1);
                     q.push_back(nc);
                 }
@@ -242,8 +325,9 @@ Decomposer::decompose_pressure(Mesh& mesh,
     // First we decompose the mesh withh Farhat algorithm.
     decompose_farhat(mesh, dn);
 
-    // Calculate dist from border.
+    // Calculate dists.
     calc_cells_dist_from_border(mesh);
+    calc_cells_dist_from_center(mesh);
 }
 
 /// \brief Post decompose action.

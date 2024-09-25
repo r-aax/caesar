@@ -35,6 +35,9 @@ enum class CellElement
     /// \brief Distance from border.
     DistFromBorder,
 
+    /// \brief Distance from center.
+    DistFromCenter,
+
     /// \brief Area (m^2).
     Area,
 
