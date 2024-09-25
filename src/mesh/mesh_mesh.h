@@ -356,19 +356,19 @@ public:
     // Layers.
     //
 
-    /// \brief Age layer.
+    /// \brief Save layer.
     ///
     /// \tparam TCellData Cell data type.
     ///
     /// Copy new layer to old layer.
     template<typename TCellData>
     void
-    age_layer()
+    save_layer()
     {
         #pragma omp parallel for
         for (auto c : all.cells())
         {
-            c->get_data<TCellData>()->age_layer();
+            c->get_data<TCellData>()->save_layer();
         }
     }
 
@@ -386,31 +386,6 @@ public:
         {
             c->get_data<TCellData>()->restore_layer();
         }
-    }
-
-    /// \brief Save before remesh.
-    ///
-    /// Save layer and point before remesh.
-    ///
-    /// \tparam TCellData Cell data type.
-    template<typename TCellData>
-    void
-    save_before_remesh()
-    {
-        age_layer<TCellData>();
-    }
-
-    /// \brief Restore after remesh.
-    ///
-    /// Restore layer and point after remesh.
-    ///
-    /// \tparam TCellData Cell data type.
-    template<typename TCellData>
-    void
-    restore_after_remesh()
-    {
-        restore_layer<TCellData>();
-        restore_geometry();
     }
 
     //

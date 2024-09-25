@@ -461,7 +461,7 @@ Mesh::calc_geometry()
         c->calc_geometry();
     }
 
-    // Normal of node can be calcuulated only after
+    // Normal of node can be calculated only after
     // normals of all incindent cells.
     #pragma omp parallel for
     for (auto n : all.nodes())
