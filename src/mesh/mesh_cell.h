@@ -50,6 +50,9 @@ public:
     /// By default there is only one domain with number zero.
     size_t domain { 0 };
 
+    /// \brief Distance from border.
+    int dist_from_border { 0 };
+
     /// \brief Zone.
     Zone* zone { nullptr };
 
@@ -163,6 +166,18 @@ public:
     friend ostream&
     operator<<(ostream& os,
                const Cell& c);
+
+    //
+    // Simple properties.
+    //
+
+    // Check if cell is border.
+    bool
+    is_mesh_border() const;
+
+    // Check if cell is domain border.
+    bool
+    is_domain_border() const;
 
     /// \brief Get zone.
     ///
@@ -345,6 +360,9 @@ public:
             case CellElement::Domain:
                 return static_cast<double>(domain);
 
+            case CellElement::DistFromBorder:
+                return static_cast<double>(dist_from_border);
+
             case CellElement::Area:
                 return area_;
 
@@ -384,6 +402,7 @@ public:
 
             case CellElement::CellId:
             case CellElement::Domain:
+            case CellElement::DistFromBorder:
             case CellElement::Area:
             case CellElement::NormalX:
             case CellElement::NormalY:

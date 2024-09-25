@@ -35,11 +35,11 @@ main(int argc, char** argv)
     mesh::Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
 
     // Decompose mesh.
-    mesh::Decomposer::decompose(mesh, mesh::DecompositionType::Farhat, 3);
+    mesh::Decomposer::decompose(mesh, mesh::DecompositionType::Pressure, 3);
 
     // Store with chosen data.
     mesh.set_variables_names(vector<string> { "X", "Y", "Z" },
-                             vector<string> { "CellMark", "CellId", "Domain" });
+                             vector<string> { "CellMark", "CellId", "Domain", "DistFromBorder" });
     mesh::Filer::store_mesh(mesh, "out/sphere.dat");
 
     mesh.free_data_if_not_null();

@@ -31,6 +31,10 @@ private:
                                    size_t hi,
                                    size_t domain);
 
+    // Calculate cells dist from border.
+    static void
+    calc_cells_dist_from_border(Mesh& mesh);
+
     // Decompose with type NO.
     static void
     decompose_no(Mesh& mesh);
@@ -49,6 +53,11 @@ private:
     static void
     decompose_farhat(Mesh& mesh,
                      size_t dn);
+
+    // Pressure principle decomposition.
+    static void
+    decompose_pressure(Mesh& mesh,
+                       size_t dn);
 
     // Post decompose action.
     static void

@@ -79,6 +79,55 @@ operator<<(ostream& os,
 }
 
 //
+// Simple properties.
+//
+
+/// \brief Check if cell is border.
+///
+/// Check if cell is border of the mesh.
+///
+/// \return
+/// true - if cell is mesh border,
+/// false - otherwise.
+bool
+Cell::is_mesh_border() const
+{
+    // Cell if border cell if at least one its edge is border.
+    for (auto e : edges())
+    {
+        if (e->is_border())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/// \brief Check if cell is domain border.
+///
+/// Ceck if cell is domain border.
+///
+/// \return
+/// true - if cell is domain border,
+/// false - otherwise.
+bool
+Cell::is_domain_border() const
+{
+    // If any edge of cell is border then cell is border.
+    // If neighbour by any edge has another domain then cell is border.
+    for (auto e : edges())
+    {
+        if (e->is_border() || e->is_cross())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//
 // Links manipulation.
 //
 

@@ -32,6 +32,9 @@ enum class CellElement
     /// \brief Domain number.
     Domain,
 
+    /// \brief Distance from border.
+    DistFromBorder,
+
     /// \brief Area (m^2).
     Area,
 

@@ -35,8 +35,11 @@ enum class DecompositionType
     /// \brief Farhat decomposition.
     Farhat,
 
+    /// \brief Decomposition based on pressure principle.
+    Pressure,
+
     /// \brief Last element.
-    Last = Farhat
+    Last = Pressure
 };
 
 /// \brief Mesh decomposition type mapper.

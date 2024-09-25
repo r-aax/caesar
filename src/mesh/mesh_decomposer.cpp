@@ -41,6 +41,64 @@ Decomposer::set_cells_diapason_with_domain(Mesh& mesh,
     }
 }
 
+/// \brief Calculate cells dist from border.
+///
+/// Calculate cells dist from border.
+///
+/// \param[in,out] mesh Mesh.
+void
+Decomposer::calc_cells_dist_from_border(Mesh& mesh)
+{
+    // Init distance from border for all cell as -1.
+    for (auto c : mesh.all.cells())
+    {
+        c->dist_from_border = numeric_limits<int>::max();
+    }
+
+    // Remove all cell marks.
+    mesh.mark_cells([](Cell* c) { (void)c; return false; });
+
+    // Queue for cells walking.
+    deque<Cell*> q;
+
+    // Set distane from borders for border cells as zero.
+    for (auto c : mesh.all.cells())
+    {
+        if (c->is_domain_border())
+        {
+            c->dist_from_border = 0;
+            c->set_mark(1);
+            q.push_back(c);
+        }
+    }
+
+    // Walk all cells.
+    while (!q.empty())
+    {
+        Cell* c { q.front() };
+
+        q.pop_front();
+
+        for (auto e : c->edges())
+        {
+            if (e->is_inner())
+            {
+                Cell *nc { c->get_neighbour(e) };
+
+                if (nc->get_mark() == 0)
+                {
+                    nc->dist_from_border = c->dist_from_border + 1;
+                    nc->set_mark(1);
+                    q.push_back(nc);
+                }
+            }
+        }
+    }
+
+    // Remove all cell marks.
+    mesh.mark_cells([](Cell* c) { (void)c; return false; });
+}
+
 /// \brief Decompose with type NO.
 ///
 /// Decompose mesh with type NO.
@@ -171,6 +229,23 @@ Decomposer::decompose_farhat(Mesh& mesh,
     mesh.mark_cells([](Cell* c) { (void)c; return false; });
 }
 
+/// \brief Decomposition based on pressure principle.
+///
+/// Decomposition based on pressure principle.
+///
+/// \param[out] mesh Mesh,
+/// \param[in]  dn   Number of domains.
+void
+Decomposer::decompose_pressure(Mesh& mesh,
+                               size_t dn)
+{
+    // First we decompose the mesh withh Farhat algorithm.
+    decompose_farhat(mesh, dn);
+
+    // Calculate dist from border.
+    calc_cells_dist_from_border(mesh);
+}
+
 /// \brief Post decompose action.
 ///
 /// 1. Form boundaries for all other domains.
@@ -299,6 +374,12 @@ Decomposer::decompose(Mesh& mesh,
         case DecompositionType::Farhat:
 
             decompose_farhat(mesh, dn);
+
+            break;
+
+        case DecompositionType::Pressure:
+
+            decompose_pressure(mesh, dn);
 
             break;
 

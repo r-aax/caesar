@@ -66,7 +66,7 @@ public:
         // Names count.
         size_t n = names.size();
 
-        DEBUG_CHECK_ERROR(n == (hi - lo + 1), "wrong number of names in mapper");
+        DEBUG_CHECK_ERROR(n == (hi - lo + 1), "wrong number of names in mapper " + what);
 
         // Create map.
         for (size_t i = 0; i < n; ++i)
