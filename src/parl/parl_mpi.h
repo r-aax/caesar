@@ -28,6 +28,10 @@ namespace parl
 // Basic functions.
 //
 
+// Check initialization.
+bool
+is_mpi_initialized();
+
 // Initialization.
 int
 mpi_init(int* argc,

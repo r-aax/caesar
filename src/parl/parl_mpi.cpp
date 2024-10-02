@@ -18,6 +18,23 @@ namespace parl
 // Basic functions.
 //
 
+/// \brief Check initialization.
+///
+/// Check if MPI is initialized.
+///
+/// \return
+/// true - if MPI is initialized,
+/// false - otherwise.
+bool
+is_mpi_initialized()
+{
+    int initialized { 0 };
+
+    MPI_Initialized(&initialized);
+
+    return (initialized != 0);
+}
+
 /// \brief Initialization.
 ///
 /// MPI initialization.
@@ -68,11 +85,18 @@ mpi_barrier()
 size_t
 mpi_size()
 {
-    int s { 0 };
+    if (is_mpi_initialized())
+    {
+        int s { 0 };
 
-    MPI_Comm_size(MPI_COMM_WORLD, &s);
+        MPI_Comm_size(MPI_COMM_WORLD, &s);
 
-    return static_cast<size_t>(s);
+        return static_cast<size_t>(s);
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 /// \brief Rank.
@@ -84,11 +108,18 @@ mpi_size()
 size_t
 mpi_rank()
 {
-    int r { 0 };
+    if (is_mpi_initialized())
+    {
+        int r { 0 };
 
-    MPI_Comm_rank(MPI_COMM_WORLD, &r);
+        MPI_Comm_rank(MPI_COMM_WORLD, &r);
 
-    return static_cast<size_t>(r);
+        return static_cast<size_t>(r);
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 //
