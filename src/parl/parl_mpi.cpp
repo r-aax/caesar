@@ -69,6 +69,11 @@ mpi_finalize()
 void
 mpi_barrier()
 {
+    if (!is_mpi_initialized())
+    {
+        return;
+    }
+
     MPI_Barrier(MPI_COMM_WORLD);
 }
 
@@ -85,18 +90,16 @@ mpi_barrier()
 size_t
 mpi_size()
 {
-    if (is_mpi_initialized())
-    {
-        int s { 0 };
-
-        MPI_Comm_size(MPI_COMM_WORLD, &s);
-
-        return static_cast<size_t>(s);
-    }
-    else
+    if (!is_mpi_initialized())
     {
         return 1;
     }
+
+    int s { 0 };
+
+    MPI_Comm_size(MPI_COMM_WORLD, &s);
+
+    return static_cast<size_t>(s);
 }
 
 /// \brief Rank.
@@ -108,18 +111,16 @@ mpi_size()
 size_t
 mpi_rank()
 {
-    if (is_mpi_initialized())
-    {
-        int r { 0 };
-
-        MPI_Comm_rank(MPI_COMM_WORLD, &r);
-
-        return static_cast<size_t>(r);
-    }
-    else
+    if (!is_mpi_initialized())
     {
         return 0;
     }
+
+    int r { 0 };
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &r);
+
+    return static_cast<size_t>(r);
 }
 
 //
@@ -138,6 +139,11 @@ mpi_isend(vector<double>& data,
           size_t process_id,
           MPI_Request& request)
 {
+    if (!is_mpi_initialized())
+    {
+        return;
+    }
+
     MPI_Isend(data.data(),
               static_cast<int>(data.size()),
               MPI_DOUBLE,
@@ -159,6 +165,11 @@ mpi_irecv(vector<double>& data,
           size_t process_id,
           MPI_Request& request)
 {
+    if (!is_mpi_initialized())
+    {
+        return;
+    }
+
     MPI_Irecv(data.data(),
               static_cast<int>(data.size()),
               MPI_DOUBLE,
@@ -176,6 +187,11 @@ mpi_irecv(vector<double>& data,
 void
 mpi_wait(MPI_Request request)
 {
+    if (!is_mpi_initialized())
+    {
+        return;
+    }
+
     MPI_Wait(&request,
              MPI_STATUS_IGNORE);
 }
@@ -188,6 +204,11 @@ mpi_wait(MPI_Request request)
 void
 mpi_waitall(vector<MPI_Request>& requests)
 {
+    if (!is_mpi_initialized())
+    {
+        return;
+    }
+
     MPI_Waitall(static_cast<int>(requests.size()),
                 requests.data(),
                 MPI_STATUSES_IGNORE);
@@ -203,6 +224,11 @@ void
 mpi_reduce_sum(vector<double>& out_data,
                vector<double>& in_data)
 {
+    if (!is_mpi_initialized())
+    {
+        return;
+    }
+
     MPI_Reduce(out_data.data(),
                in_data.data(),
                static_cast<int>(in_data.size()),
