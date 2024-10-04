@@ -433,6 +433,66 @@ public:
         }
     }
 
+    /// \brief Get cells elements from mesh cells.
+    ///
+    /// Get cells elements from mesh cells.
+    ///
+    /// \tparam               Type of cell data.
+    /// \param[in]  index     Index of element.
+    /// \param[out] data      Array for data.
+    /// \param[in]  max_count Maximum count of read element.
+    template<typename TCellData>
+    void
+    get_cells_elements(int index,
+                       double* data,
+                       int max_count = numeric_limits<int>::max)
+    {
+        auto n { all.cells_count() };
+        int count { 0 };
+
+        for (size_t i = 0; i < n; ++i)
+        {
+            data[i] = all.cell(i)->get_element<TCellData>(index);
+
+            ++count;
+
+            if (count == max_count)
+            {
+                break;
+            }
+        }
+    }
+
+    /// \brief Set cells elements to mesh cells.
+    ///
+    /// Set cells elements to mesh cells.
+    ///
+    /// \tparam              Type of cell data.
+    /// \param[in] index     Index of element.
+    /// \param[in] data      Source data.
+    /// \param[in] max_count Maximum count of set element.
+    template<typename TCellData>
+    void
+    set_cells_elements(int index,
+                       double* data,
+                       int max_count = numeric_limits<int>::max)
+    {
+        auto n { all.cells_count() };
+        int count { 0 };
+
+        for (size_t i = 0; i < n; ++i)
+        {
+            all.cell(i)->set_element<TCellData>(index, data[i]);
+
+            ++count;
+
+            if (count == max_count)
+            {
+                break;
+            }
+        }
+    }
+
     //
     // Data transfers.
     //
