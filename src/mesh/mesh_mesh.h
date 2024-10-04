@@ -445,7 +445,7 @@ public:
     void
     get_cells_elements(int index,
                        double* data,
-                       int max_count = numeric_limits<int>::max)
+                       int max_count = numeric_limits<int>::max())
     {
         auto n { all.cells_count() };
         int count { 0 };
@@ -475,7 +475,7 @@ public:
     void
     set_cells_elements(int index,
                        double* data,
-                       int max_count = numeric_limits<int>::max)
+                       int max_count = numeric_limits<int>::max())
     {
         auto n { all.cells_count() };
         int count { 0 };
