@@ -18,7 +18,28 @@ TEST_CASE("Mesh : main methods of mesh", "[mesh]")
         double out_data[n];
         Mesh mesh;
 
+        // Load mesh.
         Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
+
+        //
+        // Set and get nodes data.
+        //
+
+        for (int i = 0; i < n; ++i)
+        {
+            in_data[i] = static_cast<double>(i + 1);
+            out_data[i] = 0.0;
+        }
+
+        mesh.set_nodes_elements<NodeDataStub>(static_cast<int>(NodeDataElementStub::Stub),
+                                              in_data, n);
+        mesh.get_nodes_elements<NodeDataStub>(static_cast<int>(NodeDataElementStub::Stub),
+                                              out_data, n);
+
+        for (int i = 0; i < n; ++i)
+        {
+            CHECK(mth::is_eq(in_data[i], out_data[i]));
+        }
 
         //
         // Set and get cells data.
@@ -40,6 +61,7 @@ TEST_CASE("Mesh : main methods of mesh", "[mesh]")
             CHECK(mth::is_eq(in_data[i], out_data[i]));
         }
 
+        // Free data.
         mesh.free_data_if_not_null();
     }
 }

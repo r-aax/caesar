@@ -392,6 +392,66 @@ public:
     // Data access.
     //
 
+    /// \brief Get nodes elements from mesh nodes.
+    ///
+    /// Get nodes elements from mesh nodes.
+    ///
+    /// \tparam               Type of node data.
+    /// \param[in]  index     Index of element.
+    /// \param[out] data      Array for data.
+    /// \param[in]  max_count Maximum count of read element.
+    template<typename TNodeData>
+    void
+    get_nodes_elements(int index,
+                       double* data,
+                       int max_count = numeric_limits<int>::max())
+    {
+        auto n { all.nodes_count() };
+        int count { 0 };
+
+        for (size_t i = 0; i < n; ++i)
+        {
+            data[i] = all.node(i)->get_element<TNodeData>(index);
+
+            ++count;
+
+            if (count == max_count)
+            {
+                break;
+            }
+        }
+    }
+
+    /// \brief Set nodes elements to mesh nodes.
+    ///
+    /// Set nodes elements to mesh nodes.
+    ///
+    /// \tparam              Type of node data.
+    /// \param[in] index     Index of element.
+    /// \param[in] data      Source data.
+    /// \param[in] max_count Maximum count of set element.
+    template<typename TNodeData>
+    void
+    set_nodes_elements(int index,
+                       double* data,
+                       int max_count = numeric_limits<int>::max())
+    {
+        auto n { all.nodes_count() };
+        int count { 0 };
+
+        for (size_t i = 0; i < n; ++i)
+        {
+            all.node(i)->set_element<TNodeData>(index, data[i]);
+
+            ++count;
+
+            if (count == max_count)
+            {
+                break;
+            }
+        }
+    }
+
     /// \brief Set data element for all mesh cells.
     ///
     /// Set data element for all mesh cells.
