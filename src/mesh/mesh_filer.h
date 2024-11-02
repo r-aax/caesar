@@ -8,7 +8,6 @@
 
 #include <set>
 #include <fstream>
-#include <boost/filesystem.hpp>
 
 #include "mesh_mesh.h"
 #include "mesh_node_data_stub.h"
