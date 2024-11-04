@@ -6,6 +6,9 @@
 #include "utils_system.h"
 
 #include <fstream>
+#include <sys/stat.h>
+
+using namespace std;
 
 namespace caesar
 {
@@ -77,9 +80,10 @@ is_file_exist(string fn)
 bool
 is_directory_exist(string dn)
 {
-    (void)dn;
+    const char* dir { dn.c_str() };
+    struct stat sb;
 
-    return true;
+    return stat(dir, &sb) == 0;
 }
 
 /// @}
