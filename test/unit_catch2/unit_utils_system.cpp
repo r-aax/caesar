@@ -20,12 +20,4 @@ TEST_CASE("system : some system features", "[utils]")
         CHECK(utils::double_hash(b) != utils::double_hash(c));
         CHECK(utils::double_hash(a) != utils::double_hash(c));
     }
-
-    SECTION("check files and directory existance", "[utils]")
-    {
-        CHECK(utils::is_file_exist("test/data/stub.txt"));
-        CHECK(!utils::is_file_exist("test/data/nofile.txt"));
-        CHECK(utils::is_directory_exist("test/data"));
-        CHECK(!utils::is_directory_exist("test/nodirectory"));
-    }
 }

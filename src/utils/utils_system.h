@@ -24,14 +24,6 @@ namespace utils
 uint64_t
 double_hash(double x);
 
-// Check if file exists.
-bool
-is_file_exist(string fn);
-
-// Check if directory exists.
-bool
-is_directory_exist(string dn);
-
 /// @}
 
 }
