@@ -6,8 +6,12 @@
 #ifndef CAESAR_PARL_BUFFER_H
 #define CAESAR_PARL_BUFFER_H
 
+#include <iostream>
+
 #include "parl_mpi.h"
 #include "utils/utils.h"
+
+using namespace std;
 
 namespace caesar
 {
