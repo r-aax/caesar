@@ -27,6 +27,19 @@ class NodesEdgesCellsHolder
       public EdgesHolder,
       public CellsHolder
 {
+
+public:
+
+    /// \brief Clear all elements.
+    ///
+    /// Clear all elements.
+    inline void
+    clear()
+    {
+        clear_nodes();
+        clear_edges();
+        clear_cells();
+    }
 };
 
 /// @}

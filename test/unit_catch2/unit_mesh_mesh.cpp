@@ -4,8 +4,10 @@
 /// Tests for mesh.
 
 #include <catch2/catch_test_macros.hpp>
+#include <iostream>
 #include "caesar.h"
 
+using namespace std;
 using namespace caesar;
 using namespace caesar::mesh;
 
@@ -62,6 +64,35 @@ TEST_CASE("Mesh : main methods of mesh", "[mesh]")
         }
 
         // Free data.
-        mesh.free_data_if_not_null();
+        mesh.clear();
+    }
+
+    SECTION("double load")
+    {
+        Mesh mesh;
+
+        // Load mesh.
+        Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
+
+        size_t nc1 { mesh.all.nodes_count() };
+        size_t ec1 { mesh.all.edges_count() };
+        size_t cc1 { mesh.all.cells_count() };
+        size_t zc1 { mesh.zones_count() };
+
+        // Load mesh.
+        Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
+
+        size_t nc2 { mesh.all.nodes_count() };
+        size_t ec2 { mesh.all.edges_count() };
+        size_t cc2 { mesh.all.cells_count() };
+        size_t zc2 { mesh.zones_count() };
+
+        // Free data.
+        mesh.clear();
+
+        CHECK(nc1 == nc2);
+        CHECK(ec1 == ec2);
+        CHECK(cc1 == cc2);
+        CHECK(zc1 == zc2);
     }
 }

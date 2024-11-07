@@ -244,6 +244,9 @@ public:
               utils::Mapper<TNodeDataElement>& node_data_element_mapper,
               utils::Mapper<TCellDataElement>& cell_data_element_mapper)
     {
+        // Clear mesh before load it again.
+        mesh.clear<TNodeData, TEdgeData, TCellData>();
+
         ifstream f(fn);
         string line { "" };
         Zone* current_zone { nullptr };
@@ -264,7 +267,7 @@ public:
         // We do not load meshes more than one time.
         if (mesh.zones_count() > 0)
         {
-            DEBUG_ERROR("repeated mesh loading");
+            DEBUG_ERROR("mesh is already loaded");
         }
 
         while (getline(f, line))

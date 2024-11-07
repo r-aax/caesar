@@ -104,6 +104,8 @@ public:
     // Free data.
     //
 
+private:
+
     /// \brief Free data if not null.
     ///
     /// \tparam TNodeData Node data type.
@@ -134,13 +136,65 @@ public:
         }
     }
 
-    /// \brief Default free data.
+public:
+
+    /// \brief Clear mesh.
     ///
-    /// Default free data.
+    /// \tparam TNodeData Node data type.
+    /// \tparam TEdgeData Edge data type.
+    /// \tparam TCellData Cell data type.
+    template<typename TNodeData,
+             typename TEdgeData,
+             typename TCellData>
     void
-    free_data_if_not_null()
+    clear()
     {
         free_data_if_not_null<NodeDataStub, EdgeDataStub, CellDataStub>();
+
+        // Delete nodes.
+        for (auto n : all.nodes())
+        {
+            delete n;
+        }
+
+        // Delete edges.
+        for (auto e : all.edges())
+        {
+            delete e;
+        }
+
+        // Delete cells.
+        for (auto c : all.cells())
+        {
+            delete c;
+        }
+
+        // Delete zones.
+        for (auto z : zones)
+        {
+            delete z;
+        }
+
+        // Clear all the rest.
+        title = "";
+        variables_names.clear();
+        varlocation_cellcentered.first = 0;
+        varlocation_cellcentered.second = 0;
+        zones.clear();
+        all.clear();
+        own.clear();
+        own_edges_by_colors.clear();
+        own_edges_colors_histogram.clear();
+        domains_cells.clear();
+    }
+
+    /// \brief Clear mesh.
+    ///
+    /// Clear mesh with default data.
+    void
+    clear()
+    {
+        clear<NodeDataStub, EdgeDataStub, CellDataStub>();
     }
 
     //

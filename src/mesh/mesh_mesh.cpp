@@ -44,29 +44,6 @@ Mesh::Mesh()
 /// \brief Default destructor.
 Mesh::~Mesh()
 {
-    // Delete nodes.
-    for (auto n : all.nodes())
-    {
-        delete n;
-    }
-
-    // Delete edges.
-    for (auto e : all.edges())
-    {
-        delete e;
-    }
-
-    // Delete cells.
-    for (auto c : all.cells())
-    {
-        delete c;
-    }
-
-    // Delete zones.
-    for (auto z : zones)
-    {
-        delete z;
-    }
 
 #ifdef DEBUG
 
