@@ -43,7 +43,7 @@ main(int argc, char** argv)
                                               "DistFromBorder", "DistFromCenter" });
     mesh::Filer::store_mesh(mesh, "out/sphere.dat");
 
-    mesh.free_data_if_not_null();
+    mesh.clear();
 
     parl::mpi_finalize();
 }

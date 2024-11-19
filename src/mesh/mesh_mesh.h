@@ -149,7 +149,7 @@ public:
     void
     clear()
     {
-        free_data_if_not_null<NodeDataStub, EdgeDataStub, CellDataStub>();
+        free_data_if_not_null<TNodeData, TEdgeData, TCellData>();
 
         // Delete nodes.
         for (auto n : all.nodes())
