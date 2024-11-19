@@ -183,8 +183,16 @@ public:
         zones.clear();
         all.clear();
         own.clear();
-        own_edges_by_colors.clear();
-        own_edges_colors_histogram.clear();
+
+        // issue #39
+        // Do not clear own edges by colors vector and histogram.
+        // Size of own_edges_by_colors and own_edges_colors_histogram must be constant.
+        for (size_t i = 0; i < max_edges_colors_count; ++i)
+        {
+            own_edges_by_colors[i].clear();
+            own_edges_colors_histogram[i] = 0;
+        }
+
         domains_cells.clear();
     }
 
