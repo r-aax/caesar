@@ -100,15 +100,16 @@ Mesh::print_info(ostream& s,
     s << "Nodes vector size          : " << all.nodes_count() << endl;
     s << "Edges vector size          : " << all.edges_count() << endl;
     s << "Own edges vector size      : " << own.edges_count() << endl;
-    s << "Own edges colors histogram :";
-
-    int total_edges_colors_count { 0 };
 
     // Check we still have own edges colors histogram.
     DEBUG_CHECK_ERROR(own_edges_by_colors.size() == max_edges_colors_count,
                       "own_edges_by_colors has incorrect size");
     DEBUG_CHECK_ERROR(own_edges_colors_histogram.size() == max_edges_colors_count,
                       "own_edges_colors_histogram has incorrect size");
+
+    s << "Own edges colors histogram :";
+
+    int total_edges_colors_count { 0 };
 
     for (size_t i = 0; i < max_edges_colors_count; ++i)
     {
