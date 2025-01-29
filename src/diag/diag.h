@@ -57,6 +57,11 @@ namespace diag
         ERROR(S); \
     }
 
+/// \brief Error message for not implemented code.
+///
+/// Error message for not implemented code.
+#define NOT_IMPLEMENTED ERROR("not implemented")
+
 #ifdef DEBUG
 
 /// \brief Debug warning message.

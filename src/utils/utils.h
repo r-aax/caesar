@@ -9,6 +9,7 @@
 #include "utils_color_holder.h"
 #include "utils_colorable.h"
 #include "utils_data_holder.h"
+#include "utils_filesystem.h"
 #include "utils_ids_holder.h"
 #include "utils_mapper.h"
 #include "utils_markable.h"
