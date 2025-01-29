@@ -131,6 +131,59 @@ exists_directory(const string& dn)
     return stat(dn.c_str(), &sb) == 0;
 }
 
+/// \brief Create directory.
+///
+/// Create directory.
+///
+/// \param[in] dn Directory name.
+///
+/// \return
+/// true - if directory is created,
+/// false - otherwise.
+bool
+create_directory(const string& dn)
+{
+    int status { mkdir(dn.c_str(), 0777) };
+
+    return status == 0;
+}
+
+/// \brief Create directories.
+///
+/// Create directories (with nesting of any level).
+///
+/// \param[in] dn Name of directory.
+///
+/// \return
+/// true - if directory is built,
+/// false - otherwise.
+bool
+create_directories(const string& dn)
+{
+    auto n { dn.size() };
+    bool is_created { false };
+
+    if (n == 0)
+    {
+        return is_created;
+    }
+
+    for (size_t i { 0 }; i < n; ++i)
+    {
+        if ((dn[i] == '/') || (dn[i] == '\\'))
+        {
+            is_created = create_directory(dn.substr(0, i));
+        }
+    }
+
+    if ((dn.back() != '/') && (dn.back() != '\\'))
+    {
+        is_created = create_directory(dn);
+    }
+
+    return is_created;
+}
+
 /// @}
 
 }

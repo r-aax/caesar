@@ -31,6 +31,14 @@ exists_file(const string& fn);
 bool
 exists_directory(const string& dn);
 
+// Create directory.
+bool
+create_directory(const string& dn);
+
+// Create directories.
+bool
+create_directories(const string& dn);
+
 /// @}
 
 }
