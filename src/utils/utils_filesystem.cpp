@@ -31,7 +31,11 @@ namespace utils
 string
 filename_stem(const string& s)
 {
-    CHECK_ERROR(s != "", "zero string in filename_stem")
+    if (s == "")
+    {
+        return "";
+    }
+
     CHECK_ERROR((s.back() != '/') && (s.back() != '\\'), "wrong end symbol in filename")
 
     auto n { s.size() };

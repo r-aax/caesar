@@ -12,6 +12,7 @@ TEST_CASE("filesystem : filename functions", "[utils]")
 {
     SECTION("filename_stem")
     {
+        CHECK(utils::filename_stem("") == "");
         CHECK(utils::filename_stem("test") == "test");
         CHECK(utils::filename_stem("test.txt") == "test");
         CHECK(utils::filename_stem("path/test") == "test");
