@@ -10,9 +10,11 @@
 
 using namespace std;
 
-namespace caesar {
+namespace caesar
+{
 
-namespace utils {
+namespace utils
+{
 
 /// \addtogroup utils
 /// @{
@@ -20,6 +22,14 @@ namespace utils {
 // Stem of filename.
 string
 filename_stem(const string& s);
+
+// Check is there a file with given name.
+bool
+exists_file(const string& fn);
+
+// Check is there a directory with given name.
+bool
+exists_directory(const string& dn);
 
 /// @}
 

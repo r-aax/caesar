@@ -6,12 +6,16 @@
 #include "utils_filesystem.h"
 
 #include <iostream>
+#include <fstream>
+#include <sys/stat.h>
 
 #include "diag/diag.h"
 
-namespace caesar {
+namespace caesar
+{
 
-namespace utils {
+namespace utils
+{
 
 /// \addtogroup utils
 /// @{
@@ -84,6 +88,43 @@ filename_stem(const string& s)
             return s.substr(slash_pos + 1, dot_pos - slash_pos - 1);
         }
     }
+}
+
+/// \brief Check is there a file with given name.
+///
+/// Check is there a file with given name.
+///
+/// \param[in] fn Name of file.
+///
+/// \return
+/// true - if there is a file,
+/// false - otherwise.
+bool
+exists_file(const string& fn)
+{
+    ifstream s(fn);
+
+    return s.is_open();
+}
+
+/// \brief Check is there a directory with given name.
+///
+/// Check is there a directory with given name.
+///
+/// source:
+/// https://www.geeksforgeeks.org/how-to-check-a-file-or-directory-exists-in-cpp/
+/// 
+/// \param[in] dn Name of directory.
+///
+/// \return
+/// true - if there is a directory,
+/// false - otherwise.
+bool
+exists_directory(const string& dn)
+{
+    struct stat sb;
+
+    return stat(dn.c_str(), &sb) == 0;
 }
 
 /// @}

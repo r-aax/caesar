@@ -18,4 +18,17 @@ TEST_CASE("filesystem : filename functions", "[utils]")
         CHECK(utils::filename_stem("path/test.txt") == "test");
         CHECK(utils::filename_stem("path/test.txt.txt") == "test.txt");
     }
+
+    SECTION("files and directories existense")
+    {
+        CHECK(utils::exists_file("Makefile"));
+        CHECK(!utils::exists_file("no-such-file"));
+        CHECK(!utils::exists_directory("no-such-directory"));
+
+        // Target file is built near src/ directory or inside it.
+        auto a { utils::exists_directory("src") };
+        auto b { utils::exists_directory("../src") };
+        auto c { a || b };
+        CHECK(c);
+    }
 }
