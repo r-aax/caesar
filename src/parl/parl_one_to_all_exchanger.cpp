@@ -104,7 +104,7 @@ OneToAllExchanger::gather()
     {
         for (size_t i = 0; i < buffers.size(); ++i)
         {
-            buffers[i].irecv(requests[i]);
+            buffers[i].irecv(requests, i);
         }
     }
 
@@ -112,7 +112,7 @@ OneToAllExchanger::gather()
 
     if (r != 0)
     {
-        buffers[0].isend(requests[0]);
+        buffers[0].isend(requests, 0);
     }
 
     mpi_waitall(requests);

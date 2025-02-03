@@ -5,6 +5,13 @@
 
 #include "parl_mpi.h"
 
+// Disable cast-function-type warning inside openmpi.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#include "mpi.h"
+#pragma GCC diagnostic pop
+
 namespace caesar
 {
 
@@ -13,6 +20,84 @@ namespace parl
 
 /// \addtogroup parl
 /// @{
+
+//
+// MPIRequests methods.
+//
+
+/// \brief Allocate memory.
+///
+/// Allocate memory.
+///
+/// \param[in] n Count of requests.
+void
+MPIRequests::alloc_memory(size_t n)
+{
+    count_ = n;
+    CHECK_ERROR(data == nullptr, "MPIRequests: double allocation");
+    data = new char[n * sizeof(MPI_Request)];
+}
+
+/// \brief Free memory.
+///
+/// Free memory.
+void
+MPIRequests::free_memory()
+{
+    count_ = 0;
+
+    if (data)
+    {
+        delete [] data;
+    }
+}
+
+/// \brief Constructor.
+///
+/// Constructor.
+///
+/// \param[in] n Number of requests.
+MPIRequests::MPIRequests(size_t n)
+{
+    if (n > 0)
+    {
+        alloc_memory(n);
+    }
+}
+
+/// \brief Destructor.
+///
+/// Default destructor.
+MPIRequests::~MPIRequests()
+{
+    free_memory();
+}
+
+/// \brief Get address of request.
+///
+/// Get address of request.
+///
+/// \param[in] i Index.
+///
+/// \return
+/// Address of request.
+void*
+MPIRequests::get(size_t i)
+{
+    return static_cast<void*>(data + (i * sizeof(MPI_Request)));
+}
+
+/// \brief Resize data for requests.
+///
+/// Resize memory for new size.
+///
+/// \param[in] n New count of requests.
+void
+MPIRequests::resize(size_t n)
+{
+    free_memory();
+    alloc_memory(n);
+}
 
 //
 // Basic functions.
@@ -133,11 +218,13 @@ mpi_rank()
 ///
 /// \param[in]  data       Data to send.
 /// \param[in]  process_id Process identifier.
-/// \param[out] request    Request.
+/// \param[out] requests   Requests.
+/// \param[in]  request_i  Request index.
 void
 mpi_isend(vector<double>& data,
           size_t process_id,
-          MPI_Request& request)
+          MPIRequests& requests,
+          size_t request_i)
 {
     if (!is_mpi_initialized())
     {
@@ -150,7 +237,7 @@ mpi_isend(vector<double>& data,
               static_cast<int>(process_id),
               0,
               MPI_COMM_WORLD,
-              &request);
+              static_cast<MPI_Request*>(requests.get(request_i)));
 }
 
 /// \brief Async receive.
@@ -159,11 +246,13 @@ mpi_isend(vector<double>& data,
 ///
 /// \param[out] data       Data to receive.
 /// \param[in]  process_id Process identifier.
-/// \param[out] request    Request.
+/// \param[out] requests   Requests.
+/// \param[in]  request_i  Request index.
 void
 mpi_irecv(vector<double>& data,
           size_t process_id,
-          MPI_Request& request)
+          MPIRequests& requests,
+          size_t request_i)
 {
     if (!is_mpi_initialized())
     {
@@ -176,23 +265,25 @@ mpi_irecv(vector<double>& data,
               static_cast<int>(process_id),
               0,
               MPI_COMM_WORLD,
-              &request);
+              static_cast<MPI_Request*>(requests.get(request_i)));
 }
 
 /// \brief Wait.
 ///
 /// Wait for request.
 ///
-/// \param[in] request Request.
+/// \param[in] requests  Requests.
+/// \param[in] request_i Request index.
 void
-mpi_wait(MPI_Request request)
+mpi_wait(MPIRequests& requests,
+         size_t request_i)
 {
     if (!is_mpi_initialized())
     {
         return;
     }
 
-    MPI_Wait(&request,
+    MPI_Wait(static_cast<MPI_Request*>(requests.get(request_i)),
              MPI_STATUS_IGNORE);
 }
 
@@ -202,15 +293,15 @@ mpi_wait(MPI_Request request)
 ///
 /// \param[in,out] requests Requests.
 void
-mpi_waitall(vector<MPI_Request>& requests)
+mpi_waitall(MPIRequests& requests)
 {
     if (!is_mpi_initialized())
     {
         return;
     }
 
-    MPI_Waitall(static_cast<int>(requests.size()),
-                requests.data(),
+    MPI_Waitall(static_cast<int>(requests.count()),
+                static_cast<MPI_Request*>(requests.get()),
                 MPI_STATUSES_IGNORE);
 }
 

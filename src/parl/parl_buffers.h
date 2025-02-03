@@ -27,7 +27,7 @@ protected:
     vector<Buffer> buffers;
 
     /// \brief Requests.
-    vector<MPI_Request> requests;
+    MPIRequests requests;
 
 public:
 

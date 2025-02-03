@@ -31,7 +31,8 @@ Buffer::Buffer()
 Buffer::Buffer(size_t process_id_,
                size_t neighbour_process_id_)
     : process_id(process_id_),
-      neighbour_process_id(neighbour_process_id_)
+      neighbour_process_id(neighbour_process_id_),
+      requests(2)
 {
 }
 
@@ -129,11 +130,13 @@ Buffer::print_all(ostream& os)
 ///
 /// Asynchronic send.
 ///
-/// \param[out] request Request.
+/// \param[out] requests  Requests.
+/// \param[in]  request_i Request index.
 void
-Buffer::isend(MPI_Request& request)
+Buffer::isend(MPIRequests& requests,
+              size_t request_i)
 {
-    mpi_isend(out_data, neighbour_process_id, request);
+    mpi_isend(out_data, neighbour_process_id, requests, request_i);
 }
 
 /// \brief Async receive.
@@ -142,9 +145,10 @@ Buffer::isend(MPI_Request& request)
 ///
 /// \param[out] request Request.
 void
-Buffer::irecv(MPI_Request& request)
+Buffer::irecv(MPIRequests& requests,
+              size_t request_i)
 {
-    mpi_irecv(in_data, neighbour_process_id, request);
+    mpi_irecv(in_data, neighbour_process_id, requests, request_i);
 }
 
 /// \brief Exchange data between processes.

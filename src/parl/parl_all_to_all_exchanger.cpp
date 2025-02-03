@@ -69,7 +69,7 @@ AllToAllExchanger::exchange()
     // Init all irecv.
     for (size_t i = 0; i < s; ++i)
     {
-        buffers[i].irecv(requests[i]);
+        buffers[i].irecv(requests, i);
     }
 
     mpi_barrier();
@@ -77,7 +77,7 @@ AllToAllExchanger::exchange()
     // Init all isend.
     for (size_t i = 0; i < s; ++i)
     {
-        buffers[i].isend(requests[s + i]);
+        buffers[i].isend(requests, s + i);
     }
 
     mpi_waitall(requests);

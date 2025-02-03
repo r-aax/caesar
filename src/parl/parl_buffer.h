@@ -47,7 +47,7 @@ private:
     vector<double> out_data;
 
     /// \brief Vector of requests.
-    vector<MPI_Request> requests { 0, 0 };
+    MPIRequests requests;
 
 public:
 
@@ -123,7 +123,8 @@ public:
 
     // Async send.
     void
-    isend(MPI_Request& request);
+    isend(MPIRequests& requests,
+          size_t request_i);
 
     /// \brief Async send.
     ///
@@ -131,12 +132,13 @@ public:
     inline void
     isend()
     {
-        isend(requests[0]);
+        isend(requests, 0);
     }
 
     // Async receive.
     void
-    irecv(MPI_Request& request);
+    irecv(MPIRequests& requests,
+          size_t request_i);
 
     /// \brief
     ///
@@ -144,7 +146,7 @@ public:
     inline void
     irecv()
     {
-        irecv(requests[1]);
+        irecv(requests, 1);
     }
 
     // Exchange data between processes.

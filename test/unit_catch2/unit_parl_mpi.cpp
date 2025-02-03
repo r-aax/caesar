@@ -21,11 +21,10 @@ TEST_CASE("MPI : mpi functions", "[parl]")
 
         // Without initilization there is no exchanges.
         vector<double> data;
-        MPI_Request request1, request2;
-        vector<MPI_Request> requests { request1, request2 };
-        parl::mpi_isend(data, 0, request1);
-        parl::mpi_irecv(data, 0, request2);
-        parl::mpi_wait(request1);
+        parl::MPIRequests requests(2);
+        parl::mpi_isend(data, 0, requests, 0);
+        parl::mpi_irecv(data, 0, requests, 1);
+        parl::mpi_wait(requests, 0);
         parl::mpi_waitall(requests);
         parl::mpi_reduce_sum(data, data);
     }

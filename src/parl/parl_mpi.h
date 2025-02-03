@@ -8,13 +8,6 @@
 
 #include "utils/utils.h"
 
-// Disable cast-function-type warning inside openmpi.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-function-type"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#include "mpi.h"
-#pragma GCC diagnostic pop
-
 namespace caesar
 {
 
@@ -23,6 +16,58 @@ namespace parl
 
 /// \addtogroup parl
 /// @{
+
+/// \brief MPI requests wrapper.
+///
+/// MPI requests wrapper.
+class MPIRequests
+{
+    /// \brief Count of requests.
+    ///
+    /// Count of requests.
+    size_t count_ { 0 };
+
+    /// \brief Inner data.
+    ///
+    /// Inner data for holding specific requests.
+    char* data { nullptr };
+
+    // Allocate memory.
+    void
+    alloc_memory(size_t n);
+
+    // Free memory.
+    void
+    free_memory();
+
+public:
+
+    // Constructor.
+    MPIRequests(size_t n = 0);
+
+    // Destructor.
+    ~MPIRequests();
+
+    // Get address of request.
+    void*
+    get(size_t i = 0);
+
+    /// \brief Count of requests.
+    ///
+    /// Count of requests.
+    ///
+    /// \return
+    /// Count of requests.
+    inline size_t
+    count() const
+    {
+        return count_;
+    }
+
+    // Resize data for requests.
+    void
+    resize(size_t n);
+};
 
 //
 // Basic functions.
@@ -78,21 +123,24 @@ is_mpi_rank_0()
 void
 mpi_isend(vector<double>& data,
           size_t process_id,
-          MPI_Request& request);
+          MPIRequests& requests,
+          size_t request_i);
 
 // Async receive.
 void
 mpi_irecv(vector<double>& data,
           size_t process_id,
-          MPI_Request& request);
+          MPIRequests& requests,
+          size_t request_i);
 
 // Wait.
 void
-mpi_wait(MPI_Request request);
+mpi_wait(MPIRequests& requests,
+         size_t request_i);
 
 // Wait all requests.
 void
-mpi_waitall(vector<MPI_Request>& requests);
+mpi_waitall(MPIRequests& requests);
 
 // MPI reduce with add operation.
 void
