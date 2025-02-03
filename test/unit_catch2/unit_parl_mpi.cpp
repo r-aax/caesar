@@ -10,6 +10,19 @@ using namespace caesar;
 
 TEST_CASE("MPI : mpi functions", "[parl]")
 {
+    SECTION("using MPIRequests")
+    {
+        parl::MPIRequests reqs, reqs2(2);
+
+        // Check size before and after resize.
+        CHECK(reqs.count() == 0);
+        CHECK(reqs2.count() == 2);
+        reqs.resize(5);
+        reqs2.resize(10);
+        CHECK(reqs.count() == 5);
+        CHECK(reqs2.count() == 10);
+    }
+
     SECTION("using mpi before initialization")
     {
         // Barrier has no return type.

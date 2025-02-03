@@ -49,6 +49,7 @@ MPIRequests::free_memory()
     if (data)
     {
         delete [] data;
+        data = nullptr;
     }
 }
 
