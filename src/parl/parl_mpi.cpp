@@ -5,12 +5,25 @@
 
 #include "parl_mpi.h"
 
+#ifdef COMPILE_ENABLE_MPI
+
 // Disable cast-function-type warning inside openmpi.
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-function-type"
 #pragma GCC diagnostic ignored "-Wold-style-cast"
+// The only place where MPI is included.
 #include "mpi.h"
 #pragma GCC diagnostic pop
+
+/// \brief MPI request type.
+#define MPI_REQUEST MPI_Request
+
+#else // !COMPILE_ENABLE_MPI
+
+/// \brief MPI request type.
+#define MPI_REQUEST int
+
+#endif // COMPILE_ENABLE_MPI
 
 namespace caesar
 {
@@ -35,7 +48,7 @@ MPIRequests::alloc_memory(size_t n)
 {
     count_ = n;
     CHECK_ERROR(data == nullptr, "MPIRequests: double allocation");
-    data = new char[n * sizeof(MPI_Request)];
+    data = new char[n * sizeof(MPI_REQUEST)];
 }
 
 /// \brief Free memory.
@@ -85,7 +98,7 @@ MPIRequests::~MPIRequests()
 void*
 MPIRequests::get(size_t i)
 {
-    return static_cast<void*>(data + (i * sizeof(MPI_Request)));
+    return static_cast<void*>(data + (i * sizeof(MPI_REQUEST)));
 }
 
 /// \brief Resize data for requests.
@@ -114,11 +127,21 @@ MPIRequests::resize(size_t n)
 bool
 is_mpi_initialized()
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     int initialized { 0 };
 
     MPI_Initialized(&initialized);
 
     return (initialized != 0);
+
+#else // !COMPILE_ENABLE_MPI
+
+    return false;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Initialization.
@@ -134,7 +157,20 @@ int
 mpi_init(int* argc,
          char*** argv)
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     return MPI_Init(argc, argv);
+
+#else // !COMPILE_ENABLE_MPI
+
+    (void)argc;
+    (void)argv;
+
+    return 0;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Finalize.
@@ -146,7 +182,17 @@ mpi_init(int* argc,
 int
 mpi_finalize()
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     return MPI_Finalize();
+
+#else // !COMPILE_ENABLE_MPI
+
+    return 0;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Barrier.
@@ -155,12 +201,18 @@ mpi_finalize()
 void
 mpi_barrier()
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return;
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 //
@@ -176,6 +228,9 @@ mpi_barrier()
 size_t
 mpi_size()
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return 1;
@@ -186,6 +241,13 @@ mpi_size()
     MPI_Comm_size(MPI_COMM_WORLD, &s);
 
     return static_cast<size_t>(s);
+
+#else // !COMPILE_ENABLE_MPI
+
+    return 1;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Rank.
@@ -197,6 +259,9 @@ mpi_size()
 size_t
 mpi_rank()
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return 0;
@@ -207,6 +272,13 @@ mpi_rank()
     MPI_Comm_rank(MPI_COMM_WORLD, &r);
 
     return static_cast<size_t>(r);
+
+#else // !COMPILE_ENABLE_MPI
+
+    return 0;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 //
@@ -227,6 +299,9 @@ mpi_isend(vector<double>& data,
           MPIRequests& requests,
           size_t request_i)
 {
+
+#if COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return;
@@ -239,6 +314,16 @@ mpi_isend(vector<double>& data,
               0,
               MPI_COMM_WORLD,
               static_cast<MPI_Request*>(requests.get(request_i)));
+
+#else // !COMPILE_ENABLE_MPI
+
+    (void)data;
+    (void)process_id;
+    (void)requests;
+    (void)request_i;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Async receive.
@@ -255,6 +340,9 @@ mpi_irecv(vector<double>& data,
           MPIRequests& requests,
           size_t request_i)
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return;
@@ -267,6 +355,16 @@ mpi_irecv(vector<double>& data,
               0,
               MPI_COMM_WORLD,
               static_cast<MPI_Request*>(requests.get(request_i)));
+
+#else // !COMPILE_ENABLE_MPI
+
+    (void)data;
+    (void)process_id;
+    (void)requests;
+    (void)request_i;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Wait.
@@ -279,6 +377,9 @@ void
 mpi_wait(MPIRequests& requests,
          size_t request_i)
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return;
@@ -286,6 +387,14 @@ mpi_wait(MPIRequests& requests,
 
     MPI_Wait(static_cast<MPI_Request*>(requests.get(request_i)),
              MPI_STATUS_IGNORE);
+
+#else // !COMPILE_ENABLE_MPI
+
+    (void)requests;
+    (void)request_i;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief Wait all requests.
@@ -296,6 +405,9 @@ mpi_wait(MPIRequests& requests,
 void
 mpi_waitall(MPIRequests& requests)
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return;
@@ -304,6 +416,13 @@ mpi_waitall(MPIRequests& requests)
     MPI_Waitall(static_cast<int>(requests.count()),
                 static_cast<MPI_Request*>(requests.get()),
                 MPI_STATUSES_IGNORE);
+
+#else // !COMPILE_ENABLE_MPI
+
+    (void)requests;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// \brief MPI reduce with add operation.
@@ -316,6 +435,9 @@ void
 mpi_reduce_sum(vector<double>& out_data,
                vector<double>& in_data)
 {
+
+#ifdef COMPILE_ENABLE_MPI
+
     if (!is_mpi_initialized())
     {
         return;
@@ -328,6 +450,14 @@ mpi_reduce_sum(vector<double>& out_data,
                MPI_SUM,
                0,
                MPI_COMM_WORLD);
+
+#else // !COMPILE_ENABLE_MPI
+
+    (void)out_data;
+    (void)in_data;
+
+#endif // COMPILE_ENABLE_MPI
+
 }
 
 /// @}
