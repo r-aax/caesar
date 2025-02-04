@@ -6,6 +6,7 @@
 #include "diag.h"
 
 #include <iostream>
+#include <stdexcept>
 
 namespace caesar
 {
