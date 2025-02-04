@@ -46,9 +46,7 @@ Buffers::print(ostream& os)
 
     for (size_t i = 0; i < bc; ++i)
     {
-        Buffer& b { buffers[i] };
-
-        b.print(os);
+        buffers[i].print(os);
     }
 }
 
