@@ -63,9 +63,7 @@ Boundaries::print(ostream& os)
 
     for (size_t i = 0; i < boundaries.size(); ++i)
     {
-        Boundary& b { boundaries[i] };
-
-        b.print(os);
+        boundaries[i].print(os);
     }
 }
 
