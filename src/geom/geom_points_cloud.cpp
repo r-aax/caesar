@@ -85,12 +85,14 @@ PointsCloud::~PointsCloud()
 double
 PointsCloud::get(const Vector& p) const
 {
+    size_t n { d.size() };
     double min_dist { numeric_limits<double>::infinity() };
     double val { 0.0 };
 
     // Not efficient linear approach to find nearest point.
-    for (auto& x : d)
+    for (size_t i = 0; i < n; ++i)
     {
+        const pair<Vector, double>& x { d[i] };
         double dist { x.first.dist_to(p) };
 
         if (dist < min_dist)

@@ -101,8 +101,12 @@ Edge::arrange_vertices_increasing_ids()
 bool
 Edge::is_incident(const Vertex* v) const
 {
-    for (auto x : vertices)
+    size_t vc { vertices_count() };
+
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* x { get_vertices()[i] };
+
         if (x == v)
         {
             return true;
@@ -191,6 +195,7 @@ Edge::is_cubic_graph_parallel_reduceable_edge()
 {
     Vertex* a { get_a() };
     Vertex* b { get_b() };
+    size_t aec { a->edges_count() }, bec { b->edges_count() };
     Vertex* c { nullptr };
     Vertex* d { nullptr };
     int a_cnt { 0 }, b_cnt { 0 };
@@ -202,8 +207,9 @@ Edge::is_cubic_graph_parallel_reduceable_edge()
     }
 
     // Calculate number of neighbours of a equal to b and set c vertex.
-    for (auto e : a->get_edges())
+    for (size_t i = 0; i < aec; ++i)
     {
+        Edge* e { a->get_edge(i) };
         Vertex* neigh { a->neighbour(e) };
 
         if (neigh == b)
@@ -217,8 +223,9 @@ Edge::is_cubic_graph_parallel_reduceable_edge()
     }
 
     // Calculate number of neighbours of b equal to a and sert d vertex.
-    for (auto e : b->get_edges())
+    for (size_t i = 0; i < bec; ++i)
     {
+        Edge* e { b->get_edge(i) };
         Vertex* neigh { b->neighbour(e) };
 
         if (neigh == a)
@@ -259,11 +266,11 @@ Edge::greedy_paint()
     utils::Colorable clr;
     Vertex* a { get_a() };
     Vertex* b { get_b() };
-    const vector<Edge*>& ea = a->get_edges();
-    const vector<Edge*>& eb = b->get_edges();
+    size_t aec { a->edges_count() }, bec { b->edges_count() };
 
-    for (auto f : ea)
+    for (size_t i = 0; i < aec; ++i)
     {
+        Edge* f { a->get_edge(i) };
         int c { f->get_color() };
 
         if (c >= 0)
@@ -272,8 +279,9 @@ Edge::greedy_paint()
         }
     }
 
-    for (auto f : eb)
+    for (size_t i = 0; i < bec; ++i)
     {
+        Edge* f { b->get_edge(i) };
         int c { f->get_color() };
 
         if (c >= 0)

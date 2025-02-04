@@ -46,10 +46,14 @@ ostream&
 operator<<(ostream& os,
            const BicolorCycle& bc)
 {
+    size_t ec { bc.edges.size() };
+
     cout << "BicolorCycle :";
 
-    for (auto e : bc.edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { bc.edges[i] };
+
         cout << " [" << (*e) << "]";
     }
 
@@ -95,7 +99,7 @@ BicolorCycle::build(Edge* start_edge,
     // Traverse the cycle.
     while (next_vertex != start_vertex)
     {
-        for (auto next_edge : next_vertex->get_edges())
+        for (Edge* next_edge : next_vertex->get_edges())
         {
             if (next_edge->get_color() == next_color)
             {
@@ -119,10 +123,13 @@ BicolorCycle::build(Edge* start_edge,
 void
 BicolorCycle::switch_colors()
 {
+    size_t ec { edges.size() };
     int sum_colors { edges[0]->get_color() + edges[1]->get_color() };
 
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { edges[i] };
+
         e->set_color(sum_colors - e->get_color());
     }
 }
@@ -137,11 +144,14 @@ void
 BicolorCycle::switch_colors(const Edge* e1,
                             const Edge* e2)
 {
+    size_t ec { edges.size() };
     int sum_colors { edges[0]->get_color() + edges[1]->get_color() };
     bool is_need_to_switch { false };
 
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { edges[i] };
+
         if (is_need_to_switch)
         {
             if ((e == e1) || (e == e2))

@@ -113,8 +113,12 @@ Vertex::arrange_edges_increasing_ids()
 bool
 Vertex::is_incident(const Edge* e) const
 {
-    for (auto x : edges)
+    size_t vc { edges_count() };
+
+    for (size_t i = 0; i < vc; ++i)
     {
+        Edge* x { get_edge(i) };
+
         if (x == e)
         {
             return true;
@@ -182,8 +186,12 @@ Vertex::neighbour(const Edge* e) const
 Edge*
 Vertex::find_edge(const Vertex* v) const
 {
-    for (auto e : edges)
+    size_t ec { edges_count() };
+
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         if (neighbour(e) == v)
         {
             return e;
@@ -258,7 +266,7 @@ Vertex::is_edges_coloring_correct() const
 void
 Vertex::remove_edge(Edge* e)
 {
-    auto it = find(edges.begin(), edges.end(), e);
+    vector<Edge*>::iterator it = find(edges.begin(), edges.end(), e);
 
     DEBUG_CHECK_ERROR(it != edges.end(), "edge not found and can not be removed");
 
