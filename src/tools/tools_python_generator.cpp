@@ -129,6 +129,7 @@ PythonGenerator::graph_visualization(graph::Graph* g,
                                      ostream& os)
 {
     static string colors[] { "red", "blue", "green", "magenta", "yellow" };
+    size_t vc { g->vertices_count() }, ec { g->edges_count() };
 
     begin();
 
@@ -142,16 +143,20 @@ PythonGenerator::graph_visualization(graph::Graph* g,
     const vector<graph::Edge*> edges = g->get_edges();
 
     // Add nodes.
-    for (auto v : vertices)
+    for (size_t i = 0; i < vc; ++i)
     {
+        graph::Vertex* v { g->get_vertex(i) };
+
         os << "g.add_node(" << v->get_id() << ")" << endl;
     }
 
     os << endl;
 
     // Add egdes.
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        graph::Edge* e { g->get_edge(i) };
+
         os << "g.add_edge(" << e->get_a()->get_id()
            << ", " << e->get_b()->get_id()
            << ", color='" << colors[e->get_color()]

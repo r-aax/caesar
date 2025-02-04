@@ -39,15 +39,21 @@ Graph::Graph()
 /// Default destructor.
 Graph::~Graph()
 {
+    size_t vc { vertices_count() }, ec { edges_count() };
+
     // Delete vertices.
-    for (auto v : vertices)
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         delete v;
     }
 
     // Delete edges.
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         delete e;
     }
 
@@ -77,6 +83,8 @@ Graph::~Graph()
 void
 Graph::print_info(ostream& os)
 {
+    size_t vc { vertices_count() }, ec { edges_count() };
+
     os << "Graph:" << endl;
 
     //
@@ -85,15 +93,19 @@ Graph::print_info(ostream& os)
 
     os << "vertices:" << endl;
 
-    for (auto v : vertices)
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         os << (*v) << endl;
     }
 
     os << "edges:" << endl;
 
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         os << (*e) << endl;
     }
 }
@@ -165,8 +177,12 @@ Graph::get_random_edge() const
 Vertex*
 Graph::find_vertex_by_id(int id_) const
 {
-    for (auto v : vertices)
+    size_t vc { vertices_count() };
+
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         if (v->get_id() == id_)
         {
             return v;
@@ -187,8 +203,12 @@ Graph::find_vertex_by_id(int id_) const
 Edge*
 Graph::find_edge_by_id(int id_) const
 {
-    for (auto e : edges)
+    size_t ec { edges_count() };
+
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         if (e->get_id() == id_)
         {
             return e;
@@ -298,8 +318,12 @@ Graph::add_cycle(size_t fromi,
 bool
 Graph::has_parallel_edges() const
 {
-    for (auto v : vertices)
+    size_t vc { vertices_count() };
+
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         if (v->has_parallel_edges())
         {
             return true;
@@ -336,15 +360,21 @@ Graph::reset_identifiers()
 void
 Graph::arrange_objects_increasing_ids()
 {
+    size_t vc { vertices_count() }, ec { edges_count() };
+
     // Process all vertices.
-    for (auto v : vertices)
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         v->arrange_edges_increasing_ids();
     }
 
     // Process all edges.
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         e->arrange_vertices_increasing_ids();
     }
 
@@ -440,8 +470,12 @@ Graph::is_complete() const
 bool
 Graph::is_regular(size_t d) const
 {
-    for (auto v : vertices)
+    size_t vc { vertices_count() };
+
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         if (v->degree() != d)
         {
             return false;
@@ -545,7 +579,7 @@ Graph::remove_edge(Edge* e)
 
     // Remove from global list.
 
-    auto it = find(edges.begin(), edges.end(), e);
+    vector<Edge*>::iterator it = find(edges.begin(), edges.end(), e);
 
     DEBUG_CHECK_ERROR(it != edges.end(), "edge not found and can not be removed");
 
@@ -570,7 +604,7 @@ Graph::remove_vertex(Vertex* v)
 
     // Find vertex in global list and remove.
 
-    auto it = find(vertices.begin(), vertices.end(), v);
+    vector<Vertex*>::iterator it = find(vertices.begin(), vertices.end(), v);
 
     DEBUG_CHECK_ERROR(it != vertices.end(), "vertex not found and can not be removed");
 
@@ -729,8 +763,12 @@ Graph::glue_two_hanging_edges(Vertex* v1,
 Edge*
 Graph::get_cubic_graph_unique_reduceable_edge()
 {
-    for (auto e : edges)
+    size_t ec { edges_count() };
+
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         if (e->is_cubic_graph_unique_reduceable_edge())
         {
             return e;
@@ -749,8 +787,12 @@ Graph::get_cubic_graph_unique_reduceable_edge()
 Edge*
 Graph::get_cubic_graph_parallel_reduceable_edge()
 {
-    for (auto e : edges)
+    size_t ec { edges_count() };
+
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         if (e->is_cubic_graph_parallel_reduceable_edge())
         {
             return e;
@@ -1049,8 +1091,11 @@ Graph::restore_cubic_graph(CubicGraphReduceHistory& h)
 void
 Graph::fill_edges_colors_histogram(vector<int>& h) const
 {
-    for (auto e : edges)
+    size_t ec { edges_count() };
+
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
         int color = e->get_color();
 
         if (color < 0)
@@ -1079,17 +1124,22 @@ Graph::fill_edges_colors_histogram(vector<int>& h) const
 int
 Graph::edges_coloring_greedy()
 {
+    size_t ec { edges_count() };
     int max_color { -1 };
 
     // First paint all edges with color 0.
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         e->set_color(-1);
     }
 
     // For each edge just paint it with first free color.
-    for (auto e : edges)
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { get_edge(i) };
+
         e->greedy_paint();
         max_color = max(max_color, e->get_color());
     }
@@ -1180,8 +1230,9 @@ Graph::restore_and_repaint_cubic_graph_step_unique_edge_eq_colors(const CubicGra
     }
 
     // Try both colors.
-    for (auto another_color : other_colors)
+    for (size_t i = 0; i < other_colors.size(); ++i)
     {
+        int another_color { other_colors[i] };
         BicolorCycle bc;
 
         bc.build(result_e1, another_color);
@@ -1337,8 +1388,12 @@ Graph::edges_coloring_for_cubic_graph_with_bicolor_cycles_algorithm()
 bool
 Graph::is_edges_coloring_correct() const
 {
-    for (auto v : vertices)
+    size_t vc { vertices_count() };
+
+    for (size_t i = 0; i < vc; ++i)
     {
+        Vertex* v { get_vertex(i) };
+
         if (!v->is_edges_coloring_correct())
         {
             return false;

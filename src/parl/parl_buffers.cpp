@@ -40,10 +40,14 @@ Buffers::~Buffers()
 void
 Buffers::print(ostream& os)
 {
+    size_t bc { buffers.size() };
+
     os << "Buffers (rank = " << mpi_rank() << "):" << endl;
 
-    for (auto& b : buffers)
+    for (size_t i = 0; i < bc; ++i)
     {
+        Buffer& b { buffers[i] };
+
         b.print(os);
     }
 }

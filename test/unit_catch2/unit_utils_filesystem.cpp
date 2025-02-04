@@ -27,9 +27,9 @@ TEST_CASE("filesystem : filename functions", "[utils]")
         CHECK(!utils::exists_directory("no-such-directory"));
 
         // Target file is built near src/ directory or inside it.
-        auto a { utils::exists_directory("src") };
-        auto b { utils::exists_directory("../src") };
-        auto c { a || b };
+        bool a { utils::exists_directory("src") };
+        bool b { utils::exists_directory("../src") };
+        bool c { a || b };
         CHECK(c);
     }
 }
