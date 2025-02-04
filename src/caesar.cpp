@@ -19,31 +19,10 @@ using namespace caesar;
 int
 main(int argc, char** argv)
 {
-    parl::mpi_init(&argc, &argv);
+    (void)argc;
+    (void)argv;
 
-#if 0
-    graph::Graph* g = graph::GraphFactory::create_cube_graph();
+    cout << "caesar main" << endl;
 
-    g->edges_coloring_for_cubic_graph_with_bicolor_cycles_algorithm();
-    g->print_info();
-
-    delete g;
-#endif
-
-    mesh::Mesh mesh;
-
-    mesh::Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
-
-    // Decompose mesh.
-    mesh::Decomposer::decompose(mesh, mesh::DecompositionType::Pressure, 3);
-
-    // Store with chosen data.
-    mesh.set_variables_names(vector<string> { "X", "Y", "Z" },
-                             vector<string> { "CellMark", "CellId", "Domain",
-                                              "DistFromBorder", "DistFromCenter" });
-    mesh::Filer::store_mesh(mesh, "out/sphere.dat");
-
-    mesh.clear();
-
-    parl::mpi_finalize();
+    return 0;
 }

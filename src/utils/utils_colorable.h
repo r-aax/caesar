@@ -6,6 +6,7 @@
 #ifndef CAESAR_UTILS_COLORABLE_H
 #define CAESAR_UTILS_COLORABLE_H
 
+#include <stdlib.h>
 #include <cstdint>
 
 namespace caesar
@@ -24,7 +25,7 @@ class Colorable
 private:
 
     /// \brief Count of colors.
-    static constexpr int colors_count { sizeof(uint32_t) * 8 };
+    static constexpr size_t colors_count { sizeof(uint32_t) * 8 };
 
     /// \brief Colors mask.
     uint32_t mask { 0x0 };
