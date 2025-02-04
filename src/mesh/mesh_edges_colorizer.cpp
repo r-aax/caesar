@@ -24,11 +24,14 @@ namespace mesh
 void
 EdgesColorizer::colorize_edges(Mesh& mesh)
 {
-    graph::Graph* g = graph::GraphFactory::create_edgeless_graph(mesh.own.cells_count());
+    size_t occ { mesh.own.cells_count() };
+    graph::Graph* g = graph::GraphFactory::create_edgeless_graph(occ);
 
     // Add all edges.
-    for (auto e : mesh.own.edges())
+    for (size_t i = 0; i < occ; ++i)
     {
+        Edge* e { mesh.own.edge(i) };
+
         DEBUG_CHECK_ERROR(e->cells_count() > 0, "mesh edge without cells is detected");
 
         if (e->cells_count() > 1)

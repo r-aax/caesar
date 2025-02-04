@@ -49,9 +49,13 @@ Decomposer::set_cells_diapason_with_domain(Mesh& mesh,
 void
 Decomposer::calc_cells_dist_from_border(Mesh& mesh)
 {
+    size_t cc { mesh.all.cells_count() };
+
     // Init distance from border for all cell as -1.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         c->dist_from_border = numeric_limits<int>::max();
     }
 
@@ -62,8 +66,10 @@ Decomposer::calc_cells_dist_from_border(Mesh& mesh)
     deque<Cell*> q;
 
     // Set distane from borders for border cells as zero.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         if (c->is_domain_border())
         {
             c->dist_from_border = 0;
@@ -76,11 +82,14 @@ Decomposer::calc_cells_dist_from_border(Mesh& mesh)
     while (!q.empty())
     {
         Cell* c { q.front() };
+        size_t ec { c->edges_count() };
 
         q.pop_front();
 
-        for (auto e : c->edges())
+        for (size_t i = 0; i < ec; ++i)
         {
+            Edge* e { c->edge(i) };
+
             if (e->is_inner())
             {
                 Cell *nc { c->get_neighbour(e) };
@@ -108,9 +117,13 @@ Decomposer::calc_cells_dist_from_border(Mesh& mesh)
 void
 Decomposer::calc_cells_dist_from_center(Mesh& mesh)
 {
+    size_t cc { mesh.all.cells_count() };
+
     // Init distance from center for all cell as -1.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         c->dist_from_center = numeric_limits<int>::max();
     }
 
@@ -121,8 +134,9 @@ Decomposer::calc_cells_dist_from_center(Mesh& mesh)
     vector<int> domain_center_dist_from_border(3, 0);
 
     // Calculate distances from border for center cells.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
         size_t d { c->domain };
 
         ++domain_cells_count[d];
@@ -131,10 +145,16 @@ Decomposer::calc_cells_dist_from_center(Mesh& mesh)
     }
 
     cout << "DOMAIN_:";
-    for (auto x : domain_cells_count) cout << " " << x;
+    for (size_t i = 0; i < domain_cells_count.size(); ++i)
+    {
+        cout << " " << domain_cells_count[i];
+    }
     cout << endl;
     cout << "DOMAIN_CENTER_DIST_FROM_BORDER:";
-    for (auto x : domain_center_dist_from_border) cout << " " << x;
+    for (size_t i = 0; i < domain_center_dist_from_border.size(); ++i)
+    {
+        cout << " " << domain_center_dist_from_border[i];
+    }
     cout << endl;
 
     // Remove all cell marks.
@@ -144,8 +164,10 @@ Decomposer::calc_cells_dist_from_center(Mesh& mesh)
     deque<Cell*> q;
 
     // Insert all center cells into queue.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         if (c->dist_from_border == domain_center_dist_from_border[c->domain])
         {
             c->dist_from_center = 0;
@@ -158,11 +180,14 @@ Decomposer::calc_cells_dist_from_center(Mesh& mesh)
     while (!q.empty())
     {
         Cell* c { q.front() };
+        size_t ec { c->edges_count() };
 
         q.pop_front();
 
-        for (auto e : c->edges())
+        for (size_t i = 0; i < ec; ++i)
         {
+            Edge* e { c->edge(i) };
+
             if (e->is_domain_inner())
             {
                 Cell *nc { c->get_neighbour(e) };
@@ -190,8 +215,12 @@ Decomposer::calc_cells_dist_from_center(Mesh& mesh)
 void
 Decomposer::decompose_no(Mesh& mesh)
 {
-    for (auto c : mesh.all.cells())
+    size_t cc { mesh.all.cells_count() };
+
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         c->domain = 0;
     }
 }
@@ -206,8 +235,12 @@ void
 Decomposer::decompose_random(Mesh& mesh,
                              size_t dn)
 {
-    for (auto c : mesh.all.cells())
+    size_t cc { mesh.all.cells_count() };
+
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         c->domain = static_cast<size_t>(mth::randint(0, static_cast<int>(dn) - 1));
     }
 }
@@ -279,6 +312,7 @@ Decomposer::decompose_farhat(Mesh& mesh,
     while (!q.empty())
     {
         Cell* c { q.front() };
+        size_t ec { c->edges_count() };
 
         q.pop_front();
         ++walked_cells;
@@ -293,8 +327,9 @@ Decomposer::decompose_farhat(Mesh& mesh,
         }
 
         // Check all neighbours.
-        for (auto e : c->edges())
+        for (size_t i = 0; i < ec; ++i)
         {
+            Edge* e { c->edge(i) };
             Cell* nc { c->get_neighbour(e) };
 
             if (nc && (nc->get_mark() == 0))
@@ -341,6 +376,7 @@ Decomposer::post_decompose(Mesh& mesh)
 {
     size_t s = parl::mpi_size();
     size_t r = parl::mpi_rank();
+    size_t ec { mesh.all.edges_count() }, cc { mesh.all.cells_count() };
 
     // Clear old vectors.
     mesh.own.clear_cells();
@@ -349,8 +385,9 @@ Decomposer::post_decompose(Mesh& mesh)
     mesh.domains_cells.resize(s);
 
     // Fill domain cells and own cells.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
         size_t d = c->get_domain();
 
         if (d == r)
@@ -362,8 +399,9 @@ Decomposer::post_decompose(Mesh& mesh)
     }
 
     // Fill own edges list.
-    for (auto e : mesh.all.edges())
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { mesh.all.edge(i) };
         bool is_own { false };
 
         if ((e->cells_count() > 0) && (e->domain_0() == r))
@@ -386,8 +424,10 @@ Decomposer::post_decompose(Mesh& mesh)
     mesh.boundaries.allocate();
 
     // Process boundary cells.
-    for (auto e : mesh.all.edges())
+    for (size_t i = 0; i < ec; ++i)
     {
+        Edge* e { mesh.all.edge(i) };
+
         if (e->is_cross())
         {
             size_t d0 = e->domain_0(), d1 = e->domain_1();

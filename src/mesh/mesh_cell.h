@@ -457,8 +457,9 @@ public:
             // Calculate dp_dtau through all neighbours by nodes.
             get_neighbours_by_nodes(nghs);
 
-            for (auto ngh : nghs)
+            for (size_t i = 0; i < nghs.size(); ++i)
             {
+                Cell* ngh { nghs[i] };
                 geom::Vector direction;
 
                 geom::Vector::sub(ngh->center(), center(), direction);

@@ -101,6 +101,38 @@ public:
     ~Mesh();
 
     //
+    // Access to zones.
+    //
+
+    /// \brief Get zone (const version).
+    ///
+    /// Get zone (const version).
+    ///
+    /// \param[in] i Index of zone.
+    ///
+    /// \return
+    /// Pointer to zone (const version).
+    inline const Zone*
+    zone(size_t i) const
+    {
+        return zones[i];
+    }
+
+    /// \brief Get zone.
+    ///
+    /// Get zone.
+    ///
+    /// \param[in] i Index of zone.
+    ///
+    /// \return
+    /// Pointer to zone.
+    inline Zone*
+    zone(size_t i)
+    {
+        return zones[i];
+    }
+
+    //
     // Free data.
     //
 
@@ -117,21 +149,29 @@ private:
     void
     free_data_if_not_null()
     {
+        size_t nc { all.nodes_count() }, ec { all.edges_count() }, cc { all.cells_count() };
+
         // Delete nodes.
-        for (auto n : all.nodes())
+        for (size_t i = 0; i < nc; ++i)
         {
+            Node* n { all.node(i) };
+
             n->free_data_if_not_null<TNodeData>();
         }
 
         // Delete edges.
-        for (auto e : all.edges())
+        for (size_t i = 0; i < ec; ++i)
         {
+            Edge* e { all.edge(i) };
+
             e->free_data_if_not_null<TEdgeData>();
         }
 
         // Delete cells.
-        for (auto c : all.cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { all.cell(i) };
+
             c->free_data_if_not_null<TCellData>();
         }
     }
@@ -149,29 +189,40 @@ public:
     void
     clear()
     {
+        size_t nc { all.nodes_count() }, ec { all.edges_count() }, cc { all.cells_count() };
+        size_t zc { zones_count() };
+
         free_data_if_not_null<TNodeData, TEdgeData, TCellData>();
 
         // Delete nodes.
-        for (auto n : all.nodes())
+        for (size_t i = 0; i < nc; ++i)
         {
+            Node* n { all.node(i) };
+
             delete n;
         }
 
         // Delete edges.
-        for (auto e : all.edges())
+        for (size_t i = 0; i < ec; ++i)
         {
+            Edge* e { all.edge(i) };
+
             delete e;
         }
 
         // Delete cells.
-        for (auto c : all.cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { all.cell(i) };
+
             delete c;
         }
 
         // Delete zones.
-        for (auto z : zones)
+        for (size_t i = 0; i < zc; ++i)
         {
+            Zone* z { zone(i) };
+
             delete z;
         }
 
@@ -268,16 +319,18 @@ public:
     get_node_cells_mean_data(Node* node,
                              int index) const
     {
-        size_t cnt { node->cells_count() };
+        size_t cc { node->cells_count() };
 
         double v { 0.0 };
 
-        for (auto c : node->cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { node->cell(i) };
+
             v += c->get_element<TData>(index);
         }
 
-        return v / static_cast<double>(cnt);
+        return v / static_cast<double>(cc);
     }
 
     //
@@ -331,7 +384,7 @@ public:
 
     // Find node.
     Node*
-    find_node(const geom::Vector& point) const;
+    find_node(const geom::Vector& point);
 
     /// \brief Find or add edge.
     ///
@@ -349,9 +402,13 @@ public:
     find_or_add_edge(Node* a,
                      Node* b)
     {
+        size_t aec { a->edges_count() };
+
         // Check all edges.
-        for (auto e : a->edges())
+        for (size_t i = 0; i < aec; ++i)
         {
+            Edge* e { a->edge(i) };
+
             if ((e->node(0) == a) && (e->node(1) == b))
             {
                 return e;
@@ -427,9 +484,13 @@ public:
     void
     save_layer()
     {
+        size_t cc { all.cells_count() };
+
         #pragma omp parallel for
-        for (auto c : all.cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { all.cell(i) };
+
             c->get_data<TCellData>()->save_layer();
         }
     }
@@ -443,9 +504,13 @@ public:
     void
     restore_layer()
     {
+        size_t cc { all.cells_count() };
+
         #pragma omp parallel for
-        for (auto c : all.cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { all.cell(i) };
+
             c->get_data<TCellData>()->restore_layer();
         }
     }
@@ -468,7 +533,7 @@ public:
                        double* data,
                        int max_count = numeric_limits<int>::max())
     {
-        auto n { all.nodes_count() };
+        size_t n { all.nodes_count() };
         int count { 0 };
 
         for (size_t i = 0; i < n; ++i)
@@ -498,7 +563,7 @@ public:
                        double* data,
                        int max_count = numeric_limits<int>::max())
     {
-        auto n { all.nodes_count() };
+        size_t n { all.nodes_count() };
         int count { 0 };
 
         for (size_t i = 0; i < n; ++i)
@@ -526,9 +591,13 @@ public:
     set_all_cells_element(int index,
                           double v)
     {
+        size_t cc { all.cells_count() };
+
         #pragma omp parallel for
-        for (auto c : all.cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { all.cell(i) };
+
             c->set_element<TCellData>(index, v);
         }
     }
@@ -545,9 +614,13 @@ public:
     set_all_cells_uninitialized_element(int index,
                                         double v)
     {
+        size_t cc { all.cells_count() };
+
         #pragma omp parallel for
-        for (auto c : all.cells())
+        for (size_t i = 0; i < cc; ++i)
         {
+            Cell* c { all.cell(i) };
+
             if (isnan(c->get_element<TCellData>(index)))
             {
                 c->set_element<TCellData>(index, v);
@@ -569,7 +642,7 @@ public:
                        double* data,
                        int max_count = numeric_limits<int>::max())
     {
-        auto n { all.cells_count() };
+        size_t n { all.cells_count() };
         int count { 0 };
 
         for (size_t i = 0; i < n; ++i)
@@ -599,7 +672,7 @@ public:
                        double* data,
                        int max_count = numeric_limits<int>::max())
     {
-        auto n { all.cells_count() };
+        size_t n { all.cells_count() };
         int count { 0 };
 
         for (size_t i = 0; i < n; ++i)

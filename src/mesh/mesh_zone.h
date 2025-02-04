@@ -93,7 +93,7 @@ private:
 
     // Print information.
     void
-    print_info(ostream& s = cout);
+    print_info(ostream& s = cout) const;
 };
 
 /// @}

@@ -86,8 +86,12 @@ operator<<(ostream& os,
 bool
 Node::is_inner() const
 {
-    for (auto e : edges())
+    size_t ec { edges_count() };
+
+    for (size_t i = 0; i < ec; ++i)
     {
+        const Edge* e { edge(i) };
+
         if (!e->is_inner())
         {
             return false;
@@ -105,10 +109,14 @@ Node::is_inner() const
 void
 Node::calc_normal()
 {
+    size_t cc { cells_count() };
+
     normal_.zero();
 
-    for (auto c : cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        Cell* c { cell(i) };
+
         normal_.add(c->normal());
     }
 
@@ -125,10 +133,13 @@ Node::calc_normal()
 void
 Node::calc_ice_shift()
 {
+    size_t cc { cells_count() };
     double x { 0.0 };
 
-    for (auto c : cells())
+    for (size_t i = 0; i < cc; ++i)
     {
+        const Cell* c { cell(i) };
+
         x += c->ice_shift;
     }
 

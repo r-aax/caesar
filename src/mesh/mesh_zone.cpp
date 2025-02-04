@@ -45,7 +45,7 @@ Zone::~Zone()
 ///
 /// \param[in] s Stream.
 void
-Zone::print_info(ostream& s)
+Zone::print_info(ostream& s) const
 {
     s << "Zone name                : " << name << endl;
     s << "Nodes count              : " << expected_nodes_count << endl;

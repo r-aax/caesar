@@ -89,7 +89,7 @@ Mesh::print_info(ostream& s,
     s << "Title                      : " << title << endl;
     s << "Variables names            :";
 
-    for (auto& vn : variables_names)
+    for (const string& vn : variables_names)
     {
         s << " \"" << vn << "\"";
     }
@@ -124,9 +124,11 @@ Mesh::print_info(ostream& s,
     s << "............................" << endl;
     s << "Zones count                : " << zones.size() << endl;
 
-    for (auto zone : zones)
+    for (size_t i = 0; i < zones_count(); ++i)
     {
-        zone->print_info(s);
+        const Zone* z { zone(i) };
+
+        z->print_info(s);
     }
 
     if (is_print_elements)
@@ -151,24 +153,30 @@ Mesh::print_elements(const vector<int>& nodes_ids_range,
                      const vector<int>& cells_ids_range,
                      ostream& s) const
 {
-    for (auto n : all.nodes())
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
+        const Node* n { all.node(i) };
+
         if (mth::in_bounds(n->get_id(), nodes_ids_range))
         {
             s << (*n) << endl;
         }
     }
 
-    for (auto e : all.edges())
+    for (size_t i = 0; i < all.edges_count(); ++i)
     {
+        const Edge* e { all.edge(i) };
+
         if (mth::in_bounds(e->get_id(), edges_ids_range))
         {
             s << (*e) << endl;
         }
     }
 
-    for (auto c : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
+        const Cell* c { all.cell(i) };
+
         if (mth::in_bounds(c->get_id(), cells_ids_range))
         {
             s << (*c) << endl;
@@ -280,13 +288,13 @@ Mesh::set_variables_names(const vector<string>& nodes_variables_names,
     variables_names.clear();
 
     // Copy names from nodes variables names.
-    for (auto s : nodes_variables_names)
+    for (string s : nodes_variables_names)
     {
         variables_names.push_back(s);
     }
 
     // Copy names from cells variables names.
-    for (auto s : cells_variables_names)
+    for (string s : cells_variables_names)
     {
         variables_names.push_back(s);
     }
@@ -331,13 +339,15 @@ Mesh::find_zone(const string& name) const
 /// \return
 /// Pointer to node of nullptr (if node is not found).
 Node*
-Mesh::find_node(const geom::Vector& point) const
+Mesh::find_node(const geom::Vector& point)
 {
-    for (auto node : all.nodes())
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
-        if (node->point().is_strict_eq(point))
+        Node* n { all.node(i) };
+
+        if (n->point().is_strict_eq(point))
         {
-            return node;
+            return n;
         }
     }
 
@@ -350,8 +360,9 @@ Mesh::find_node(const geom::Vector& point) const
 void
 Mesh::distribute_edges_between_zones()
 {
-    for (auto e : all.edges())
+    for (size_t i = 0; i < all.edges_count(); ++i)
     {
+        Edge* e { all.edge(i) };
         size_t cn = e->cells_count();
 
         DEBUG_CHECK_ERROR((cn == 1) || (cn == 2), "wrong count of incident cells for edge");
@@ -379,9 +390,11 @@ void
 Mesh::init_cells_neighbourhoods()
 {
     #pragma omp parallel for
-    for (auto cell : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
-        cell->init_neighbourhood();
+        Cell* c { all.cell(i) };
+
+        c->init_neighbourhood();
     }
 }
 
@@ -398,8 +411,10 @@ void
 Mesh::mark_cells(bool (*cond)(Cell*))
 {
     #pragma omp parallel for
-    for (auto c : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
+        Cell* c { all.cell(i) };
+
         c->set_mark(cond(c) ? 1 : 0);
     }
 }
@@ -411,15 +426,19 @@ void
 Mesh::mark_mesh_border_nodes_and_cells()
 {
     #pragma omp parallel for
-    for (auto node : all.nodes())
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
-        node->set_mark(1);
+        Node* n { all.node(i) };
+
+        n->set_mark(1);
     }
 
     #pragma omp parallel for
-    for (auto cell : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
-        cell->set_mark(1);
+        Cell* c { all.cell(i) };
+
+        c->set_mark(1);
     }
 }
 
@@ -434,22 +453,28 @@ void
 Mesh::calc_geometry()
 {
     #pragma omp parallel for
-    for (auto e : all.edges())
+    for (size_t i = 0; i < all.edges_count(); ++i)
     {
+        Edge* e { all.edge(i) };
+
         e->calc_geometry();
     }
 
     #pragma omp parallel for
-    for (auto c : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
+        Cell* c { all.cell(i) };
+
         c->calc_geometry();
     }
 
     // Normal of node can be calculated only after
     // normals of all incindent cells.
     #pragma omp parallel for
-    for (auto n : all.nodes())
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
+        Node* n { all.node(i) };
+
         n->calc_geometry();
     }
 }
@@ -461,20 +486,26 @@ void
 Mesh::save_geometry()
 {
     #pragma omp parallel for
-    for (auto e : all.edges())
+    for (size_t i = 0; i < all.edges_count(); ++i)
     {
+        Edge* e { all.edge(i) };
+
         e->save_geometry();
     }
 
     #pragma omp parallel for
-    for (auto c : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
+        Cell* c { all.cell(i) };
+
         c->save_geometry();
     }
 
     #pragma omp parallel for
-    for (auto n : all.nodes())
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
+        Node* n { all.node(i) };
+
         n->save_geometry();
     }
 }
@@ -486,20 +517,26 @@ void
 Mesh::restore_geometry()
 {
     #pragma omp parallel for
-    for (auto e : all.edges())
+    for (size_t i = 0; i < all.edges_count(); ++i)
     {
+        Edge* e { all.edge(i) };
+
         e->restore_geometry();
     }
 
     #pragma omp parallel for
-    for (auto c : all.cells())
+    for (size_t i = 0; i < all.cells_count(); ++i)
     {
+        Cell* c { all.cell(i) };
+
         c->restore_geometry();
     }
 
     #pragma omp parallel for
-    for (auto n : all.nodes())
+    for (size_t i = 0; i < all.nodes_count(); ++i)
     {
+        Node* n { all.node(i) };
+
         n->restore_geometry();
     }
 }

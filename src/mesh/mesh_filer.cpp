@@ -24,6 +24,8 @@ void
 Filer::export_stl(Mesh& mesh,
                   const string& fn)
 {
+    size_t cells_count { mesh.all.cells_count() };
+
     // Open file.
     FILE* fl = fopen(fn.c_str(), "wb");
 
@@ -40,8 +42,10 @@ Filer::export_stl(Mesh& mesh,
     fwrite(&cnt, sizeof(cnt), 1, fl);
 
     // Export all cells.
-    for (auto c : mesh.all.cells())
+    for (size_t i = 0; i < cells_count; ++i)
     {
+        Cell* c { mesh.all.cell(i) };
+
         float x1 { static_cast<float>(c->node(0)->point().x) };
         float y1 { static_cast<float>(c->node(0)->point().y) };
         float z1 { static_cast<float>(c->node(0)->point().z) };
@@ -141,7 +145,7 @@ void
 Filer::store_mesh_variables_names(const vector<string>& variables_names,
                                   ofstream& f)
 {
-    auto n = variables_names.size();
+    size_t n = variables_names.size();
 
     f << "VARIABLES=";
 

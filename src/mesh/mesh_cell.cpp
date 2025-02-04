@@ -92,9 +92,13 @@ operator<<(ostream& os,
 bool
 Cell::is_mesh_border() const
 {
+    size_t ec { edges_count() };
+
     // Cell if border cell if at least one its edge is border.
-    for (auto e : edges())
+    for (size_t i = 0; i < ec; ++i)
     {
+        const Edge* e { edge(i) };
+
         if (e->is_border())
         {
             return true;
@@ -114,10 +118,14 @@ Cell::is_mesh_border() const
 bool
 Cell::is_domain_border() const
 {
+    size_t ec { edges_count() };
+
     // If any edge of cell is border then cell is border.
     // If neighbour by any edge has another domain then cell is border.
-    for (auto e : edges())
+    for (size_t i = 0; i < ec; ++i)
     {
+        const Edge* e { edge(i) };
+
         if (e->is_border() || e->is_cross())
         {
             return true;
@@ -161,14 +169,20 @@ Cell::get_neighbour(Edge* e)
 void
 Cell::get_neighbours_by_nodes(vector<Cell*>& ngh)
 {
+    size_t nc { nodes_count() };
     set<int> ids;
 
     ngh.clear();
 
-    for (auto n : nodes())
+    for (size_t i = 0; i < nc; ++i)
     {
-        for (auto c : n->cells())
+        Node* n { node(i) };
+        size_t cc { n->cells_count() };
+
+        for (size_t j = 0; j < cc; ++j)
         {
+            Cell* c { n->cell(j) };
+
             if (c != this)
             {
                 int id = c->get_id();
@@ -211,10 +225,14 @@ Cell::calc_area()
 void
 Cell::calc_center()
 {
+    size_t nc { nodes_count() };
+
     center_.zero();
 
-    for (auto n : nodes())
+    for (size_t i = 0; i < nc; ++i)
     {
+        Node* n { node(i) };
+
         center_.add(n->point());
     }
 

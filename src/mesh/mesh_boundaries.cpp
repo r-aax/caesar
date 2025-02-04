@@ -61,8 +61,10 @@ Boundaries::print(ostream& os)
 {
     os << "Boundaries (rank = " << parl::mpi_rank() << "):" << endl;
 
-    for (auto& b : boundaries)
+    for (size_t i = 0; i < boundaries.size(); ++i)
     {
+        Boundary& b { boundaries[i] };
+
         b.print(os);
     }
 }
