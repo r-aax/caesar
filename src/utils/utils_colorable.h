@@ -25,7 +25,7 @@ class Colorable
 private:
 
     /// \brief Count of colors.
-    static constexpr size_t colors_count { sizeof(uint32_t) * 8 };
+    static constexpr int colors_count { static_cast<int>(sizeof(uint32_t) * 8) };
 
     /// \brief Colors mask.
     uint32_t mask { 0x0 };
