@@ -28,7 +28,7 @@ bool
 str_starts_with(const string& s,
                 const string& pre)
 {
-    auto sn { s.size() }, pren { pre.size() };
+    size_t sn { s.size() }, pren { pre.size() };
 
     if (pren > sn)
     {
@@ -76,7 +76,7 @@ find_word(const string& s,
     }
 
     // Find end of word.
-    auto p2 = s.find_first_of(delims, p + 1);
+    size_t p2 = s.find_first_of(delims, p + 1);
 
     if (p2 == string::npos)
     {
@@ -173,7 +173,7 @@ find_substr_in_double_quotes(const string& s,
     ++p;
 
     // Find second double quote position.
-    auto p2 = s.find('"', p);
+    size_t p2 = s.find('"', p);
 
     // If second quote is not found there is no substring.
     if (p2 == string::npos)
@@ -221,7 +221,7 @@ find_interval_int_bounds_in_str(const string& s,
                                 size_t& hi)
 {
     // Position of open bracket.
-    auto open_b_p = s.find('[');
+    size_t open_b_p = s.find('[');
 
     // If open bracket is not found, there is no interval.
     if (open_b_p == string::npos)
@@ -230,7 +230,7 @@ find_interval_int_bounds_in_str(const string& s,
     }
 
     // Position of minus.
-    auto minus_p = s.find('-', open_b_p + 1);
+    size_t minus_p = s.find('-', open_b_p + 1);
 
     // If minus is not found, there is no interval.
     if (minus_p == string::npos)
@@ -239,7 +239,7 @@ find_interval_int_bounds_in_str(const string& s,
     }
 
     // Position of close bracket.
-    auto close_b_p = s.find(']', minus_p + 1);
+    size_t close_b_p = s.find(']', minus_p + 1);
 
     // If second bracket is not found, there is no interval.
     if (close_b_p == string::npos)

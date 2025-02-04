@@ -38,10 +38,10 @@ filename_stem(const string& s)
 
     CHECK_ERROR((s.back() != '/') && (s.back() != '\\'), "wrong end symbol in filename")
 
-    auto n { s.size() };
-    auto slash_pos { n }, dot_pos { n };
+    size_t n { s.size() };
+    size_t slash_pos { n }, dot_pos { n };
 
-    for (auto i { n - 1 }; ; --i)
+    for (size_t i { n - 1 }; ; --i)
     {
         if (i == 0)
         {
@@ -160,7 +160,7 @@ create_directory(const string& dn)
 bool
 create_directories(const string& dn)
 {
-    auto n { dn.size() };
+    size_t n { dn.size() };
     bool is_created { false };
 
     if (n == 0)

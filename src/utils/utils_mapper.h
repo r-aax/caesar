@@ -139,7 +139,7 @@ public:
     void
     append_names_to(vector<string>& v)
     {
-        for (auto& name : names)
+        for (string& name : names)
         {
             v.push_back(name);
         }
