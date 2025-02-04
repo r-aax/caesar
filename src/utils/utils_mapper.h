@@ -116,18 +116,16 @@ public:
     T
     get_enum(const string& name) const
     {
-        auto f { m.find(name) };
-
-        if (f == m.end())
+        if (has(name))
+        {
+            return m.find(name)->second;
+        }
+        else
         {
             DEBUG_WARNING("unknown " + what + " " + name);
 
             // We have to return value not corresponded with any name.
             return static_cast<T>(static_cast<int>(T::Last) + 1);
-        }
-        else
-        {
-            return f->second;
         }
     }
 
