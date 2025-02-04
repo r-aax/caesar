@@ -621,7 +621,7 @@ public:
         {
             Cell* c { all.cell(i) };
 
-            if (isnan(c->get_element<TCellData>(index)))
+            if (std::isnan(c->get_element<TCellData>(index)))
             {
                 c->set_element<TCellData>(index, v);
             }
