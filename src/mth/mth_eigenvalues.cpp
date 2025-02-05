@@ -7,10 +7,12 @@
 
 #include <iostream>
 
+#ifndef COMPILE_DISABLE_EIGEN
 // Use extern library for eigenvalues only here.
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Eigenvalues>
+#endif // !COMPILE_DISABLE_EIGEN
 
 #include "utils/utils.h"
 
@@ -35,6 +37,17 @@ calc_eigenvalues_and_eigenvectors(const vector<vector<double>>& m,
                                   vector<double>& values,
                                   vector<vector<double>>& vectors)
 {
+
+#ifdef COMPILE_DISABLE_EIGEN
+
+    (void)m;
+    (void)values;
+    (void)vectors;
+
+    NOT_IMPLEMENTED;
+
+#else // !COMPILE_DISABLE_EIGEN
+
     // We use this function only for calculating 3x3 matrices.
     DEBUG_CHECK_ERROR((m.size() == 3) && (m[0].size() == 3), "we work only with 3x3 matrix");
 
@@ -97,6 +110,8 @@ calc_eigenvalues_and_eigenvectors(const vector<vector<double>>& m,
     SWAP(2, 1)
 
 #undef SWAP
+
+#endif // COMPILE_DISABLE_EIGEN
 
 }
 
