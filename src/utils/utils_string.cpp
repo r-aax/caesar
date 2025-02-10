@@ -48,7 +48,7 @@ str_starts_with(const string& s,
 
 /// \brief Find word.
 ///
-/// Find next word (spaces are ignored).
+/// Find next word.
 ///
 /// \param[in]  s      String.
 /// \param[in]  start  Start position.

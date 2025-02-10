@@ -57,6 +57,23 @@ TEST_CASE("string : split_into_words function", "[utils]")
         CHECK(ss[1] == "two");
         CHECK(ss[2] == "three");
     }
+
+    SECTION("comma separator, ignore spaces")
+    {
+        // issue #46 - we have to ignore spaces
+        const string comma { ", " };
+        const string s { "one,two ,three, four , five" };
+        vector<string> ss;
+
+        utils::split_into_words(s, comma, ss);
+
+        CHECK(ss.size() == 5);
+        CHECK(ss[0] == "one");
+        CHECK(ss[1] == "two");
+        CHECK(ss[2] == "three");
+        CHECK(ss[3] == "four");
+        CHECK(ss[4] == "five");
+    }
 }
 
 TEST_CASE("string : find_substr_in_double_quotes function", "[utils]")
