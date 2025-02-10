@@ -46,9 +46,14 @@ namespace parl
 void
 MPIRequests::alloc_memory(size_t n)
 {
+    CHECK_ERROR((count_ == 0) && (data == nullptr), "MPIRequests: double allocation");
+
     count_ = n;
-    CHECK_ERROR(data == nullptr, "MPIRequests: double allocation");
-    data = new char[n * sizeof(MPI_REQUEST)];
+
+    if (n > 0)
+    {
+        data = new char[n * sizeof(MPI_REQUEST)];
+    }
 }
 
 /// \brief Free memory.
@@ -59,7 +64,7 @@ MPIRequests::free_memory()
 {
     count_ = 0;
 
-    if (data)
+    if (data != nullptr)
     {
         delete [] data;
         data = nullptr;
@@ -73,10 +78,7 @@ MPIRequests::free_memory()
 /// \param[in] n Number of requests.
 MPIRequests::MPIRequests(size_t n)
 {
-    if (n > 0)
-    {
-        alloc_memory(n);
-    }
+    alloc_memory(n);
 }
 
 /// \brief Destructor.
