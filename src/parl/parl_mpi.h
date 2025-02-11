@@ -45,12 +45,15 @@ public:
     // Constructor.
     MPIRequests(size_t n = 0);
 
+    // Copy constructor.
+    MPIRequests(const MPIRequests& src);
+
     // Destructor.
     ~MPIRequests();
 
     // Get address of request.
     void*
-    get(size_t i = 0);
+    get(size_t i = 0) const;
 
     /// \brief Count of requests.
     ///

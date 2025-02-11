@@ -5,6 +5,8 @@
 
 #include "parl_mpi.h"
 
+#include <cstring>
+
 #ifdef COMPILE_ENABLE_MPI
 
 // Disable cast-function-type warning inside openmpi.
@@ -81,6 +83,21 @@ MPIRequests::MPIRequests(size_t n)
     alloc_memory(n);
 }
 
+/// \brief Copy constructor.
+///
+/// Copy constructor.
+///
+/// \param[in] src Source.
+MPIRequests::MPIRequests(const MPIRequests& src)
+{
+    alloc_memory(src.count());
+
+    if (count_ > 0)
+    {
+        memcpy(data, src.get(0), count_ * sizeof(MPI_REQUEST));
+    }
+}
+
 /// \brief Destructor.
 ///
 /// Default destructor.
@@ -98,8 +115,10 @@ MPIRequests::~MPIRequests()
 /// \return
 /// Address of request.
 void*
-MPIRequests::get(size_t i)
+MPIRequests::get(size_t i) const
 {
+    DEBUG_CHECK_ERROR(i < count_, "MPIRequests: wrong index");
+
     return static_cast<void*>(data + (i * sizeof(MPI_REQUEST)));
 }
 

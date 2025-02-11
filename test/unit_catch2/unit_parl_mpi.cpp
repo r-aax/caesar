@@ -23,6 +23,42 @@ TEST_CASE("MPI : mpi functions", "[parl]")
         CHECK(reqs2.count() == 10);
     }
 
+    SECTION("MPIRequests copy constructor")
+    {
+        // issue #47
+
+        parl::MPIRequests reqs(5);
+        parl::MPIRequests copy = reqs;
+
+        CHECK(reqs.count() == 5);
+        CHECK(copy.count() == 5);
+    }
+
+    SECTION("MPIRequests copy constructor for zero-size requests")
+    {
+        // issue #47
+
+        parl::MPIRequests reqs(0);
+        parl::MPIRequests copy = reqs;
+
+        CHECK(reqs.count() == 0);
+        CHECK(copy.count() == 0);
+    }
+
+    SECTION("MPIRequests copy constructor for different sizes")
+    {
+        // issue #47
+
+        vector<parl::MPIRequests> v
+        {
+            parl::MPIRequests(0), parl::MPIRequests(1), parl::MPIRequests(2)
+        };
+
+        CHECK(v[0].count() == 0);
+        CHECK(v[1].count() == 1);
+        CHECK(v[2].count() == 2);
+    }
+
     SECTION("using mpi before initialization")
     {
         // Barrier has no return type.
