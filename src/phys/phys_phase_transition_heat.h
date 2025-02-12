@@ -18,12 +18,6 @@ namespace phys
 /// \brief Specific soldification heat (J / kg).
 const double L_fus = 332400.0;
 
-/// \brief Water thermal conductivity (W / (m * degree)).
-const double WaterThermalConductivity = 0.56;
-
-/// \brief Ice thermal conductivity (W / (m * degree)).
-const double IceThermalConductivity = 2.22;
-
 // Vaporization heat (J / kg).
 double
 l_ev(double t);
