@@ -24,4 +24,10 @@ TEST_CASE("Basics : basic functions", "[mth]")
         CHECK(mth::is_near(mth::radians_to_degrees(mth::Pi / 2.0), 90.0));
         CHECK(mth::is_near(mth::radians_to_degrees(mth::Pi), 180.0));
     }
+
+    SECTION("weighted sum")
+    {
+        CHECK(mth::is_near(mth::weighted_sum(1.0, 10.0, 20.0), 15.0));
+        CHECK(mth::is_near(mth::weighted_sum(9.0, 1.0, 11.0), 2.0));
+    }
 }

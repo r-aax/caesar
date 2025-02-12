@@ -322,6 +322,24 @@ int
 randint(int lo,
         int hi);
 
+/// \brief Weighted sum.
+///
+/// Weighted sum.
+///
+/// \param[in] w Weight.
+/// \param[in] x First value.
+/// \param[in] y Second value.
+///
+/// \return
+/// Weighted result.
+inline double
+weighted_sum(double w,
+             double x,
+             double y)
+{
+    return (w * x + y) / (w + 1.0);
+}
+
 /// @}
 
 }
