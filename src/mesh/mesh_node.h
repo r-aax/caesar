@@ -83,7 +83,7 @@ public:
     geom::Vector ice_dir;
 
     /// \brief Shift of ice.
-    double ice_shift;
+    double ice_shift{ 0.0 };
 
     /// \brief Vector shift of node.
     geom::Vector shift;

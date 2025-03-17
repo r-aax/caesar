@@ -7,7 +7,13 @@
 
 #include <iostream>
 #include <fstream>
+
+#ifdef _WIN32
+#define NOMINMAX
+#include <windows.h>
+#else // !_WIN32
 #include <sys/stat.h>
+#endif // _WIN32
 
 #include "diag/diag.h"
 
@@ -143,7 +149,13 @@ exists_directory(const string& dn)
 bool
 create_directory(const string& dn)
 {
-    int status { mkdir(dn.c_str(), 0777) };
+    int status{ false };
+
+#ifdef _WIN32
+    status = CreateDirectoryA(dn.c_str(), NULL);
+#else // !_WIN32
+    status = mkdir(dn.c_str(), 0777)
+#endif // _WIN32
 
     return status == 0;
 }

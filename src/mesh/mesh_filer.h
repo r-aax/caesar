@@ -249,7 +249,7 @@ public:
 
         ifstream f(fn);
         string line { "" };
-        Zone* current_zone { nullptr };
+        Zone* current_zone{ nullptr };
 
         // Data got from zone.
         vector<vector<double>> data;

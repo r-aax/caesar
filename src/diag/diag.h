@@ -29,9 +29,10 @@ namespace diag
 /// \brief Error.
 ///
 /// Raising error.
+/// We can not use name ERROR, it conflicts with wingdi.h in windows.
 ///
 /// \param[in] S Message.
-#define ERROR(S) diag::raise_error(S, __FILE__, __LINE__)
+#define CAESAR_ERROR(S) diag::raise_error(S, __FILE__, __LINE__)
 
 /// \brief Warning message with check.
 ///
@@ -54,13 +55,13 @@ namespace diag
 #define CHECK_ERROR(C, S) \
     if (!(C)) \
     { \
-        ERROR(S); \
+        CAESAR_ERROR(S); \
     }
 
 /// \brief Error message for not implemented code.
 ///
 /// Error message for not implemented code.
-#define NOT_IMPLEMENTED ERROR("not implemented")
+#define NOT_IMPLEMENTED CAESAR_ERROR("not implemented")
 
 #ifdef DEBUG
 
@@ -76,7 +77,7 @@ namespace diag
 /// Debug raising error.
 ///
 /// \param[in] S Message.
-#define DEBUG_ERROR(S) ERROR(S)
+#define DEBUG_ERROR(S) CAESAR_ERROR(S)
 
 /// \brief Debug warning message with check.
 ///
