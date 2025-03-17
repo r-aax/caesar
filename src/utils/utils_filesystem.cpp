@@ -34,8 +34,8 @@ namespace utils
 ///
 /// \return
 /// Stem.
-string
-filename_stem(const string& s)
+std::string
+filename_stem(const std::string& s)
 {
     if (s == "")
     {
@@ -110,9 +110,9 @@ filename_stem(const string& s)
 /// true - if there is a file,
 /// false - otherwise.
 bool
-exists_file(const string& fn)
+exists_file(const std::string& fn)
 {
-    ifstream s(fn);
+    std::ifstream s(fn);
 
     return s.is_open();
 }
@@ -130,7 +130,7 @@ exists_file(const string& fn)
 /// true - if there is a directory,
 /// false - otherwise.
 bool
-exists_directory(const string& dn)
+exists_directory(const std::string& dn)
 {
     struct stat sb;
 
@@ -147,7 +147,7 @@ exists_directory(const string& dn)
 /// true - if directory is created,
 /// false - otherwise.
 bool
-create_directory(const string& dn)
+create_directory(const std::string& dn)
 {
     int status{ false };
 
@@ -170,7 +170,7 @@ create_directory(const string& dn)
 /// true - if directory is built,
 /// false - otherwise.
 bool
-create_directories(const string& dn)
+create_directories(const std::string& dn)
 {
     size_t n { dn.size() };
     bool is_created { false };

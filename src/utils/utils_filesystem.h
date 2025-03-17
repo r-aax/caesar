@@ -8,8 +8,6 @@
 
 #include <string>
 
-using namespace std;
-
 namespace caesar
 {
 
@@ -20,24 +18,24 @@ namespace utils
 /// @{
 
 // Stem of filename.
-string
-filename_stem(const string& s);
+std::string
+filename_stem(const std::string& s);
 
 // Check is there a file with given name.
 bool
-exists_file(const string& fn);
+exists_file(const std::string& fn);
 
 // Check is there a directory with given name.
 bool
-exists_directory(const string& dn);
+exists_directory(const std::string& dn);
 
 // Create directory.
 bool
-create_directory(const string& dn);
+create_directory(const std::string& dn);
 
 // Create directories.
 bool
-create_directories(const string& dn);
+create_directories(const std::string& dn);
 
 /// @}
 

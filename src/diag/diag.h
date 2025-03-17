@@ -8,8 +8,6 @@
 
 #include <string>
 
-using namespace std;
-
 namespace caesar
 {
 
@@ -141,14 +139,14 @@ namespace diag
 
 // Warning function.
 void
-say_warning(const string& s,
-            const string& file,
+say_warning(const std::string& s,
+            const std::string& file,
             int line);
 
 // Raise error.
 void
-raise_error(const string& s,
-            const string& file,
+raise_error(const std::string& s,
+            const std::string& file,
             int line);
 
 /// @}

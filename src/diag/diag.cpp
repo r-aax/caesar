@@ -25,11 +25,11 @@ namespace diag
 /// \param[in] file File where error occured.
 /// \param[in] line Line where error occured.
 void
-say_warning(const string& s,
-            const string& file,
+say_warning(const std::string& s,
+            const std::string& file,
             int line)
 {
-    cout << "Warning : " << s << " (" << file << ", " << line << ")" << endl;
+    std::cout << "Warning : " << s << " (" << file << ", " << line << ")" << std::endl;
 }
 
 /// \brief Raise error.
@@ -40,13 +40,13 @@ say_warning(const string& s,
 /// \param[in] file Name of file.
 /// \param[in] line Line of file.
 void
-raise_error(const string& s,
-            const string& file,
+raise_error(const std::string& s,
+            const std::string& file,
             int line)
 {
-    cout << "Error : " << s << " (" << file << ", " << line << ")" << endl;
+    std::cout << "Error : " << s << " (" << file << ", " << line << ")" << std::endl;
 
-    throw runtime_error("error");
+    throw std::runtime_error("error");
 }
 
 /// @}
