@@ -154,7 +154,7 @@ create_directory(const std::string& dn)
 #ifdef _WIN32
     status = CreateDirectoryA(dn.c_str(), NULL);
 #else // !_WIN32
-    status = mkdir(dn.c_str(), 0777)
+    status = mkdir(dn.c_str(), 0777);
 #endif // _WIN32
 
     return status == 0;
