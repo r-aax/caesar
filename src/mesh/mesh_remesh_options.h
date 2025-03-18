@@ -288,8 +288,8 @@ private:
 public:
 
     // Print function.
-    friend ostream&
-    operator<<(ostream& os,
+    friend std::ostream&
+    operator<<(std::ostream& os,
                const RemeshOptions& x);
 };
 

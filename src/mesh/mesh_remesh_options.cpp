@@ -73,8 +73,8 @@ RemeshOptions::set(RemeshMethod method_,
 ///
 /// \param[in] os Output stream.
 /// \param[in] x  Options.
-ostream&
-operator<<(ostream& os,
+std::ostream&
+operator<<(std::ostream& os,
            const RemeshOptions& x)
 {
     os << "remesh:" << RemeshMethodMapper.get_name(x.get_method())

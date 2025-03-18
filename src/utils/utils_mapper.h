@@ -12,8 +12,6 @@
 
 #include "diag/diag.h"
 
-using namespace std;
-
 namespace caesar
 {
 
@@ -39,13 +37,13 @@ private:
     size_t hi;
 
     /// \brief Vector of names.
-    vector<string> names;
+    std::vector<std::string> names;
 
     /// \brief Map of names and numbers.
-    map<string, T> m;
+    std::map<std::string, T> m;
 
     /// \brief Object of mapper name.
-    string what;
+    std::string what;
 
 public:
 
@@ -55,8 +53,8 @@ public:
     ///
     /// \param[in] what_  Object name.
     /// \param[in] names_ Names vector.
-    Mapper(string what_,
-           vector<string> names_)
+    Mapper(std::string what_,
+           std::vector<std::string> names_)
     {
         what = what_;
         names = names_;
@@ -87,10 +85,27 @@ public:
     /// We suppose numeration starts from 0 and without gaps.
     ///
     /// \param[in] e Enumeration.
-    const string&
+    ///
+    /// \return
+    /// Name.
+    inline const std::string&
     get_name(T e) const
     {
         return names[static_cast<size_t>(e) - lo];
+    }
+
+    /// \brief Get string representation.
+    ///
+    /// Get string representation.
+    ///
+    /// \param[in] e Enumeration.
+    ///
+    /// \return
+    /// String representation.
+    inline std::string
+    get_repr(T e)
+    {
+        return get_name(e) + " (" + std::to_string(static_cast<int>(e)) + ")";
     }
 
     /// \brief Try to find name.
@@ -102,8 +117,8 @@ public:
     /// \return
     /// true - if mapper has name,
     /// false - otherwise.
-    bool
-    has(const string& name) const
+    inline bool
+    has(const std::string& name) const
     {
         return m.find(name) != m.end();
     }
@@ -113,8 +128,11 @@ public:
     /// Get enum from map.
     ///
     /// \param[in] name Name.
+    ///
+    /// \return
+    /// Enumeration.
     T
-    get_enum(const string& name) const
+    get_enum(const std::string& name) const
     {
         if (has(name))
         {
@@ -135,9 +153,9 @@ public:
     ///
     /// \param[out] v Target vector.
     void
-    append_names_to(vector<string>& v)
+    append_names_to(std::vector<std::string>& v)
     {
-        for (string& name : names)
+        for (std::string& name : names)
         {
             v.push_back(name);
         }
@@ -149,10 +167,10 @@ public:
     ///
     /// \return
     /// String with all possible names.
-    string
+    std::string
     all_names_string() const
     {
-        string s { names[0] };
+        std::string s { names[0] };
 
         for (size_t i = 1; i < names.size(); ++i)
         {

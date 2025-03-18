@@ -18,7 +18,7 @@ namespace mesh
 utils::Mapper<RemeshMethod> RemeshMethodMapper
 {
     "remesh method",
-    vector<string> { "PRISMS", "TONG" }
+    std::vector<std::string> { "PRISMS", "TONG" }
 };
 
 /// @}
