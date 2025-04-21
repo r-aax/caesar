@@ -254,6 +254,23 @@ find_interval_int_bounds_in_str(const string& s,
     return true;
 }
 
+/// \brief Convert to double.
+///
+/// Convert to double.
+///
+/// \param[in] s String.
+///
+/// \return
+/// Value in double format.
+double
+convert_to_double(const string& s)
+{
+    // Prevent exception for out of range double values.
+    long double ld { stold(s) };
+
+    return static_cast<double>(ld);
+}
+
 /// @}
 
 }

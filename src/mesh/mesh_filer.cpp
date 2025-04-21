@@ -258,7 +258,7 @@ Filer::get_zone_data_from_string(vector<vector<double>>& data,
 
     while (utils::find_word(s, p, p, len))
     {
-        data_line.push_back(stod(s.substr(p, len)));
+        data_line.push_back(utils::convert_to_double(s.substr(p, len)));
         p += (len + 1);
     }
 

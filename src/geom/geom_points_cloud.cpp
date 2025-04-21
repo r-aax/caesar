@@ -50,8 +50,16 @@ PointsCloud::PointsCloud(const string& fn)
         {
             try
             {
-                d.push_back(pair<Vector, double> { Vector(stod(ws[0]), stod(ws[1]), stod(ws[2])),
-                                                   stod(ws[3]) });
+                d.push_back
+                (
+                    pair<Vector, double>
+                    {
+                        Vector(utils::convert_to_double(ws[0]),
+                               utils::convert_to_double(ws[1]),
+                               utils::convert_to_double(ws[2])),
+                        utils::convert_to_double(ws[3])
+                    }
+                );
             }
             catch (...)
             {

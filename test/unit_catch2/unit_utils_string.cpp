@@ -137,3 +137,21 @@ TEST_CASE("string : find_interval_int_bounds_in_str", "[utils]")
         CHECK(hi == 30);
     }
 }
+
+TEST_CASE("string : convert", "[utils]")
+{
+    SECTION("convert to double")
+    {
+        string spu { "1.0e-320" }, snu { "-1.0e-320" };
+        string spo { "1.0e+320" }, sno { "-1.0e+320" };
+        double dpu { utils::convert_to_double(spu) };
+        double dnu { utils::convert_to_double(snu) };
+        double dpo { utils::convert_to_double(spo) };
+        double dno { utils::convert_to_double(sno) };
+
+        CHECK(mth::is_zero(dpu));
+        CHECK(mth::is_zero(dnu));
+        CHECK(isinf(dpo));
+        CHECK(isinf(dno));
+    }
+}

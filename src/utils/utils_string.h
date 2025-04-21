@@ -64,6 +64,10 @@ find_interval_int_bounds_in_str(const string& s,
                                 size_t& lo,
                                 size_t& hi);
 
+// Convert to double.
+double
+convert_to_double(const string& s);
+
 /// @}
 
 }
