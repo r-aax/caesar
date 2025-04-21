@@ -64,7 +64,7 @@ public:
         // Names count.
         size_t n = names.size();
 
-        DEBUG_CHECK_ERROR(n == (hi - lo + 1), "wrong number of names in mapper " + what);
+        CHECK_ERROR(n == (hi - lo + 1), "wrong number of names in mapper " + what);
 
         // Create map.
         for (size_t i = 0; i < n; ++i)
@@ -140,7 +140,7 @@ public:
         }
         else
         {
-            DEBUG_WARNING("unknown " + what + " " + name);
+            CAESAR_ERROR("unknown " + what + " " + name);
 
             // We have to return value not corresponded with any name.
             return static_cast<T>(static_cast<int>(T::Last) + 1);
