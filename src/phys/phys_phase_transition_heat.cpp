@@ -10,12 +10,6 @@
 #include "phys_constants.h"
 #include "mth/mth.h"
 
-/// \brief Low temperature guard (C).
-#define TEMP_LO_GUARD (-273.15)
-
-/// \brief High temperature guard (C).
-#define TEMP_HI_GUARD 1000.0
-
 namespace caesar
 {
 
@@ -73,19 +67,19 @@ l_ev(double t)
 
     static vector<double> ts
     {
-        TEMP_LO_GUARD,
+        TempLoGuard,
         0.0, 10.0, 20.0, 30.0, 50.0, 70.0, 90.0, 100.0, 120.0, 150.0,
         180.0, 200.0, 220.0, 250.0, 300.0, 350.0, 370.0, 374.0, 374.15,
-        TEMP_HI_GUARD
+        TempHiGuard
     };
 
     // Values in MJ / kg.
     static vector<double> ls
     {
-        2.5, // TEMP_LO_GUARD
+        2.5, // TempLoGuard
         2.5, 2.47, 2.45, 2.4, 2.38, 2.32, 2.28, 2.26, 2.2, 2.11,
         2.01, 1.94, 1.86, 1.7, 1.4, 0.89, 0.44, 0.11, 0.0,
-        0.0 // TEMP_HI_GUARD
+        0.0 // TempHiGuard
     };
 
     // Obtain values in MJ / kg.
@@ -170,23 +164,23 @@ l_su(double t)
 
     static vector<double> ts
     {
-        TEMP_LO_GUARD,
+        TempLoGuard,
         -39.0, -38.0, -37.0, -36.0, -35.0, -34.0, -33.0, -32.0, -31.0, -30.0,
         -29.0, -28.0, -27.0, -26.0, -25.0, -24.0, -23.0, -22.0, -21.0, -20.0,
         -19.0, -18.0, -17.0, -16.0, -15.0, -14.0, -13.0, -12.0, -11.0, -10.0,
         -9.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0, 0.0,
-        TEMP_HI_GUARD
+        TempHiGuard
     };
 
     // Values in kcal / kg.
     static vector<double> su
     {
-        698.4, // TEMP_LO_GUARD
+        698.4, // TempLoGuard
         698.4, 697.8, 697.3, 696.8, 696.2, 695.6, 695.1, 694.5, 694.0, 693.4,
         692.9, 692.3, 691.8, 691.2, 690.6, 690.0, 689.5, 688.9, 688.6, 688.1,
         687.6, 687.0, 686.5, 685.9, 685.3, 684.7, 684.2, 683.6, 683.1, 682.5,
         681.9, 681.4, 680.8, 680.3, 679.7, 679.1, 678.5, 678.0, 677.6, 676.9,
-        676.9 // TEMP_HI_GUARD
+        676.9 // TempHiGuard
     };
 
     // Obtain values in kcal / kg.

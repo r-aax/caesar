@@ -10,12 +10,6 @@
 #include "phys_constants.h"
 #include "mth/mth.h"
 
-/// \brief Low temperature guard (C).
-#define TEMP_LO_GUARD (-273.15)
-
-/// \brief High temperature guard (C).
-#define TEMP_HI_GUARD 1000.0
-
 namespace caesar
 {
 
@@ -82,21 +76,21 @@ cp_w(double t)
 
     static vector<double> ts
     {
-        TEMP_LO_GUARD,
+        TempLoGuard,
         -9.0, -8.0, -7.0, -6.0, -5.0, -4.0, -3.0, -2.0, -1.0, 0.0,
         1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 9.0, 10.0, 11.0,
         12.0, 14.0, 15.0, 17.0, 18.0, 22.0, 23.0, 29.0,
-        TEMP_HI_GUARD
+        TempHiGuard
     };
 
     // Values in cal / (g * degree).
     static vector<double> cps
     {
-        1.019, // TEMP_LO_GUARD
+        1.019, // TempLoGuard
         1.019, 1.018, 1.017, 1.016, 1.015, 1.014, 1.013, 1.012, 1.011, 1.01,
         1.009, 1.008, 1.008, 1.007, 1.006, 1.005, 1.004, 1.004, 1.003, 1.003,
         1.002, 1.002, 1.001, 1.001, 1.0, 1.0, 0.999, 0.999,
-        0.999 // TEMP_HI_GUARD
+        0.999 // TempHiGuard
     };
 
     // Obtain value in cal / (g * degree).
@@ -161,19 +155,19 @@ cp_i(double t)
 
     static vector<double> ts
     {
-        TEMP_LO_GUARD,
+        TempLoGuard,
         -28.0, -27.0, -26.0, -25.0, -24.0, -23.0, -22.0, -21.0, -20.0, -19.0,
         -18.0, -17.0, -16.0, -15.0, -14.0, -13.0, -12.0, -11.0, -10.0,
-        TEMP_HI_GUARD
+        TempHiGuard
     };
 
     // Valus in cal / (g * degree).
     static vector<double> cps
     {
-        0.452, // TEMP_LO_GUARD
+        0.452, // TempLoGuard
         0.452, 0.454, 0.455, 0.457, 0.459, 0.461, 0.463, 0.466, 0.467, 0.468,
         0.470, 0.472, 0.474, 0.476, 0.478, 0.480, 0.481, 0.483, 0.485,
-        0.485 // TEMP_HI_GUARD
+        0.485 // TempHiGuard
     };
 
     // Obtain value in cal / (g * degree).
@@ -258,23 +252,23 @@ cp_a(double t)
 
     static vector<double> ts
     {
-        TEMP_LO_GUARD,
+        TempLoGuard,
         -50.0, -45.0, -40.0, -35.0, -30.0, -25.0, -20.0, -15.0, -10.0,  -5.0,
         0.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0,
         90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0,
         190.0, 200.0, 250.0, 300.0, 350.0, 400.0, 450.0, 500.0, 550.0,
-        TEMP_HI_GUARD
+        TempHiGuard
     };
 
     // Values in J / (kg * degree).
     static vector<double> cps
     {
-        1013.0, // TEMP_LO_GUARD
+        1013.0, // TempLoGuard
         1013.0, 1013.0, 1013.0, 1013.0, 1013.0, 1011.0, 1009.0, 1009.0, 1009.0, 1007.0,
         1005.0, 1005.0, 1005.0, 1005.0, 1005.0, 1005.0, 1005.0, 1005.0, 1009.0, 1009.0,
         1009.0, 1009.0, 1009.0, 1009.0, 1011.0, 1013.0, 1015.0, 1017.0, 1020.0, 1022.0,
         1024.0, 1026.0, 1037.0, 1047.0, 1058.0, 1068.0, 1081.0, 1093.0, 1104.0,
-        1104.0 // TEMP_HI_GUARD
+        1104.0 // TempHiGuard
     };
 
     // Obtain values in J / (kg * degree).

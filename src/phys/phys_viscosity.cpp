@@ -9,12 +9,6 @@
 #include "phys_temperature.h"
 #include "mth/mth.h"
 
-/// \brief Low temperature guard (C).
-#define TEMP_LO_GUARD (-273.15)
-
-/// \brief High temperature guard (C).
-#define TEMP_HI_GUARD 1000.0
-
 namespace caesar
 {
 
@@ -63,18 +57,18 @@ water_dynamic_viscosity(double t)
 
     static vector<double> ts
     {
-        TEMP_LO_GUARD,
+        TempLoGuard,
         0.0, 5.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0,
         90.0, 100.0,
-        TEMP_HI_GUARD
+        TempHiGuard
     };
 
     static vector<double> dvs
     {
-        1.787, // TEMP_LO_GUARD
+        1.787, // TempLoGuard
         1.787, 1.519, 1.307, 1.002, 0.798, 0.653, 0.547, 0.467, 0.404, 0.355,
         0.315, 0.282,
-        0.282 // TEMP_HI_GUARD
+        0.282 // TempHiGuard
     };
 
     double dv = mth::linear_interpolation(ts, dvs, t);

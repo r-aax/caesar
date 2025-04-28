@@ -15,9 +15,6 @@ namespace phys
 /// \addtogroup phys
 /// @{
 
-/// \brief Absolute zero (Celsius).
-const double AbsoluteZero  = -273.15;
-
 // Transform Celsius (C) to Kelvins (K).
 double
 celsius_to_kelvin(double tc);

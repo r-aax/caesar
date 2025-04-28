@@ -30,6 +30,9 @@ namespace phys
 // Fundamental constants.
 //
 
+/// \brief Absolute zero (Celsius).
+const double AbsoluteZero  = -273.15;
+
 /// \brief Gravitational acceleration (m / s^2).
 const double GravitationalAcceleration = 9.80665;
 
@@ -59,6 +62,22 @@ const double JouleKilocalories = (1.0 / KilocalorieJoules);
 ///
 /// 75,6 * 10^(-3) (N / m).
 const double WaterSurfaceTensionCoefficient = 0.0756;
+
+//
+// Inner constants.
+//
+
+/// \brief Temperature lower guard (Celsius).
+///
+/// Temperature lower guard (Celsius).
+/// Abs zero plus one.
+const double TempLoGuard = AbsoluteZero + 1.0;
+
+/// \brief Temperature high guard (Celsius).
+///
+/// Temperature high guard (Celsius).
+/// High temperature (1000.0) plus one.
+const double TempHiGuard = 1000.0 + 1.0;
 
 /// @}
 

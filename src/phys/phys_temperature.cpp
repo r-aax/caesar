@@ -5,6 +5,8 @@
 
 #include "phys_temperature.h"
 
+#include "phys_constants.h"
+
 namespace caesar
 {
 
