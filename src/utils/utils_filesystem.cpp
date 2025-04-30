@@ -9,7 +9,9 @@
 #include <fstream>
 
 #ifdef _WIN32
-#define NOMINMAX
+#ifndef NOMINMAX
+    #define NOMINMAX
+#endif
 #include <windows.h>
 #else // !_WIN32
 #include <sys/stat.h>
@@ -129,13 +131,17 @@ exists_file(const std::string& fn)
 /// \return
 /// true - if there is a directory,
 /// false - otherwise.
-bool
-exists_directory(const std::string& dn)
+bool exists_directory(const std::string& dn)
 {
+#ifdef _WIN32
+    DWORD attr = GetFileAttributesA(dn.c_str());
+    return (attr != INVALID_FILE_ATTRIBUTES) && (attr & FILE_ATTRIBUTE_DIRECTORY);
+#else
     struct stat sb;
-
-    return stat(dn.c_str(), &sb) == 0;
+    return (stat(dn.c_str(), &sb) == 0) && S_ISDIR(sb.st_mode);
+#endif
 }
+
 
 /// \brief Create directory.
 ///
