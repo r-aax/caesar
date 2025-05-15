@@ -12,6 +12,7 @@
 #include "mesh/mesh.h"
 #include "mth/mth.h"
 #include "parl/parl.h"
+#include "pde/pde.h"
 #include "phys/phys.h"
 #include "tools/tools.h"
 #include "utils/utils.h"
