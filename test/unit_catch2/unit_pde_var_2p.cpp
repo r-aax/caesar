@@ -30,5 +30,9 @@ TEST_CASE("PDE : Var2P", "[pde]")
         w.set(3.0);
 
         CHECK(mth::is_eq(pde::Var2P::mul_diff(v, w), 6.0));
+
+        w.set_both(5.0);
+
+        CHECK(mth::is_zero(w.diff()));
     }
 }

@@ -47,6 +47,17 @@ public:
         return n;
     }
 
+    /// \brief Set new present value.
+    ///
+    /// Set new present value.
+    ///
+    /// \param[in] v Value.
+    inline void
+    set(double v)
+    {
+        n = v;
+    }
+
     /// \brief Get previous value.
     ///
     /// Get previous value.
@@ -59,15 +70,27 @@ public:
         return p;
     }
 
-    /// \brief Set new present value.
+    /// \brief Set previous value.
     ///
-    /// Set new present value.
+    /// Set previous value.
     ///
     /// \param[in] v Value.
     inline void
-    set(double v)
+    set_prev(double v)
     {
-        n = v;
+        p = v;
+    }
+
+    /// \brief Set both present and previous values.
+    ///
+    /// Set both values.
+    ///
+    /// \param[in] v Value.
+    inline void
+    set_both(double v)
+    {
+        set(v);
+        set_prev(v);
     }
 
     /// \brief Get difference.
