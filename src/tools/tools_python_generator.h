@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "graph/graph.h"
+#include "mth/mth.h"
 
 namespace caesar
 {
@@ -46,7 +47,7 @@ public:
     static void
     simple_function_chart(double (*f)(double, void *),
                           void *data,
-                          const vector<double>& segm,
+                          mth::Segment segment,
                           int n = 300,
                           ostream& os = cout);
 

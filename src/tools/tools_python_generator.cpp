@@ -51,7 +51,7 @@ PythonGenerator::simple_function_chart(const vector<double>& xs,
                                        const vector<double>& ys,
                                        ostream& os)
 {
-    size_t n = xs.size();
+    size_t n { xs.size() };
 
     DEBUG_CHECK_ERROR(ys.size() == n, "can not construct function chart, ys size doesn't math xs size");
 
@@ -88,28 +88,30 @@ PythonGenerator::simple_function_chart(const vector<double>& xs,
 ///
 /// Generate chart for function.
 ///
-/// \param[in] f    Function.
-/// \param[in] data Data.
-/// \param[in] segm Segment.
-/// \param[in] n    Count of pieces of definition scope [lo, hi].
-/// \param[in] os   Out stream.
+/// \param[in] f       Function.
+/// \param[in] data    Data.
+/// \param[in] segment Segment.
+/// \param[in] n       Count of pieces of definition scope [lo, hi].
+/// \param[in] os      Out stream.
 void
 PythonGenerator::simple_function_chart(double (*f)(double, void *),
                                        void *data,
-                                       const vector<double>& segm,
+                                       mth::Segment segment,
                                        int n,
                                        ostream& os)
 {
     vector<double> xs;
     vector<double> ys;
-    double lo = segm[0], hi = segm[1], dx = (hi - lo) / n;
+    double lo { segment.lo() };
+    double hi { segment.hi() };
+    double dx { (hi - lo) / n };
 
     DEBUG_CHECK_ERROR(lo < hi, "wrong function definition scope segment");
 
     for (int i = 0; i <= n; ++i)
     {
-        double x = lo + i * dx;
-        double y = f(x, data);
+        double x { lo + i * dx };
+        double y { f(x, data) };
 
         xs.push_back(x);
         ys.push_back(y);
