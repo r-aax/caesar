@@ -59,6 +59,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
 
         solver.set_global_parameters(1.0e-6, f_eps, 100);
 
+        // bisection
         root = value_out_of_segm;
         st = solver.solve_bisection(function_linear,
                                     static_cast<void*>(&add),
@@ -67,6 +68,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
 
+        // chords
         root = value_out_of_segm;
         st = solver.solve_chords(function_linear,
                                  static_cast<void*>(&add),
@@ -75,6 +77,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
 
+        // combined
         root = value_out_of_segm;
         st = solver.solve_combined(function_linear,
                                    static_cast<void*>(&add),
@@ -82,6 +85,14 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
                                    root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
+
+        // wrong interval
+        root = 0.0;
+        st = solver.solve_combined(function_linear,
+                                   static_cast<void*>(&add),
+                                   mth::Segment(0.0, -1.0),
+                                   root);
+        CHECK(st == mth::NonlinearEqnStatus::NoBecauseWrongSegment);
     }
 
     SECTION("cubic function")

@@ -47,6 +47,9 @@ enum class NonlinearEqnStatus
     /// \brief Equation is solved with new root.
     YesNewRoot,
 
+    /// \brief Wrong segment.
+    NoBecauseWrongSegment,
+
     /// \brief We do not solve equation because of same sign on function on segment ends.
     NoBecauseSameSign,
 

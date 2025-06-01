@@ -67,7 +67,11 @@ NonlinearEqn::solve(Function1D f,
 {
     // Debug checkers.
     DEBUG_CHECK_ERROR(is_ready(), "not ready for solving nonlinear equation");
-    DEBUG_CHECK_ERROR(segment.is_real(), "wrong interval for solving nonlinear equation");
+
+    if (!segment.is_real())
+    {
+        return NonlinearEqnStatus::NoBecauseWrongSegment;
+    }
 
     SegmentFunction sf(f, data, segment);
     SegmentFunctionPullInType pull_in_type { SegmentFunctionPullInType::Undefined };

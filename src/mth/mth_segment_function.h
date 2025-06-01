@@ -103,18 +103,6 @@ public:
         return hi.first - lo.first;
     }
 
-    /// \brief Get segment.
-    ///
-    /// Get segment.
-    ///
-    /// \return
-    /// Segment.
-    inline Segment
-    get_segment()
-    {
-        return Segment(lo.first, hi.first);
-    }
-
     /// \brief Check if argument on segment.
     ///
     /// Check if argument on segment.
