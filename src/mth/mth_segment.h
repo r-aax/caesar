@@ -1,10 +1,10 @@
 /// \file
-/// \brief Interval declaration.
+/// \brief Segment declaration.
 ///
 /// Interval declaration.
 
-#ifndef CAESAR_MTH_INTERVAL_H
-#define CAESAR_MTH_INTERVAL_H
+#ifndef CAESAR_MTH_SEGMENT_H
+#define CAESAR_MTH_SEGMENT_H
 
 #include "diag/diag.h"
 
@@ -17,10 +17,10 @@ namespace mth
 /// \addtogroup mth
 /// @{
 
-/// \brief Interval.
+/// \brief Segment.
 ///
-/// Interval.
-class Interval
+/// Segment.
+class Segment
 {
 
 private:
@@ -40,7 +40,7 @@ public:
     /// \brief Default constructor.
     ///
     /// Default constructor.
-    Interval()
+    Segment()
     {
     }
 
@@ -50,24 +50,24 @@ public:
     ///
     /// \param[in] init_lo Lo value.
     /// \param[in] init_hi High value.
-    Interval(double init_lo,
-             double init_hi)
+    Segment(double init_lo,
+            double init_hi)
         : lo_(init_lo),
           hi_(init_hi)
     {
     }
 
-    /// \brief Create interval as eps around point.
+    /// \brief Create segment as eps around point.
     ///
-    /// Interval around point neighbourhood.
+    /// Segment around point neighbourhood.
     ///
     /// \param[in] p   Point.
     /// \param[in] eps Eps.
-    static Interval
+    static Segment
     around_point(double p,
                  double eps)
     {
-        return Interval(p - eps, p + eps);
+        return Segment(p - eps, p + eps);
     }
 
     /// \brief Get non negative part.
@@ -76,10 +76,10 @@ public:
     ///
     /// \return
     /// Non negative part.
-    Interval
+    Segment
     non_neg() const
     {
-        return Interval(max(lo(), 0.0), hi());
+        return Segment(max(lo(), 0.0), hi());
     }
 
     /// \brief Get non positive.
@@ -88,10 +88,10 @@ public:
     ///
     /// \return
     /// Non positive part.
-    Interval
+    Segment
     non_pos() const
     {
-        return Interval(lo(), min(hi(), 0.0));
+        return Segment(lo(), min(hi(), 0.0));
     }
 
     /// \brief Get low value.
@@ -130,12 +130,12 @@ public:
         return hi_ - lo_;
     }
 
-    /// \brief Check if interval real.
+    /// \brief Check if segment real.
     ///
-    /// Check interval.
+    /// Check segment.
     ///
     /// \return
-    /// true - if interval is real,
+    /// true - if segmetn is real,
     /// false - otherwise.
     inline bool
     is_real() const
@@ -150,4 +150,4 @@ public:
 
 }
 
-#endif // !CAESAR_MTH_INTERVAL_H
+#endif // !CAESAR_MTH_SEGMENT_H

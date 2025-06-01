@@ -11,7 +11,7 @@
 #include "mth_eigenvalues.h"
 #include "mth_functions.h"
 #include "mth_interpolate.h"
-#include "mth_interval.h"
+#include "mth_segment.h"
 #include "mth_linear_algebra.h"
 #include "mth_nonlinear_eqn.h"
 #include "mth_poly_eqn.h"
