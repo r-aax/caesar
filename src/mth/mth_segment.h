@@ -7,6 +7,7 @@
 #define CAESAR_MTH_SEGMENT_H
 
 #include "diag/diag.h"
+#include "mth_basics.h"
 
 namespace caesar
 {
@@ -41,6 +42,16 @@ public:
     ///
     /// Default constructor.
     Segment()
+    {
+    }
+
+    /// \brief Copy constructor.
+    ///
+    /// Copy constructor.
+    ///
+    /// \param[in] s Segment.
+    Segment(const Segment& s)
+        : Segment(s.lo(), s.hi())
     {
     }
 
@@ -141,6 +152,21 @@ public:
     is_real() const
     {
         return lo_ <= hi_;
+    }
+
+    /// \brief Check if point lays on segment.
+    ///
+    /// Check if point lays on segment.
+    ///
+    /// \param[in] p Point.
+    ///
+    /// \return
+    /// true - if point on segment,
+    /// false - otherwise.
+    inline bool
+    contains(double p) const
+    {
+        return in_bounds<double>(p, lo_, hi_);
     }
 };
 

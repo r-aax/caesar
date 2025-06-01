@@ -51,7 +51,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
     SECTION("linear function")
     {
         double add { 0.0 }, root { 0.0 }, value_out_of_segm { -1000.0 };
-        vector<double> segm { -100.0, 100.0 };
+        mth::Segment segment(-100.0, 100.0);
         double right { 0.0 };
         double f_eps { 1.0e-6 };
         mth::NonlinearEqnStatus st { mth::NonlinearEqnStatus::Undefined };
@@ -62,7 +62,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         root = value_out_of_segm;
         st = solver.solve_bisection(function_linear,
                                     static_cast<void*>(&add),
-                                    segm,
+                                    segment,
                                     root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
@@ -70,7 +70,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         root = value_out_of_segm;
         st = solver.solve_chords(function_linear,
                                  static_cast<void*>(&add),
-                                 segm,
+                                 segment,
                                  root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
@@ -78,7 +78,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         root = value_out_of_segm;
         st = solver.solve_combined(function_linear,
                                    static_cast<void*>(&add),
-                                   segm,
+                                   segment,
                                    root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
@@ -87,7 +87,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
     SECTION("cubic function")
     {
         double add { 0.0 }, root { 0.0 }, value_out_of_segm { -1000.0 };
-        vector<double> segm { -5.0, 5.0 };
+        mth::Segment segment(-5.0, 5.0);
         double right { 2.0 };
         double f_eps { 1.0e-6 };
         mth::NonlinearEqnStatus st { mth::NonlinearEqnStatus::Undefined };
@@ -98,7 +98,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         root = value_out_of_segm;
         st = solver.solve_bisection(function_cubic,
                                     static_cast<void*>(&add),
-                                    segm,
+                                    segment,
                                     root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
@@ -106,7 +106,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         root = value_out_of_segm;
         st = solver.solve_chords(function_cubic,
                                  static_cast<void*>(&add),
-                                 segm,
+                                 segment,
                                  root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));
@@ -114,7 +114,7 @@ TEST_CASE("NonlinearEqn : nonlinear equation solver", "[mth]")
         root = value_out_of_segm;
         st = solver.solve_combined(function_cubic,
                                    static_cast<void*>(&add),
-                                   segm,
+                                   segment,
                                    root);
         CHECK(st == mth::NonlinearEqnStatus::YesNewRoot);
         CHECK(mth::is_near(root, right, f_eps));

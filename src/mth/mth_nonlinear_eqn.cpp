@@ -50,26 +50,26 @@ NonlinearEqn::set_global_parameters(double x_eps_,
 ///
 /// Solve equation with direct method (pull in methods family).
 ///
-/// \param[in]  f      Function.
-/// \param[in]  data   Additional parameter.
-/// \param[in]  segm   Segment for searching the root.
-/// \param[in]  method Method.
-/// \param[out] root   Equation root.
+/// \param[in]  f       Function.
+/// \param[in]  data    Additional parameter.
+/// \param[in]  segment Segment for searching the root.
+/// \param[in]  method  Method.
+/// \param[out] root    Equation root.
 ///
 /// \return
 /// Status of solving equation.
 NonlinearEqnStatus
 NonlinearEqn::solve(Function1D f,
                     void* data,
-                    const vector<double>& segm,
+                    Segment segment,
                     NonlinearEqnMethodType method,
                     double& root) const
 {
     // Debug checkers.
     DEBUG_CHECK_ERROR(is_ready(), "not ready for solving nonlinear equation");
-    DEBUG_CHECK_ERROR(segm[0] <= segm[1], "wrong interval for solving nonlinear equation");
+    DEBUG_CHECK_ERROR(segment.is_real(), "wrong interval for solving nonlinear equation");
 
-    SegmentFunction sf(f, data, segm);
+    SegmentFunction sf(f, data, segment);
     SegmentFunctionPullInType pull_in_type { SegmentFunctionPullInType::Undefined };
     pair<double, double> p;
 
@@ -157,58 +157,58 @@ NonlinearEqn::solve(Function1D f,
 
 /// \brief Solving with bisection method.
 ///
-/// \param[in]  f    Function.
-/// \param[in]  data Additional parameter.
-/// \param[in]  segm Segment for searching the root.
-/// \param[out] root Equation root.
+/// \param[in]  f       Function.
+/// \param[in]  data    Additional parameter.
+/// \param[in]  segment Segment for searching the root.
+/// \param[out] root    Equation root.
 ///
 /// \return
 /// Status of solving equation.
 NonlinearEqnStatus
 NonlinearEqn::solve_bisection(Function1D f,
                               void* data,
-                              const vector<double>& segm,
+                              Segment segment,
                               double& root) const
 {
-    return solve(f, data, segm, NonlinearEqnMethodType::Bisection, root);
+    return solve(f, data, segment, NonlinearEqnMethodType::Bisection, root);
 }
 
 /// \brief Chords method.
 ///
-/// \param[in]  f    Function.
-/// \param[in]  data Additional parameter.
-/// \param[in]  segm Segment for searching the root.
-/// \param[out] root Equation root.
+/// \param[in]  f       Function.
+/// \param[in]  data    Additional parameter.
+/// \param[in]  segment Segment for searching the root.
+/// \param[out] root    Equation root.
 ///
 /// \return
 /// Status of solving equation.
 NonlinearEqnStatus
 NonlinearEqn::solve_chords(Function1D f,
                            void* data,
-                           const vector<double>& segm,
+                           Segment segment,
                            double& root) const
 {
-    return solve(f, data, segm, NonlinearEqnMethodType::Chords, root);
+    return solve(f, data, segment, NonlinearEqnMethodType::Chords, root);
 }
 
 /// \brief Combined method.
 ///
 /// Combined method which includes bisection and chords iterations.
 ///
-/// \param[in]  f    Function.
-/// \param[in]  data Additional parameter.
-/// \param[in]  segm Segment for searching the root.
-/// \param[out] root Equation root.
+/// \param[in]  f       Function.
+/// \param[in]  data    Additional parameter.
+/// \param[in]  segment Segment for searching the root.
+/// \param[out] root    Equation root.
 ///
 /// \return
 /// Status of solving equation.
 NonlinearEqnStatus
 NonlinearEqn::solve_combined(Function1D f,
                              void* data,
-                             const vector<double>& segm,
+                             Segment segment,
                              double& root) const
 {
-    return solve(f, data, segm, NonlinearEqnMethodType::Combined, root);
+    return solve(f, data, segment, NonlinearEqnMethodType::Combined, root);
 }
 
 /// @}

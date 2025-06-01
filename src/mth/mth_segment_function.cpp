@@ -45,20 +45,20 @@ SegmentFunction::calc_chords_next_point(pair<double, double>& p)
 ///
 /// Default constructor.
 ///
-/// \param[in] f_    Function.
-/// \param[in] data_ Additional data.
-/// \param[in] segm  Segment.
+/// \param[in] f_      Function.
+/// \param[in] data_   Additional data.
+/// \param[in] segment Segment.
 SegmentFunction::SegmentFunction(Function1D f_,
                                  void* data_,
-                                 const vector<double>& segm)
+                                 Segment segment)
     : f(f_),
       data(data_)
 {
     // Init low and high bounds with segment bounds.
     // But now we do not init function values because
     // calculating values of function may be expensive operation.
-    lo.first = segm[0];
-    hi.first = segm[1];
+    lo.first = segment.lo();
+    hi.first = segment.hi();
 }
 
 /// \brief Default destructor.

@@ -28,5 +28,9 @@ TEST_CASE("Segment : segment functions", "[mth]")
         mth::Segment s5 { s3.non_pos() };
         CHECK(mth::is_near(s4.len(), 12.0));
         CHECK(mth::is_near(s5.len(), 8.0));
+
+        // Contains points check.
+        CHECK(s3.contains(0.0));
+        CHECK(!s3.contains(100.0));
     }
 }

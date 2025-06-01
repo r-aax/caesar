@@ -9,6 +9,7 @@
 #include "utils/utils.h"
 #include "mth_functions.h"
 #include "mth_basics.h"
+#include "mth_segment.h"
 
 namespace caesar
 {
@@ -20,6 +21,8 @@ namespace mth
 /// @{
 
 /// \brief Segment function pull in type.
+///
+/// Type of choosing next point while solving nonlinear equation.
 enum class SegmentFunctionPullInType
 {
     /// \brief Pull in by bisection.
@@ -51,15 +54,23 @@ class SegmentFunction
 private:
 
     /// \brief Function.
+    ///
+    /// 1-dimension function.
     Function1D f;
 
     /// \brief Additional data.
+    ///
+    /// Arbitrary data.
     void* data;
 
     /// \brief Low bound of segment and function value in it.
+    ///
+    /// Low pair of argument-value.
     pair<double, double> lo;
 
     /// \brief High bound of segment and function value in it.
+    ///
+    /// Hight pair of argument-value.
     pair<double, double> hi;
 
     // Calculate bisection next point.
@@ -75,7 +86,7 @@ public:
     // Default constructor.
     SegmentFunction(Function1D f_,
                     void* data_,
-                    const vector<double>& segm);
+                    Segment segment);
 
     // Default destructor.
     ~SegmentFunction();
@@ -98,10 +109,10 @@ public:
     ///
     /// \return
     /// Segment.
-    inline vector<double>
+    inline Segment
     get_segment()
     {
-        return vector<double> { lo.first, hi.first };
+        return Segment(lo.first, hi.first);
     }
 
     /// \brief Check if argument on segment.

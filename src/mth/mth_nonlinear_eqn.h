@@ -63,7 +63,7 @@ enum class NonlinearEqnStatus
 /// \brief Pointer to method for solving nonlinear equations.
 typedef NonlinearEqnStatus (*NonlinearEqnMethod)(Function1D f,
                                                  void* data,
-                                                 vector<double>& segm,
+                                                 Segment segment,
                                                  double& root);
 
 /// @brief Class for solving nonlinear equations.
@@ -89,7 +89,7 @@ private:
     NonlinearEqnStatus
     solve(Function1D f,
           void* data,
-          const vector<double>& segm,
+          Segment segment,
           NonlinearEqnMethodType method,
           double& root) const;
 
@@ -105,21 +105,21 @@ public:
     NonlinearEqnStatus
     solve_bisection(Function1D f,
                     void* data,
-                    const vector<double>& segm,
+                    Segment segment,
                     double& root) const;
 
     // Chords method.
     NonlinearEqnStatus
     solve_chords(Function1D f,
                  void* data,
-                 const vector<double>& segm,
+                 Segment segment,
                  double& root) const;
 
     // Combined method.
     NonlinearEqnStatus
     solve_combined(Function1D f,
                    void* data,
-                   const vector<double>& segm,
+                   Segment segment,
                    double& root) const;
 };
 
