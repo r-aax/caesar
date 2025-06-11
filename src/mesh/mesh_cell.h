@@ -35,13 +35,6 @@ class Cell
       public EdgesHolder,
       public Geometrical
 {
-    friend class Node;
-    friend class Edge;
-    friend class Zone;
-    friend class Mesh;
-    friend class Filer;
-    friend class Remesher;
-    friend class Decomposer;
 
 public:
 
@@ -284,8 +277,6 @@ public:
         return normal_;
     }
 
-private:
-
     /// Calculate area.
     void
     calc_area();
@@ -297,8 +288,6 @@ private:
     // Calculate outer normal.
     void
     calc_normal();
-
-public:
 
     /// \brief Calculate geometry.
     ///

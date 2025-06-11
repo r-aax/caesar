@@ -33,10 +33,6 @@ class Edge
       public CellsHolder,
       public Geometrical
 {
-    friend class Cell;
-    friend class Zone;
-    friend class Mesh;
-    friend class Filer;
 
 private:
 
