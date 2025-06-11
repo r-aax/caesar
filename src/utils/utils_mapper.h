@@ -30,20 +30,20 @@ class Mapper
 
 private:
 
+    /// \brief Object of mapper name.
+    std::string what;
+
+    /// \brief Vector of names.
+    std::vector<std::string> names;
+
     /// \brief Low index of enum.
     size_t lo;
 
     /// \brief High index of enum.
     size_t hi;
 
-    /// \brief Vector of names.
-    std::vector<std::string> names;
-
     /// \brief Map of names and numbers.
     std::map<std::string, T> m;
-
-    /// \brief Object of mapper name.
-    std::string what;
 
 public:
 
@@ -55,19 +55,18 @@ public:
     /// \param[in] names_ Names vector.
     Mapper(std::string what_,
            std::vector<std::string> names_)
+        : what { what_ },
+          names { names_ },
+          lo { static_cast<size_t>(T::First) },
+          hi { static_cast<size_t>(T::Last) }
     {
-        what = what_;
-        names = names_;
-        lo = static_cast<size_t>(T::First);
-        hi = static_cast<size_t>(T::Last);
-
         // Names count.
-        size_t n = names.size();
+        size_t n { names.size() };
 
         CHECK_ERROR(n == (hi - lo + 1), "wrong number of names in mapper " + what);
 
         // Create map.
-        for (size_t i = 0; i < n; ++i)
+        for (size_t i { 0 }; i < n; ++i)
         {
             m[names[i]] = static_cast<T>(i + lo);
         }
@@ -89,7 +88,7 @@ public:
     /// \return
     /// Name.
     inline const std::string&
-    get_name(T e) const
+    name(T e) const
     {
         return names[static_cast<size_t>(e) - lo];
     }
@@ -102,10 +101,10 @@ public:
     ///
     /// \return
     /// String representation.
-    inline std::string
-    get_repr(T e)
+    inline const std::string
+    repr(T e) const
     {
-        return get_name(e) + " (" + std::to_string(static_cast<int>(e)) + ")";
+        return name(e) + " (" + std::to_string(static_cast<int>(e)) + ")";
     }
 
     /// \brief Try to find name.
@@ -132,7 +131,7 @@ public:
     /// \return
     /// Enumeration.
     T
-    get_enum(const std::string& name) const
+    num(const std::string& name) const
     {
         if (has(name))
         {
@@ -172,7 +171,7 @@ public:
     {
         std::string s { names[0] };
 
-        for (size_t i = 1; i < names.size(); ++i)
+        for (size_t i { 1 }; i < names.size(); ++i)
         {
             s = s + "," + names[i];
         }

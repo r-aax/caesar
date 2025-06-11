@@ -414,7 +414,7 @@ public:
             case CellElement::NormalX:
             case CellElement::NormalY:
             case CellElement::NormalZ:
-                DEBUG_ERROR("unable to set cell data element " + CellElementMapper.get_name(ce));
+                DEBUG_ERROR("unable to set cell data element " + CellElementMapper.name(ce));
                 break;
 
             default:

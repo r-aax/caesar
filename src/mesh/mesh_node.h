@@ -315,7 +315,7 @@ public:
                 break;
 
             case NodeElement::NodeId:
-                DEBUG_ERROR("unable to set node data element " + NodeElementMapper.get_name(ne));
+                DEBUG_ERROR("unable to set node data element " + NodeElementMapper.name(ne));
                 break;
 
             default:

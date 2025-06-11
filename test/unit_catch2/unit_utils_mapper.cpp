@@ -55,15 +55,15 @@ TEST_CASE("Mapper : mapper betweeen names and enums", "[utils]")
         caesar::utils::Mapper<TestEnumFrom0> m("test_enum_from_0",
                                                vector<string> { "Zero", "One", "Two" });
 
-        CHECK(m.get_name(TestEnumFrom0::Zero) == "Zero");
-        CHECK(m.get_name(TestEnumFrom0::One)  == "One");
-        CHECK(m.get_name(TestEnumFrom0::Two)  == "Two");
-        CHECK(m.get_repr(TestEnumFrom0::Zero) == "Zero (0)");
-        CHECK(m.get_repr(TestEnumFrom0::One)  == "One (1)");
-        CHECK(m.get_repr(TestEnumFrom0::Two)  == "Two (2)");
-        CHECK(m.get_enum("Zero")  == TestEnumFrom0::Zero);
-        CHECK(m.get_enum("One")   == TestEnumFrom0::One);
-        CHECK(m.get_enum("Two")   == TestEnumFrom0::Two);
+        CHECK(m.name(TestEnumFrom0::Zero) == "Zero");
+        CHECK(m.name(TestEnumFrom0::One)  == "One");
+        CHECK(m.name(TestEnumFrom0::Two)  == "Two");
+        CHECK(m.repr(TestEnumFrom0::Zero) == "Zero (0)");
+        CHECK(m.repr(TestEnumFrom0::One)  == "One (1)");
+        CHECK(m.repr(TestEnumFrom0::Two)  == "Two (2)");
+        CHECK(m.num("Zero") == TestEnumFrom0::Zero);
+        CHECK(m.num("One")  == TestEnumFrom0::One);
+        CHECK(m.num("Two")  == TestEnumFrom0::Two);
     }
 
     SECTION("test enum from 10")
@@ -71,14 +71,14 @@ TEST_CASE("Mapper : mapper betweeen names and enums", "[utils]")
         caesar::utils::Mapper<TestEnumFrom10> m("test_enum_from_10",
                                                 vector<string> { "Ten", "Eleven", "Twelve" });
 
-        CHECK(m.get_name(TestEnumFrom10::Ten)    == "Ten");
-        CHECK(m.get_name(TestEnumFrom10::Eleven) == "Eleven");
-        CHECK(m.get_name(TestEnumFrom10::Twelve) == "Twelve");
-        CHECK(m.get_repr(TestEnumFrom10::Ten)    == "Ten (10)");
-        CHECK(m.get_repr(TestEnumFrom10::Eleven) == "Eleven (11)");
-        CHECK(m.get_repr(TestEnumFrom10::Twelve) == "Twelve (12)");
-        CHECK(m.get_enum("Ten")      == TestEnumFrom10::Ten);
-        CHECK(m.get_enum("Eleven")   == TestEnumFrom10::Eleven);
-        CHECK(m.get_enum("Twelve")   == TestEnumFrom10::Twelve);
+        CHECK(m.name(TestEnumFrom10::Ten)    == "Ten");
+        CHECK(m.name(TestEnumFrom10::Eleven) == "Eleven");
+        CHECK(m.name(TestEnumFrom10::Twelve) == "Twelve");
+        CHECK(m.repr(TestEnumFrom10::Ten)    == "Ten (10)");
+        CHECK(m.repr(TestEnumFrom10::Eleven) == "Eleven (11)");
+        CHECK(m.repr(TestEnumFrom10::Twelve) == "Twelve (12)");
+        CHECK(m.num("Ten")    == TestEnumFrom10::Ten);
+        CHECK(m.num("Eleven") == TestEnumFrom10::Eleven);
+        CHECK(m.num("Twelve") == TestEnumFrom10::Twelve);
     }
 }

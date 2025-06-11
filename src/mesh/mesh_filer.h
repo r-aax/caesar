@@ -179,8 +179,8 @@ public:
         {
             string name { mesh.variables_names[v] };
             int index = NodeElementMapper.has(name)
-                        ? static_cast<int>(NodeElementMapper.get_enum(name))
-                        : static_cast<int>(node_data_element_mapper.get_enum(name));
+                        ? static_cast<int>(NodeElementMapper.num(name))
+                        : static_cast<int>(node_data_element_mapper.num(name));
 
             for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
@@ -208,8 +208,8 @@ public:
         {
             string name { mesh.variables_names[v] };
             int index = CellElementMapper.has(name)
-                        ? static_cast<int>(CellElementMapper.get_enum(name))
-                        : static_cast<int>(cell_data_element_mapper.get_enum(name));
+                        ? static_cast<int>(CellElementMapper.num(name))
+                        : static_cast<int>(cell_data_element_mapper.num(name));
 
             for (size_t i = 0; i < zone->cells_count(); ++i)
             {
@@ -465,8 +465,8 @@ public:
         {
             string name { variables_names[v] };
             int index = NodeElementMapper.has(name)
-                        ? static_cast<int>(NodeElementMapper.get_enum(name))
-                        : static_cast<int>(node_data_element_mapper.get_enum(name));
+                        ? static_cast<int>(NodeElementMapper.num(name))
+                        : static_cast<int>(node_data_element_mapper.num(name));
 
             for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
@@ -483,8 +483,8 @@ public:
         {
             string name { variables_names[v] };
             int index = CellElementMapper.has(name)
-                        ? static_cast<int>(CellElementMapper.get_enum(name))
-                        : static_cast<int>(cell_data_element_mapper.get_enum(name));
+                        ? static_cast<int>(CellElementMapper.num(name))
+                        : static_cast<int>(cell_data_element_mapper.num(name));
 
             for (size_t i = 0; i < zone->cells_count(); ++i)
             {

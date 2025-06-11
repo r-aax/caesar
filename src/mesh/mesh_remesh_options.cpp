@@ -77,7 +77,7 @@ std::ostream&
 operator<<(std::ostream& os,
            const RemeshOptions& x)
 {
-    os << "remesh:" << RemeshMethodMapper.get_name(x.get_method())
+    os << "remesh:" << RemeshMethodMapper.name(x.get_method())
        << ", zero_thr:" << x.get_hi_as_zero_threshold()
        << ", nsteps:[" << x.get_nsteps_min()
                        << "," << x.get_nsteps_max()
