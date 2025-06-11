@@ -17,7 +17,8 @@ FLAGS = -MMD -MP -fopenmp \
         -Werror -pedantic-errors -Wall -Wextra -Wpedantic \
         -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy \
         -Wfloat-equal -Wlogical-op -Wnon-virtual-dtor \
-        -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo
+        -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo \
+        -DCOMPILE_ENABLE_MPI -DCOMPILE_DISABLE_EIGEN
 FLAGS_F = $(FLAGS) -std=c++11 -O3
 FLAGS_D = $(FLAGS) -std=c++11 -DDEBUG
 # Catch2 v3 requires c++ 14.
