@@ -6,10 +6,6 @@
 #ifndef MESH_EDGE_DATA_STUB_H
 #define MESH_EDGE_DATA_STUB_H
 
-#include <iostream>
-
-using namespace std;
-
 namespace caesar
 {
 

@@ -6,11 +6,8 @@
 #ifndef MESH_CELL_DATA_STUB_H
 #define MESH_CELL_DATA_STUB_H
 
-#include <iostream>
-
-#include "mesh_cell_data_element_stub.h"
-
-using namespace std;
+#include "mesh_cell.h"
+#include "utils/utils.h"
 
 namespace caesar
 {
@@ -21,9 +18,31 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+/// \brief Cell data element stub.
+///
+/// Data element for cell stub.
+enum class CellDataElementStub
+{
+    /// \brief First element.
+    First = static_cast<int>(CellElement::Last) + 1,
+
+    /// \brief Stub.
+    Stub = First,
+
+    /// \brief Last element.
+    Last = Stub
+};
+
 /// \brief Cell data.
 class CellDataStub
 {
+
+public:
+
+    /// \brief Mapper.
+    ///
+    /// Mapper.
+    static utils::Mapper<CellDataElementStub> mapper;
 
 private:
 

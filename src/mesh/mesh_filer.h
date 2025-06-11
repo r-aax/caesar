@@ -83,27 +83,19 @@ public:
     ///
     /// Build zone nodes and cells.
     ///
-    /// \tparam         TNodeData                Node data.
-    /// \tparam         TNodeDataElement         Node data mapper.
-    /// \tparam         TCellData                Cell data.
-    /// \tparam         TCellDataElement         Cell data mapper.
-    /// \param[in,out]  mesh                     Mesh.
-    /// \param[in,out]  zone                     Zone.
-    /// \param[in]      data                     Data.
-    /// \param[in, out] points_bag               Bag of points.
-    /// \param[in]      node_data_element_mapper Mapper for node data.
-    /// \param[in]      cell_data_element_mapper Mapper for cell data.
+    /// \tparam         TNodeData  Node data.
+    /// \tparam         TCellData  Cell data.
+    /// \param[in,out]  mesh       Mesh.
+    /// \param[in,out]  zone       Zone.
+    /// \param[in]      data       Data.
+    /// \param[in, out] points_bag Bag of points.
     template<typename TNodeData,
-             typename TNodeDataElement,
-             typename TCellData,
-             typename TCellDataElement>
+             typename TCellData>
     static void
     build_zone_nodes_and_cells(Mesh& mesh,
                                Zone* zone,
                                vector<vector<double>>& data,
-                               set<uint64_t>& points_bag,
-                               utils::Mapper<TNodeDataElement>& node_data_element_mapper,
-                               utils::Mapper<TCellDataElement>& cell_data_element_mapper)
+                               set<uint64_t>& points_bag)
     {
         // Checkers.
         DEBUG_CHECK_ERROR(mesh.variables_names[0] == "X", "first data element must be X");
@@ -178,9 +170,9 @@ public:
         for (size_t v = 3; v < mesh.varlocation_cellcentered.first - 1; ++v)
         {
             string name { mesh.variables_names[v] };
-            int index = NodeElementMapper.has(name)
-                        ? static_cast<int>(NodeElementMapper.num(name))
-                        : static_cast<int>(node_data_element_mapper.num(name));
+            int index = Node::mapper.has(name)
+                        ? static_cast<int>(Node::mapper.num(name))
+                        : static_cast<int>(TNodeData::mapper.num(name));
 
             for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
@@ -207,9 +199,9 @@ public:
             ++v)
         {
             string name { mesh.variables_names[v] };
-            int index = CellElementMapper.has(name)
-                        ? static_cast<int>(CellElementMapper.num(name))
-                        : static_cast<int>(cell_data_element_mapper.num(name));
+            int index = Cell::mapper.has(name)
+                        ? static_cast<int>(Cell::mapper.num(name))
+                        : static_cast<int>(TCellData::mapper.num(name));
 
             for (size_t i = 0; i < zone->cells_count(); ++i)
             {
@@ -220,29 +212,21 @@ public:
 
     /// \brief Load mesh.
     ///
-    /// \tparam        TNodeData                Node data.
-    /// \tparam        TNodeDataElement         Node data mapper.
-    /// \tparam        TEdgeData                Data of edge.
-    /// \tparam        TCellData                Cell data.
-    /// \tparam        TCellDataElement         Cell data mapper.
-    /// \param[in,out] mesh                     Mesh to be loaded.
-    /// \param[in]     fn                       Name of file.
-    /// \param[in]     node_data_element_mapper Mapper for node data.
-    /// \param[in]     cell_data_element_mapper Mapper for cell data.
+    /// \tparam        TNodeData Node data.
+    /// \tparam        TEdgeData Data of edge.
+    /// \tparam        TCellData Cell data.
+    /// \param[in,out] mesh      Mesh to be loaded.
+    /// \param[in]     fn        Name of file.
     ///
     /// \return
     /// true - if loading is complete,
     /// false - otherwise.
     template<typename TNodeData,
-             typename TNodeDataElement,
              typename TEdgeData,
-             typename TCellData,
-             typename TCellDataElement>
+             typename TCellData>
     static bool
     load_mesh(Mesh& mesh,
-              const string& fn,
-              utils::Mapper<TNodeDataElement>& node_data_element_mapper,
-              utils::Mapper<TCellDataElement>& cell_data_element_mapper)
+              const string& fn)
     {
         // Clear mesh before load it again.
         mesh.clear<TNodeData, TEdgeData, TCellData>();
@@ -343,15 +327,10 @@ public:
                 }
 
                 // Allocate memory for nodes and cells.
-                build_zone_nodes_and_cells<TNodeData,
-                                           TNodeDataElement,
-                                           TCellData,
-                                           TCellDataElement>(mesh,
-                                                             current_zone,
-                                                             data,
-                                                             points_bag,
-                                                             node_data_element_mapper,
-                                                             cell_data_element_mapper);
+                build_zone_nodes_and_cells<TNodeData, TCellData>(mesh,
+                                                                 current_zone,
+                                                                 data,
+                                                                 points_bag);
 
                 // Free extra memory.
                 data.clear();
@@ -382,53 +361,23 @@ public:
         return true;
     }
 
-    /// \brief Load mesh with no additional data.
-    ///
-    /// \param[in,out] mesh                     Mesh to be loaded.
-    /// \param[in]     fn                       Name of file.
-    ///
-    /// \return
-    /// true - if loading is complete,
-    /// false - otherwise.
-    static bool
-    load_mesh(Mesh& mesh,
-              const string& fn)
-    {
-        return load_mesh<NodeDataStub,
-                         NodeDataElementStub,
-                         EdgeDataStub,
-                         CellDataStub,
-                         CellDataElementStub>(mesh,
-                                              fn,
-                                              NodeDataElementStubMapper,
-                                              CellDataElementStubMapper);
-    }
-
     /// \brief Store zone data.
     ///
     /// Store zone data.
     ///
     /// \tparam    TNodeData                Node data.
-    /// \tparam    TNodeDataElement         Node data mapper.
     /// \tparam    TCellData                Cell data.
-    /// \tparam    TCellDataElement         Cell data mapper.
     /// \param[in] zone                     Zone.
     /// \param[in] variables_names          Names of variables.
     /// \param[in] varlocation_cellcentered Position of cellcentered data.
     /// \param[in] f                        File stream.
-    /// \param[in] node_data_element_mapper Mapper for node data.
-    /// \param[in] cell_data_element_mapper Mapper for cell data.
     template<typename TNodeData,
-             typename TNodeDataElement,
-             typename TCellData,
-             typename TCellDataElement>
+             typename TCellData>
     static void
     store_zone_data(Zone* zone,
                     const vector<string>& variables_names,
                     const pair<size_t, size_t>& varlocation_cellcentered,
-                    ofstream& f,
-                    utils::Mapper<TNodeDataElement>& node_data_element_mapper,
-                    utils::Mapper<TCellDataElement>& cell_data_element_mapper)
+                    ofstream& f)
     {
         f.precision(17);
 
@@ -464,9 +413,9 @@ public:
         for (size_t v = 3; v < varlocation_cellcentered.first - 1; ++v)
         {
             string name { variables_names[v] };
-            int index = NodeElementMapper.has(name)
-                        ? static_cast<int>(NodeElementMapper.num(name))
-                        : static_cast<int>(node_data_element_mapper.num(name));
+            int index = Node::mapper.has(name)
+                        ? static_cast<int>(Node::mapper.num(name))
+                        : static_cast<int>(TNodeData::mapper.num(name));
 
             for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
@@ -482,9 +431,9 @@ public:
             ++v)
         {
             string name { variables_names[v] };
-            int index = CellElementMapper.has(name)
-                        ? static_cast<int>(CellElementMapper.num(name))
-                        : static_cast<int>(cell_data_element_mapper.num(name));
+            int index = Cell::mapper.has(name)
+                        ? static_cast<int>(Cell::mapper.num(name))
+                        : static_cast<int>(TCellData::mapper.num(name));
 
             for (size_t i = 0; i < zone->cells_count(); ++i)
             {
@@ -498,40 +447,26 @@ public:
     /// \brief Store mesh.
     ///
     /// \tparam    TNodeData                Node data.
-    /// \tparam    TNodeDataElement         Node data mapper.
     /// \tparam    TCellData                Cell data.
-    /// \tparam    TCellDataElement         Cell data mapper.
     /// \param[in] mesh                     Mesh to be stored.
     /// \param[in] variables_names          List of variables names to store.
     /// \param[in] varlocation_cellcentered Position of cellcentered data.
     /// \param[in] fn                       Name of file.
-    /// \param[in] node_data_element_mapper Mapper for node data.
-    /// \param[in] cell_data_element_mapper Mapper for cell data.
     ///
     /// \return
     /// true - if store is complete,
     /// false - otherwise.
     template<typename TNodeData,
-             typename TNodeDataElement,
-             typename TCellData,
-             typename TCellDataElement>
+             typename TCellData>
     static bool
     store_mesh(Mesh& mesh,
                const vector<string>& variables_names,
                const pair<size_t, size_t>& varlocation_cellcentered,
-               const string& fn,
-               utils::Mapper<TNodeDataElement>& node_data_element_mapper,
-               utils::Mapper<TCellDataElement>& cell_data_element_mapper)
+               const string& fn)
     {
         if (variables_names.empty())
         {
-            return store_mesh<TNodeData,
-                              TNodeDataElement,
-                              TCellData,
-                              TCellDataElement>(mesh,
-                                                fn,
-                                                node_data_element_mapper,
-                                                cell_data_element_mapper);
+            return store_mesh<TNodeData, TCellData>(mesh, fn);
         }
 
         ofstream f(fn);
@@ -576,15 +511,10 @@ public:
              << varlocation_cellcentered.second << "]=CELLCENTERED)" << endl;
 
             // Store all data.
-            store_zone_data<TNodeData,
-                            TNodeDataElement,
-                            TCellData,
-                            TCellDataElement>(current_zone,
-                                              variables_names,
-                                              varlocation_cellcentered,
-                                              f,
-                                              node_data_element_mapper,
-                                              cell_data_element_mapper);
+            store_zone_data<TNodeData, TCellData>(current_zone,
+                                                  variables_names,
+                                                  varlocation_cellcentered,
+                                                  f);
 
             // Store links.
             store_zone_links(current_zone, f);
@@ -597,58 +527,25 @@ public:
 
     /// \brief Store mesh.
     ///
-    /// \tparam    TNodeData                Node data.
-    /// \tparam    TNodeDataElement         Node data mapper.
-    /// \tparam    TCellData                Cell data.
-    /// \tparam    TCellDataElement         Cell data mapper.
-    /// \param[in] mesh                     Mesh to be stored.
-    /// \param[in] fn                       Name of file.
-    /// \param[in] node_data_element_mapper Mapper for node data.
-    /// \param[in] cell_data_element_mapper Mapper for cell data.
+    /// \tparam    TNodeData Node data.
+    /// \tparam    TCellData Cell data.
+    /// \param[in] mesh      Mesh to be stored.
+    /// \param[in] fn        Name of file.
     ///
     /// \return
     /// true - if store is complete,
     /// false - otherwise.
     template<typename TNodeData,
-             typename TNodeDataElement,
-             typename TCellData,
-             typename TCellDataElement>
-    static bool
-    store_mesh(Mesh& mesh,
-               const string& fn,
-               utils::Mapper<TNodeDataElement>& node_data_element_mapper,
-               utils::Mapper<TCellDataElement>& cell_data_element_mapper)
-    {
-        return store_mesh<TNodeData,
-                          TNodeDataElement,
-                          TCellData,
-                          TCellDataElement>(mesh,
-                                            mesh.variables_names,
-                                            mesh.varlocation_cellcentered,
-                                            fn,
-                                            node_data_element_mapper,
-                                            cell_data_element_mapper);
-    }
-
-    /// \brief Store mesh with no additional data.
-    ///
-    /// \param[in] mesh                     Mesh to be stored.
-    /// \param[in] fn                       Name of file.
-    ///
-    /// \return
-    /// true - if store is complete,
-    /// false - otherwise.
+             typename TCellData>
     static bool
     store_mesh(Mesh& mesh,
                const string& fn)
     {
-        return store_mesh<NodeDataStub,
-                          NodeDataElementStub,
-                          CellDataStub,
-                          CellDataElementStub>(mesh,
-                                               fn,
-                                               NodeDataElementStubMapper,
-                                               CellDataElementStubMapper);
+        return store_mesh<TNodeData,
+                          TCellData>(mesh,
+                                     mesh.variables_names,
+                                     mesh.varlocation_cellcentered,
+                                     fn);
     }
 
     // Export STL.

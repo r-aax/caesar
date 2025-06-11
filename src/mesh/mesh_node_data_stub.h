@@ -6,11 +6,8 @@
 #ifndef MESH_NODE_DATA_STUB_H
 #define MESH_NODE_DATA_STUB_H
 
-#include <iostream>
-
-#include "mesh_node_data_element_stub.h"
-
-using namespace std;
+#include "mesh_node.h"
+#include "utils/utils.h"
 
 namespace caesar
 {
@@ -21,9 +18,31 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+/// \brief Node data element stub.
+///
+/// Data elements for stub.
+enum class NodeDataElementStub
+{
+    /// \brief First element.
+    First = static_cast<int>(NodeElement::Last) + 1,
+
+    /// \brief Stub.
+    Stub = First,
+
+    /// \brief Last element.
+    Last = Stub
+};
+
 /// \brief Node data.
 class NodeDataStub
 {
+
+public:
+
+    /// \brief Mapper.
+    ///
+    /// Mapper.
+    static utils::Mapper<NodeDataElementStub> mapper;
 
 private:
 

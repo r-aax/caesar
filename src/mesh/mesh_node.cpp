@@ -17,6 +17,17 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+// Mapper initialization.
+utils::Mapper<NodeElement> Node::mapper
+{
+    "node data element",
+    vector<string>
+    {
+        "X", "Y", "Z",
+        "NodeMark", "NodeId"
+    }
+};
+
 #ifdef DEBUG
 // Counter initialization.
 int Node::counter = 0;

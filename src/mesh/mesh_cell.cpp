@@ -18,6 +18,19 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+// Mapper initialization.
+utils::Mapper<CellElement> Cell::mapper
+{
+    "cell element",
+    vector<string>
+    {
+        "CellMark", "CellId",
+        "Domain", "DistFromBorder", "DistFromCenter",
+        "Area",
+        "NormalX", "NormalY", "NormalZ"
+    }
+};
+
 #ifdef DEBUG
 // Counter initialization.
 int Cell::counter = 0;

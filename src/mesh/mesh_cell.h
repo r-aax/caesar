@@ -6,7 +6,6 @@
 #ifndef CAESAR_MESH_CELL_H
 #define CAESAR_MESH_CELL_H
 
-#include "mesh_cell_element.h"
 #include "mesh_edge.h"
 #include "mesh_nodes_holder.h"
 #include "mesh_edges_holder.h"
@@ -26,6 +25,43 @@ namespace mesh
 
 class Zone;
 
+/// \brief Cell element.
+enum class CellElement
+{
+    /// \brief First element.
+    First = 0,
+
+    /// \brief Cell mark (for technical use).
+    CellMark = First,
+
+    /// \brief Cell identifier.
+    CellId,
+
+    /// \brief Domain number.
+    Domain,
+
+    /// \brief Distance from border.
+    DistFromBorder,
+
+    /// \brief Distance from center.
+    DistFromCenter,
+
+    /// \brief Area (m^2).
+    Area,
+
+    /// \brief Normal X component.
+    NormalX,
+
+    /// \brief Normal Y component.
+    NormalY,
+
+    /// \brief Normal Z component.
+    NormalZ,
+
+    /// \brief Last element.
+    Last = NormalZ
+};
+
 /// \brief Mesh cell.
 class Cell
     : public utils::DataHolder,
@@ -35,6 +71,13 @@ class Cell
       public EdgesHolder,
       public Geometrical
 {
+
+public:
+
+    /// \brief Mapper.
+    ///
+    /// Mapper.
+    static utils::Mapper<CellElement> mapper;
 
 public:
 
@@ -145,7 +188,7 @@ public:
     /// \brief Default destructor.
     ///
     /// Default destructor.
-    virtual ~Cell()
+    ~Cell()
     {
 
 #ifdef DEBUG
@@ -403,7 +446,7 @@ public:
             case CellElement::NormalX:
             case CellElement::NormalY:
             case CellElement::NormalZ:
-                DEBUG_ERROR("unable to set cell data element " + CellElementMapper.name(ce));
+                DEBUG_ERROR("unable to set cell data element " + mapper.name(ce));
                 break;
 
             default:

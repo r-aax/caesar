@@ -21,7 +21,7 @@ TEST_CASE("Mesh : main methods of mesh", "[mesh]")
         Mesh mesh;
 
         // Load mesh.
-        Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
+        Filer::load_mesh<NodeDataStub, NodeDataStub, CellDataStub>(mesh, "cases/meshes/sphere.dat");
 
         //
         // Set and get nodes data.
@@ -72,7 +72,7 @@ TEST_CASE("Mesh : main methods of mesh", "[mesh]")
         Mesh mesh;
 
         // Load mesh.
-        Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
+        Filer::load_mesh<NodeDataStub, NodeDataStub, CellDataStub>(mesh, "cases/meshes/sphere.dat");
 
         size_t nc1 { mesh.all.nodes_count() };
         size_t ec1 { mesh.all.edges_count() };
@@ -80,7 +80,7 @@ TEST_CASE("Mesh : main methods of mesh", "[mesh]")
         size_t zc1 { mesh.zones_count() };
 
         // Load mesh.
-        Filer::load_mesh(mesh, "cases/meshes/sphere.dat");
+        Filer::load_mesh<NodeDataStub, NodeDataStub, CellDataStub>(mesh, "cases/meshes/sphere.dat");
 
         size_t nc2 { mesh.all.nodes_count() };
         size_t ec2 { mesh.all.edges_count() };

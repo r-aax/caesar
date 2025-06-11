@@ -10,8 +10,6 @@
 #include <iostream>
 #include <iomanip>
 
-#include "mesh_node_element.h"
-#include "mesh_cell_element.h"
 #include "mesh_edges_holder.h"
 #include "mesh_cells_holder.h"
 #include "mesh_geometrical.h"
@@ -32,6 +30,31 @@ namespace mesh
 class Edge;
 class Cell;
 
+/// \brief Node element.
+enum class NodeElement
+{
+    /// \brief First element.
+    First = 0,
+
+    /// \brief X coordinate.
+    X = First,
+
+    /// \brief Y coordinate.
+    Y,
+
+    /// \brief Z coordinate.
+    Z,
+
+    /// \brief Node mark (for technical use).
+    NodeMark,
+
+    /// \brief Node identifier.
+    NodeId,
+
+    /// \brief Last element.
+    Last = NodeId
+};
+
 /// \brief Mesh node.
 class Node
     : public utils::DataHolder,
@@ -41,6 +64,13 @@ class Node
       public CellsHolder,
       public Geometrical
 {
+
+public:
+
+    /// \brief Mapper.
+    ///
+    /// Mapper.
+    static utils::Mapper<NodeElement> mapper;
 
 private:
 
@@ -127,7 +157,7 @@ public:
     /// \brief Default destructor.
     ///
     /// Default destructor.
-    virtual ~Node()
+    ~Node()
     {
 
 #ifdef DEBUG
@@ -311,7 +341,7 @@ public:
                 break;
 
             case NodeElement::NodeId:
-                DEBUG_ERROR("unable to set node data element " + NodeElementMapper.name(ne));
+                DEBUG_ERROR("unable to set node data element " + mapper.name(ne));
                 break;
 
             default:
