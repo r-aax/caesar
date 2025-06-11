@@ -65,7 +65,7 @@ class Node
       public Geometrical
 {
 
-public:
+private:
 
     /// \brief Mapper.
     ///
@@ -164,6 +164,106 @@ public:
         --counter;
 #endif // DEBUG
 
+    }
+
+    //
+    // Data access.
+    //
+
+    /// \brief Get element index.
+    ///
+    /// Get element index.
+    ///
+    /// \paran[in] name Data element name.
+    ///
+    /// \return
+    /// Index.
+    template<typename TData>
+    static int
+    get_element_index(const string& name)
+    {
+        return mapper.has(name)
+               ? static_cast<int>(mapper.num(name))
+               : static_cast<int>(TData::mapper.num(name));
+    }
+
+    /// \brief Get element from node.
+    ///
+    /// Get element from node.
+    ///
+    /// \tparam    TData Type of data.
+    /// \param[in] index Index of element.
+    ///
+    /// \return
+    /// Value.
+    template<typename TData>
+    double
+    get_element(int index) const
+    {
+        NodeElement ne { static_cast<NodeElement>(index) };
+
+        switch (ne)
+        {
+            case NodeElement::X:
+                return point_.x;
+
+            case NodeElement::Y:
+                return point_.y;
+
+            case NodeElement::Z:
+                return point_.z;
+
+            case NodeElement::NodeMark:
+                return get_mark();
+
+            case NodeElement::NodeId:
+                return get_id();
+
+            default:
+                return get_data<TData>()->get_element(index);
+        }
+    }
+
+    /// \brief Set data to node.
+    ///
+    /// Set data to node.
+    ///
+    /// \tparam    TData Type of data.
+    /// \param[in] index Index of element.
+    /// \param[in] v     Value.
+    template<typename TData>
+    void
+    set_element(int index,
+                double v)
+    {
+        NodeElement ne { static_cast<NodeElement>(index) };
+
+        switch (ne)
+        {
+            case NodeElement::X:
+                point_.x = v;
+                break;
+
+            case NodeElement::Y:
+                point_.y = v;
+                break;
+
+            case NodeElement::Z:
+                point_.z = v;
+                break;
+
+            case NodeElement::NodeMark:
+                set_mark(static_cast<int>(v));
+                break;
+
+            case NodeElement::NodeId:
+                DEBUG_ERROR("unable to set node data element " + mapper.name(ne));
+                break;
+
+            default:
+                get_data<TData>()->set_element(index, v);
+                break;
+        }
     }
 
     //
@@ -266,89 +366,6 @@ public:
     // Calculate ice shift.
     void
     calc_ice_shift();
-
-    //
-    // Data access.
-    //
-
-    /// \brief Get element from node.
-    ///
-    /// Get element from node.
-    ///
-    /// \tparam    TData Type of data.
-    /// \param[in] index Index of element.
-    ///
-    /// \return
-    /// Value.
-    template<typename TData>
-    double
-    get_element(int index) const
-    {
-        NodeElement ne { static_cast<NodeElement>(index) };
-
-        switch (ne)
-        {
-            case NodeElement::X:
-                return point_.x;
-
-            case NodeElement::Y:
-                return point_.y;
-
-            case NodeElement::Z:
-                return point_.z;
-
-            case NodeElement::NodeMark:
-                return get_mark();
-
-            case NodeElement::NodeId:
-                return get_id();
-
-            default:
-                return get_data<TData>()->get_element(index);
-        }
-    }
-
-    /// \brief Set data to node.
-    ///
-    /// Set data to node.
-    ///
-    /// \tparam    TData Type of data.
-    /// \param[in] index Index of element.
-    /// \param[in] v     Value.
-    template<typename TData>
-    void
-    set_element(int index,
-                double v)
-    {
-        NodeElement ne { static_cast<NodeElement>(index) };
-
-        switch (ne)
-        {
-            case NodeElement::X:
-                point_.x = v;
-                break;
-
-            case NodeElement::Y:
-                point_.y = v;
-                break;
-
-            case NodeElement::Z:
-                point_.z = v;
-                break;
-
-            case NodeElement::NodeMark:
-                set_mark(static_cast<int>(v));
-                break;
-
-            case NodeElement::NodeId:
-                DEBUG_ERROR("unable to set node data element " + mapper.name(ne));
-                break;
-
-            default:
-                get_data<TData>()->set_element(index, v);
-                break;
-        }
-    }
 };
 
 /// @}

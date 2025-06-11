@@ -72,7 +72,7 @@ class Cell
       public Geometrical
 {
 
-public:
+private:
 
     /// \brief Mapper.
     ///
@@ -195,6 +195,113 @@ public:
         --counter;
 #endif // DEBUG
 
+    }
+
+    //
+    // Data access.
+    //
+
+    /// \brief Get element index.
+    ///
+    /// Get element index.
+    ///
+    /// \paran[in] name Data element name.
+    ///
+    /// \return
+    /// Index.
+    template<typename TData>
+    static int
+    get_element_index(const string& name)
+    {
+        return mapper.has(name)
+               ? static_cast<int>(mapper.num(name))
+               : static_cast<int>(TData::mapper.num(name));
+    }
+
+    /// \brief Get element from cell.
+    ///
+    /// Get element from cell.
+    ///
+    /// \tparam    TData Type of data.
+    /// \param[in] index Index of data element.
+    ///
+    /// \return
+    /// Value.
+    template<typename TData>
+    double
+    get_element(int index) const
+    {
+        CellElement ce { static_cast<CellElement>(index) };
+
+        switch (ce)
+        {
+            case CellElement::CellMark:
+                return get_mark();
+
+            case CellElement::CellId:
+                return get_id();
+
+            case CellElement::Domain:
+                return static_cast<double>(domain);
+
+            case CellElement::DistFromBorder:
+                return static_cast<double>(dist_from_border);
+
+            case CellElement::DistFromCenter:
+                return static_cast<double>(dist_from_center);
+
+            case CellElement::Area:
+                return area_;
+
+            case CellElement::NormalX:
+                return normal_.x;
+
+            case CellElement::NormalY:
+                return normal_.y;
+
+            case CellElement::NormalZ:
+                return normal_.z;
+
+            default:
+                return get_data<TData>()->get_element(index);
+        }
+    }
+
+    /// \brief Set data to cell.
+    ///
+    /// Set data to cell.
+    ///
+    /// \tparam    TData Type of data.
+    /// \param[in] index Index of element.
+    /// \param[in] v     Value.
+    template<typename TData>
+    void
+    set_element(int index,
+                double v)
+    {
+        CellElement ce { static_cast<CellElement>(index) };
+
+        switch (ce)
+        {
+            case CellElement::CellMark:
+                set_mark(static_cast<int>(v));
+                break;
+
+            case CellElement::CellId:
+            case CellElement::Domain:
+            case CellElement::DistFromBorder:
+            case CellElement::DistFromCenter:
+            case CellElement::Area:
+            case CellElement::NormalX:
+            case CellElement::NormalY:
+            case CellElement::NormalZ:
+                DEBUG_ERROR("unable to set cell data element " + mapper.name(ce));
+                break;
+
+            default:
+                get_data<TData>()->set_element(index, v);
+                break;
+        }
     }
 
     //
@@ -363,96 +470,6 @@ public:
         area_ = original_area_;
         center_.set(original_center_);
         normal_.set(original_normal_);
-    }
-
-    //
-    // Data access.
-    //
-
-    /// \brief Get element from cell.
-    ///
-    /// Get element from cell.
-    ///
-    /// \tparam    TData Type of data.
-    /// \param[in] index Index of data element.
-    ///
-    /// \return
-    /// Value.
-    template<typename TData>
-    double
-    get_element(int index) const
-    {
-        CellElement ce { static_cast<CellElement>(index) };
-
-        switch (ce)
-        {
-            case CellElement::CellMark:
-                return get_mark();
-
-            case CellElement::CellId:
-                return get_id();
-
-            case CellElement::Domain:
-                return static_cast<double>(domain);
-
-            case CellElement::DistFromBorder:
-                return static_cast<double>(dist_from_border);
-
-            case CellElement::DistFromCenter:
-                return static_cast<double>(dist_from_center);
-
-            case CellElement::Area:
-                return area_;
-
-            case CellElement::NormalX:
-                return normal_.x;
-
-            case CellElement::NormalY:
-                return normal_.y;
-
-            case CellElement::NormalZ:
-                return normal_.z;
-
-            default:
-                return get_data<TData>()->get_element(index);
-        }
-    }
-
-    /// \brief Set data to cell.
-    ///
-    /// Set data to cell.
-    ///
-    /// \tparam    TData Type of data.
-    /// \param[in] index Index of element.
-    /// \param[in] v     Value.
-    template<typename TData>
-    void
-    set_element(int index,
-                double v)
-    {
-        CellElement ce { static_cast<CellElement>(index) };
-
-        switch (ce)
-        {
-            case CellElement::CellMark:
-                set_mark(static_cast<int>(v));
-                break;
-
-            case CellElement::CellId:
-            case CellElement::Domain:
-            case CellElement::DistFromBorder:
-            case CellElement::DistFromCenter:
-            case CellElement::Area:
-            case CellElement::NormalX:
-            case CellElement::NormalY:
-            case CellElement::NormalZ:
-                DEBUG_ERROR("unable to set cell data element " + mapper.name(ce));
-                break;
-
-            default:
-                get_data<TData>()->set_element(index, v);
-                break;
-        }
     }
 
     /// \brief Get derivative of data by given direction.

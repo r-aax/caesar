@@ -170,9 +170,7 @@ public:
         for (size_t v = 3; v < mesh.varlocation_cellcentered.first - 1; ++v)
         {
             string name { mesh.variables_names[v] };
-            int index = Node::mapper.has(name)
-                        ? static_cast<int>(Node::mapper.num(name))
-                        : static_cast<int>(TNodeData::mapper.num(name));
+            int index = Node::get_element_index<TNodeData>(name);
 
             for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
@@ -199,9 +197,7 @@ public:
             ++v)
         {
             string name { mesh.variables_names[v] };
-            int index = Cell::mapper.has(name)
-                        ? static_cast<int>(Cell::mapper.num(name))
-                        : static_cast<int>(TCellData::mapper.num(name));
+            int index = Cell::get_element_index<TCellData>(name);
 
             for (size_t i = 0; i < zone->cells_count(); ++i)
             {
@@ -413,9 +409,7 @@ public:
         for (size_t v = 3; v < varlocation_cellcentered.first - 1; ++v)
         {
             string name { variables_names[v] };
-            int index = Node::mapper.has(name)
-                        ? static_cast<int>(Node::mapper.num(name))
-                        : static_cast<int>(TNodeData::mapper.num(name));
+            int index = Node::get_element_index<TNodeData>(name);
 
             for (size_t i = 0; i < zone->nodes_count(); ++i)
             {
@@ -431,9 +425,7 @@ public:
             ++v)
         {
             string name { variables_names[v] };
-            int index = Cell::mapper.has(name)
-                        ? static_cast<int>(Cell::mapper.num(name))
-                        : static_cast<int>(TCellData::mapper.num(name));
+            int index = Cell::get_element_index<TCellData>(name);
 
             for (size_t i = 0; i < zone->cells_count(); ++i)
             {
