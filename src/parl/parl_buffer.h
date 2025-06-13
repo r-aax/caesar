@@ -29,6 +29,8 @@ class Buffer
 private:
 
     /// \brief Own process id.
+    ///
+    /// Own process id.
     size_t process_id { 0 };
 
     /// \brief Neighbour process id.
@@ -64,6 +66,20 @@ public:
     //
     // Data manipulation.
     //
+
+    /// \brief Set processes.
+    ///
+    /// Set processes.
+    ///
+    /// \param[in] process_id_           Own process.
+    /// \param[in] neighbour_process_id_ Neighbour process id.
+    inline void
+    set_processes(size_t process_id_,
+                  size_t neighbour_process_id_)
+    {
+        process_id = process_id_;
+        neighbour_process_id = neighbour_process_id_;
+    }
 
     /// \brief Get size of buffer.
     ///
@@ -108,6 +124,11 @@ public:
     // Fill out data.
     void
     fill_out_data(double v);
+
+    // Fill out data with increment.
+    void
+    fill_out_data(double start_v,
+                  double inc);
 
     // Print data.
     void

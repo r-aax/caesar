@@ -5,6 +5,8 @@
 
 #include "parl_buffer.h"
 
+#include <sstream>
+
 namespace caesar
 {
 
@@ -73,6 +75,23 @@ Buffer::fill_out_data(double v)
     fill(out_data.begin(), out_data.end(), v);
 }
 
+/// \brief Fill out data with increment.
+///
+/// Fill out data with increment.
+///
+/// \param[in] start_v Start value.
+/// \param[in] inc     Increment.
+void
+Buffer::fill_out_data(double start_v,
+                      double inc)
+{
+    for (size_t i { 0 }; i < out_data.size(); ++i)
+    {
+        out_data[i] = start_v;
+        start_v += inc;
+    }
+}
+
 /// \brief Print data.
 ///
 /// Print all data.
@@ -81,24 +100,27 @@ Buffer::fill_out_data(double v)
 void
 Buffer::print(ostream& os)
 {
+    ostringstream oss;
+
     size_t s = size();
 
-    os << "Buffer " << process_id << " <-> " << neighbour_process_id << " (size " << s << "):" << endl;
-    os << "IN :";
+    oss << "Buffer " << process_id << " <-> " << neighbour_process_id << " (size " << s << "):" << endl;
+    oss << "IN :";
 
     for (size_t i = 0; i < s; ++i)
     {
-        os << ((i == 0) ? " " : ", ") << in_data[i];
+        oss << ((i == 0) ? " " : ", ") << in_data[i];
     }
 
-    os << endl << "OUT:";
+    oss << endl << "OUT:";
 
     for (size_t i = 0; i < s; ++i)
     {
-        os << ((i == 0) ? " " : ", ") << out_data[i];
+        oss << ((i == 0) ? " " : ", ") << out_data[i];
     }
 
-    os << endl << "----------" << endl;
+    oss << endl << "----------" << endl;
+    os << oss.str();
 }
 
 /// \brief Print data for all processes.
@@ -113,6 +135,8 @@ Buffer::print_all(ostream& os)
 
     for (size_t i = 0; i < s; ++i)
     {
+        mpi_barrier();
+
         if (mpi_rank() == i)
         {
             print(os);
@@ -120,6 +144,8 @@ Buffer::print_all(ostream& os)
 
         mpi_barrier();
     }
+
+    mpi_barrier();
 }
 
 //
