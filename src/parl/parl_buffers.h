@@ -21,7 +21,7 @@ namespace parl
 class Buffers
 {
 
-protected:
+public:
 
     /// \brief Vector of buffers.
     vector<Buffer> buffers;

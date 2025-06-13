@@ -40,10 +40,10 @@ AllToAllExchanger::allocate()
 {
     DEBUG_CHECK_ERROR(buffers.empty(), "there are already buffers allocated");
 
-    size_t r = mpi_rank();
-    size_t s = mpi_size();
+    size_t r { mpi_rank() };
+    size_t s { mpi_size() };
 
-    for (size_t i = 0; i < s; ++i)
+    for (size_t i { 0 }; i < s; ++i)
     {
         buffers.push_back(Buffer(r, i));
 
@@ -64,10 +64,10 @@ AllToAllExchanger::allocate()
 void
 AllToAllExchanger::exchange()
 {
-    size_t s = mpi_size();
+    size_t s { mpi_size() };
 
     // Init all irecv.
-    for (size_t i = 0; i < s; ++i)
+    for (size_t i { 0 }; i < s; ++i)
     {
         buffers[i].irecv(requests, i);
     }
@@ -75,7 +75,7 @@ AllToAllExchanger::exchange()
     mpi_barrier();
 
     // Init all isend.
-    for (size_t i = 0; i < s; ++i)
+    for (size_t i { 0 }; i < s; ++i)
     {
         buffers[i].isend(requests, s + i);
     }

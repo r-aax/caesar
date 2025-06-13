@@ -22,7 +22,7 @@ test_parl(int *argc,
 
     // parl::Buffer ------------------------------
 
-#if 1
+#if 0
 
     if (parl::is_mpi_rank_0())
     {
@@ -40,6 +40,57 @@ test_parl(int *argc,
         b.fill_out_data(static_cast<double>(parl::mpi_rank()), 0.001);
         b.exchange();
         b.print_all();
+    }
+
+#endif
+
+    // parl::AllToAllExchanger -------------------
+
+#if 0
+
+    if (parl::is_mpi_rank_0())
+    {
+        cout << "[test_parl, all_to_all_exchanger, size = " << parl::mpi_size() << "]" << endl;
+        cout << "----------" << endl;
+    }
+
+    parl::mpi_barrier();
+
+    if (parl::mpi_size() == 3)
+    {
+        parl::AllToAllExchanger a2a;
+        size_t s { parl::mpi_size() };
+        size_t r { parl::mpi_rank() };
+
+        a2a.allocate();
+
+        if (r == 0)
+        {
+            for (size_t i { 0 }; i < s; ++i)
+            {
+                a2a.set_size(i, 10);
+                a2a.buffers[i].fill_out_data(0.0, 0.01);
+            }
+        }
+        else if (r == 1)
+        {
+            for (size_t i { 0 }; i < s; ++i)
+            {
+                a2a.set_size(i, 10);
+                a2a.buffers[i].fill_out_data(1.0, 0.01);
+            }
+        }
+        else
+        {
+            for (size_t i { 0 }; i < s; ++i)
+            {
+                a2a.set_size(i, 10);
+                a2a.buffers[i].fill_out_data(2.0, 0.01);
+            }
+        }
+
+        a2a.exchange();
+        a2a.print_all();
     }
 
 #endif
