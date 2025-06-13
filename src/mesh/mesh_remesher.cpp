@@ -21,6 +21,15 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+/// \brief Remesh method mapper.
+///
+/// Remesh method mapper.
+utils::Mapper<RemeshMethod> RemeshMethodMapper
+{
+    "remesh method",
+    std::vector<std::string> { "PRISMS", "TONG" }
+};
+
 //
 // Common functions.
 //
@@ -82,7 +91,7 @@ Remesher::remeshing_nsteps(Mesh& mesh,
                            const RemeshOptions& opts)
 {
     vector<int> ns;
-    double f { opts.get_nsteps_hi_side_fact() };
+    double f { opts.nsteps_hi_side_fact };
 
     // Form vector of iterations number for all cells.
     for (size_t i = 0; i < mesh.all.cells_count(); ++i)
@@ -101,10 +110,10 @@ Remesher::remeshing_nsteps(Mesh& mesh,
 
     // Calculate how much cells we can ignore.
     size_t may_ignore = static_cast<size_t>(static_cast<double>(ns.size())
-                                            * opts.get_nsteps_ignore_part());
+                                            * opts.nsteps_ignore_part);
 
     // Set number of iterations in maximum.
-    int n { opts.get_nsteps_max() };
+    int n { opts.nsteps_max };
 
     // Check for ignored part of array.
     if (ns[may_ignore] > n)
@@ -129,7 +138,7 @@ Remesher::remeshing_nsteps(Mesh& mesh,
         }
     }
 
-    return max(n, opts.get_nsteps_min());
+    return max(n, opts.nsteps_min);
 }
 
 //
@@ -144,7 +153,7 @@ void
 Remesher::remesh_prisms(Mesh& mesh,
                         const RemeshOptions& opts)
 {
-    zero_ice_below_threshold(mesh, opts.get_hi_as_zero_threshold());
+    zero_ice_below_threshold(mesh, opts.hi_as_zero_threshold);
 
     int steps = remeshing_nsteps(mesh, opts);
 
@@ -276,9 +285,9 @@ void
 Remesher::normals_smoothing(Mesh& mesh,
                             const RemeshOptions& opts)
 {
-    int steps { opts.get_nsmooth_steps() };
-    double s { opts.get_nsmooth_s() };
-    double k { opts.get_nsmooth_k() };
+    int steps { opts.nsmooth_steps };
+    double s { opts.nsmooth_s };
+    double k { opts.nsmooth_k };
 
     for (int i = 0; i < steps; ++i)
     {
@@ -397,9 +406,9 @@ void
 Remesher::heights_smoothing(Mesh& mesh,
                             const RemeshOptions& opts)
 {
-    int steps { opts.get_hsmooth_steps() };
-    double alfa { opts.get_hsmooth_alfa() };
-    double beta { opts.get_hsmooth_beta() };
+    int steps { opts.hsmooth_steps };
+    double alfa { opts.hsmooth_alfa };
+    double beta { opts.hsmooth_beta };
 
     for (int i = 0; i < steps; ++i)
     {
@@ -572,15 +581,15 @@ void
 Remesher::null_space_smoothing(Mesh& mesh,
                                const RemeshOptions& opts)
 {
-    int steps { opts.get_nss_steps() };
+    int steps { opts.nss_steps };
 
     if (steps == 0)
     {
         return;
     }
 
-    double epsilon { opts.get_nss_epsilon() };
-    double st { opts.get_nss_st() };
+    double epsilon { opts.nss_epsilon };
+    double st { opts.nss_st };
 
     for (int stepi = 0; stepi < steps; ++stepi)
     {
@@ -745,7 +754,7 @@ Remesher::remesh_tong(Mesh& mesh,
                       const RemeshOptions& opts)
 {
     // Do not work with small amount of ice.
-    zero_ice_below_threshold(mesh, opts.get_hi_as_zero_threshold());
+    zero_ice_below_threshold(mesh, opts.hi_as_zero_threshold);
 
     int steps = remeshing_nsteps(mesh, opts);
 
@@ -775,7 +784,7 @@ void
 Remesher::remesh(Mesh& mesh,
                  const RemeshOptions& opts)
 {
-    switch (opts.get_method())
+    switch (opts.method)
     {
         case RemeshMethod::Prisms:
             remesh_prisms(mesh, opts);
