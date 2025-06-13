@@ -65,7 +65,7 @@ class Node
       public Geometrical
 {
 
-private:
+public:
 
     /// \brief Mapper.
     ///

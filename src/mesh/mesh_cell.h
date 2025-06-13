@@ -72,7 +72,7 @@ class Cell
       public Geometrical
 {
 
-private:
+public:
 
     /// \brief Mapper.
     ///
