@@ -245,8 +245,6 @@ Decomposer::post_decompose(Mesh& mesh)
         }
     }
 
-#if 0
-
     // Allocate boundaries.
     mesh.boundaries.allocate();
 
@@ -283,8 +281,6 @@ Decomposer::post_decompose(Mesh& mesh)
     {
         mesh.gatherer.set_size(i, mesh.domains_cells[i].size());
     }
-
-#endif
 
     // Init local identifiers.
     mesh.init_local_identifiers();
