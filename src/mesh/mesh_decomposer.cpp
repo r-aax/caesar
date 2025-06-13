@@ -18,6 +18,15 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+/// \brief Mesh decomposition type mapper.
+///
+/// Mesh decomposition type mapper.
+utils::Mapper<DecompositionType> MeshDecompositionTypeMapper
+{
+    "mesh decomposition type",
+    vector<string> { "NO", "RANDOM", "LINEAR", "FARHAT" }
+};
+
 /// \breif Set domain number to cells diapason.
 ///
 /// Set domain number to cells diapason.
@@ -39,172 +48,6 @@ Decomposer::set_cells_diapason_with_domain(Mesh& mesh,
     {
         mesh.all.cell(i)->domain = domain;
     }
-}
-
-/// \brief Calculate cells dist from border.
-///
-/// Calculate cells dist from border.
-///
-/// \param[in,out] mesh Mesh.
-void
-Decomposer::calc_cells_dist_from_border(Mesh& mesh)
-{
-    size_t cc { mesh.all.cells_count() };
-
-    // Init distance from border for all cell as -1.
-    for (size_t i = 0; i < cc; ++i)
-    {
-        Cell* c { mesh.all.cell(i) };
-
-        c->dist_from_border = numeric_limits<int>::max();
-    }
-
-    // Remove all cell marks.
-    mesh.mark_cells([](Cell* c) { (void)c; return false; });
-
-    // Queue for cells walking.
-    deque<Cell*> q;
-
-    // Set distane from borders for border cells as zero.
-    for (size_t i = 0; i < cc; ++i)
-    {
-        Cell* c { mesh.all.cell(i) };
-
-        if (c->is_domain_border())
-        {
-            c->dist_from_border = 0;
-            c->set_mark(1);
-            q.push_back(c);
-        }
-    }
-
-    // Walk all cells.
-    while (!q.empty())
-    {
-        Cell* c { q.front() };
-        size_t ec { c->edges_count() };
-
-        q.pop_front();
-
-        for (size_t i = 0; i < ec; ++i)
-        {
-            Edge* e { c->edge(i) };
-
-            if (e->is_inner())
-            {
-                Cell *nc { c->get_neighbour(e) };
-
-                nc->dist_from_border = min(nc->dist_from_border, c->dist_from_border + 1);
-
-                if (nc->get_mark() == 0)
-                {
-                    nc->set_mark(1);
-                    q.push_back(nc);
-                }
-            }
-        }
-    }
-
-    // Remove all cell marks.
-    mesh.mark_cells([](Cell* c) { (void)c; return false; });
-}
-
-/// \brief Calculate cells dist from center.
-///
-/// Calculate cells dist from center.
-///
-/// \param[in,out] mesh Mesh.
-void
-Decomposer::calc_cells_dist_from_center(Mesh& mesh)
-{
-    size_t cc { mesh.all.cells_count() };
-
-    // Init distance from center for all cell as -1.
-    for (size_t i = 0; i < cc; ++i)
-    {
-        Cell* c { mesh.all.cell(i) };
-
-        c->dist_from_center = numeric_limits<int>::max();
-    }
-
-    // Domains cells count.
-    vector<int> domain_cells_count(3, 0);
-
-    // Center cells distances from border.
-    vector<int> domain_center_dist_from_border(3, 0);
-
-    // Calculate distances from border for center cells.
-    for (size_t i = 0; i < cc; ++i)
-    {
-        Cell* c { mesh.all.cell(i) };
-        size_t d { c->domain };
-
-        ++domain_cells_count[d];
-        domain_center_dist_from_border[d] = max(domain_center_dist_from_border[d],
-                                                c->dist_from_border);
-    }
-
-    cout << "DOMAIN_:";
-    for (size_t i = 0; i < domain_cells_count.size(); ++i)
-    {
-        cout << " " << domain_cells_count[i];
-    }
-    cout << endl;
-    cout << "DOMAIN_CENTER_DIST_FROM_BORDER:";
-    for (size_t i = 0; i < domain_center_dist_from_border.size(); ++i)
-    {
-        cout << " " << domain_center_dist_from_border[i];
-    }
-    cout << endl;
-
-    // Remove all cell marks.
-    mesh.mark_cells([](Cell* c) { (void)c; return false; });
-
-    // Queue for cells walking.
-    deque<Cell*> q;
-
-    // Insert all center cells into queue.
-    for (size_t i = 0; i < cc; ++i)
-    {
-        Cell* c { mesh.all.cell(i) };
-
-        if (c->dist_from_border == domain_center_dist_from_border[c->domain])
-        {
-            c->dist_from_center = 0;
-            c->set_mark(1);
-            q.push_back(c);
-        }
-    }
-
-    // Walk all cells.
-    while (!q.empty())
-    {
-        Cell* c { q.front() };
-        size_t ec { c->edges_count() };
-
-        q.pop_front();
-
-        for (size_t i = 0; i < ec; ++i)
-        {
-            Edge* e { c->edge(i) };
-
-            if (e->is_domain_inner())
-            {
-                Cell *nc { c->get_neighbour(e) };
-
-                nc->dist_from_center = min(nc->dist_from_center, c->dist_from_center + 1);
-
-                if (nc->get_mark() == 0)
-                {
-                    nc->set_mark(1);
-                    q.push_back(nc);
-                }
-            }
-        }
-    }
-
-    // Remove all cell marks.
-    mesh.mark_cells([](Cell* c) { (void)c; return false; });
 }
 
 /// \brief Decompose with type NO.
@@ -347,24 +190,6 @@ Decomposer::decompose_farhat(Mesh& mesh,
     mesh.mark_cells([](Cell* c) { (void)c; return false; });
 }
 
-/// \brief Decomposition based on pressure principle.
-///
-/// Decomposition based on pressure principle.
-///
-/// \param[out] mesh Mesh,
-/// \param[in]  dn   Number of domains.
-void
-Decomposer::decompose_pressure(Mesh& mesh,
-                               size_t dn)
-{
-    // First we decompose the mesh withh Farhat algorithm.
-    decompose_farhat(mesh, dn);
-
-    // Calculate dists.
-    calc_cells_dist_from_border(mesh);
-    calc_cells_dist_from_center(mesh);
-}
-
 /// \brief Post decompose action.
 ///
 /// 1. Form boundaries for all other domains.
@@ -480,35 +305,22 @@ Decomposer::decompose(Mesh& mesh,
     switch (type)
     {
         case DecompositionType::No:
-
-            DEBUG_CHECK_ERROR(dn == 1, "it is needed to perform decomposition for domains count " + to_string(dn));
-
+            DEBUG_CHECK_ERROR(dn == 1,
+                              "it is needed to perform decomposition for domains count "
+                              + to_string(dn));
             decompose_no(mesh);
-
             break;
 
         case DecompositionType::Random:
-
             decompose_random(mesh, dn);
-
             break;
 
         case DecompositionType::Linear:
-
             decompose_linear(mesh, dn);
-
             break;
 
         case DecompositionType::Farhat:
-
             decompose_farhat(mesh, dn);
-
-            break;
-
-        case DecompositionType::Pressure:
-
-            decompose_pressure(mesh, dn);
-
             break;
 
         default:

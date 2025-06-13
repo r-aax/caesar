@@ -7,7 +7,6 @@
 #define CAESAR_MESH_DECOMPOSER_H
 
 #include "mesh_mesh.h"
-#include "mesh_decomposition_type.h"
 
 namespace caesar
 {
@@ -18,7 +17,38 @@ namespace mesh
 /// \addtogroup mesh
 /// @{
 
+/// \brief Decomposition type.
+///
+/// Decomposition type.
+enum class DecompositionType
+{
+    /// \brief First element.
+    First = 0,
+
+    /// \brief Single domain - no decomposition.
+    No = First,
+
+    /// \brief Random decomposition between domains.
+    Random,
+
+    /// \brief Linear decomposition.
+    Linear,
+
+    /// \brief Farhat decomposition.
+    Farhat,
+
+    /// \brief Last element.
+    Last = Farhat
+};
+
+/// \brief Mesh decomposition type mapper.
+///
+/// Mesh decomposition type mapper.
+extern utils::Mapper<DecompositionType> MeshDecompositionTypeMapper;
+
 /// \brief Decomposer class.
+///
+/// Decomposer type.
 class Decomposer
 {
 
@@ -57,11 +87,6 @@ private:
     static void
     decompose_farhat(Mesh& mesh,
                      size_t dn);
-
-    // Pressure principle decomposition.
-    static void
-    decompose_pressure(Mesh& mesh,
-                       size_t dn);
 
     // Post decompose action.
     static void
